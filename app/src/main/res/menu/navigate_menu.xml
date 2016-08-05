@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_Blog"
+            android:checked="true"
+            android:title="Blog"/>
+        <item
+            android:id="@+id/item_Attractions"
+            android:title="Attractions"/>
+        <item
+            android:id="@+id/item_Break"
+            android:title="Break"/>
+        <item
+            android:id="@+id/item_Activity"
+            android:title="Activity"/>
+        <item
+            android:id="@+id/item_BikeMode"
+            android:title="BikeMode"/>
+        <item
+            android:id="@+id/item_AboutUs"
+            android:title="About Us"/>
+
+    </group>
+
+</menu>

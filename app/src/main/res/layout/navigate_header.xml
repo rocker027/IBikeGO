@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="172dp"
+    android:orientation="vertical"
+    android:background="#01B468"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/tvNaviUser"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_margin="3dp"
+        android:id="@+id/tvNaviUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NodeKing"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_margin="3dp"
+        android:id="@+id/tvNaviUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="nodeking@gmail.com" />
+
+</LinearLayout>

@@ -2,4 +2,6 @@
     <string name="app_name">揪團騎Bike</string>
     <string name="search_title">搜尋</string>
     <string name="setting">設定</string>
+    <string name="navigation_drawer_open">開啟導覽列</string>
+    <string name="navigation_drawer_close">關閉導覽列</string>
 </resources>

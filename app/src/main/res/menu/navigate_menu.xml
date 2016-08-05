@@ -5,23 +5,45 @@
         <item
             android:id="@+id/item_Blog"
             android:checked="true"
-            android:title="Blog"/>
+            android:icon="@drawable/ic_navi_blog_24dp"
+            android:title="單車日誌" />
         <item
             android:id="@+id/item_Attractions"
-            android:title="Attractions"/>
+            android:icon="@drawable/ic_navi_attractions_24dp"
+            android:title="景點" />
         <item
             android:id="@+id/item_Break"
-            android:title="Break"/>
-        <item
-            android:id="@+id/item_Activity"
-            android:title="Activity"/>
-        <item
-            android:id="@+id/item_BikeMode"
-            android:title="BikeMode"/>
-        <item
-            android:id="@+id/item_AboutUs"
-            android:title="About Us"/>
-
+            android:icon="@drawable/ic_navi_break_24dp"
+            android:title="休息站" />
     </group>
+    <item
+        android:icon="@drawable/ic_navi_account_24dp"
+        android:title="會員專區">
+        <menu>
+            <item
+                android:id="@+id/item_MemSetting"
+                android:icon="@drawable/ic_navi_member_24dp"
+                android:title="會員資料" />
+
+            <item
+                android:id="@+id/item_MemFriend"
+                android:icon="@drawable/ic_navi_friend_24dp"
+                android:title="好友名單" />
+
+        </menu>
+    </item>
+    <item
+        android:id="@+id/item_Activity"
+        android:icon="@drawable/ic_navi_group_24dp"
+        android:title="揪團功能" />
+    <item
+        android:id="@+id/item_BikeMode"
+        android:icon="@drawable/ic_navi_bike_24dp"
+        android:title="騎車模式" />
+    <item
+        android:id="@+id/item_logout"
+        android:icon="@drawable/ic_navi_logout_24dp"
+        android:title="登出" />
+
 
 </menu>

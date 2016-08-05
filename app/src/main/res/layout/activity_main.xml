@@ -10,11 +10,14 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_scrollFlags="scroll|enterAlways">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -22,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:background="#01B468"
+                app:layout_scrollFlags="scroll|enterAlways"
                 android:minHeight="?attr/actionBarSize" />
 
             <android.support.design.widget.TabLayout
@@ -30,7 +34,9 @@
                 android:layout_height="wrap_content"
                 android:background="#01B468"
                 android:layout_below="@+id/toolbar"
-                app:tabMode="scrollable" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager

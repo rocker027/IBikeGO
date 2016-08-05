@@ -14,7 +14,7 @@
         <item
             android:id="@+id/item_Break"
             android:icon="@drawable/ic_navi_break_24dp"
-            android:title="休息站" />
+            android:title="休息點" />
     </group>
     <item
         android:icon="@drawable/ic_navi_account_24dp"

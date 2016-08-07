@@ -16,8 +16,8 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -25,17 +25,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:background="#01B468"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:minHeight="?attr/actionBarSize" />
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#01B468"
                 android:layout_below="@+id/toolbar"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:background="#01B468"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -45,6 +45,46 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/tabs"
             android:layout_margin="10dp" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            app:menu_fab_label="功能選項"
+            >
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_createBlog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_navi_blog_w_24dp"
+                app:fab_label="新增單車日誌"
+                android:onClick="onCreateBlog"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_attractions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_navi_attractions_24dp"
+                app:fab_label="新增景點"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_break"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_navi_break_24dp"
+                app:fab_label="新增休息站"
+                app:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
 
     </android.support.design.widget.CoordinatorLayout>
 

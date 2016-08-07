@@ -67,8 +67,9 @@ public class BlogFragment extends Fragment {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        View view = inflater.inflate(R.layout.attractions_fragment, container, false);
+        View view = inflater.inflate(R.layout.blog_fragment, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         recyclerView.setAdapter(new BlogAdapter(inflater));
         return view;

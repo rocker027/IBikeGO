@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
+        android:background="@drawable/bg_while"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,7 +35,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/etBlogTitle"
@@ -42,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="日誌標題"
-                android:inputType="textPassword"
+                android:inputType=""
                 android:maxLength="30"
                 android:singleLine="true"
                 android:textSize="20sp" />
@@ -59,13 +61,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="日誌內容"
-                android:inputType="textPassword"
+                android:inputType="textMultiLine"
                 android:maxLength="150"
                 android:singleLine="true"
                 android:textSize="20sp" />
 
         </android.support.design.widget.TextInputLayout>
-        
+
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionMenu

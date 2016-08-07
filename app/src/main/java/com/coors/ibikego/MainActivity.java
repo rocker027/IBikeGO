@@ -1,6 +1,6 @@
 package com.coors.ibikego;
 
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.coors.ibikego.attractions.AttractionsFragment;
 import com.coors.ibikego.blog.BlogFragment;
+import com.coors.ibikego.blog.BlogCreateActivity;
 import com.coors.ibikego.breaks.BreakFragment;
 
 import java.util.ArrayList;
@@ -40,8 +41,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initViewPager();
-//        initDrawer();
         initToolbar();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Set an OnMenuItemClickListener to handle menu item clicks
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle the menu item
+                return true;
+            }
+        });
+        // Inflate a menu to be displayed in the toolbar
+        toolbar.inflateMenu(R.menu.main);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //讓左上角的App Icon的左邊加上一個返回的圖示
+        getSupportActionBar().setHomeButtonEnabled(true);   //讓左上角的App Icon顯示
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // home icon will keep still without calling syncState()
+        mDrawerToggle.syncState();
     }
 
     private void initToolbar() {
@@ -58,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    public void onCreateBlog(View view) {
+        startActivity(new Intent(this, BlogCreateActivity.class));
+    }
+
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
         List<Page> pageList;
@@ -69,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
+//            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent (MainActivity.this,FilmsDeatilActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("film_no",tvFilm_No.getText().toString());
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//
+//                }
+//            });
             pageList = new ArrayList<>();
             pageList.add(new Page(new BlogFragment(), "單車日誌"));
             pageList.add(new Page(new AttractionsFragment(), "景點"));
@@ -117,19 +161,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        } else {
-            drawer.openDrawer(GravityCompat.END);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
 
     //左邊列開合
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.menu_setting);
         if (drawer.isDrawerOpen(GravityCompat.START) || drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.START);
             drawer.closeDrawer(GravityCompat.END);
@@ -141,63 +179,6 @@ public class MainActivity extends AppCompatActivity {
     private void initDrawer()
     {
         //left Drawer
-
-
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//
-//            }
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//            }
-//        };
-//        mDrawerToggle.syncState();
-//        drawer.setDrawerListener(mDrawerToggle);
-
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(mDrawerToggle);
-//        getActionBar().setDisplayHomeAsUpEnabled(true); //讓左上角的App Icon的左邊加上一個返回的圖示
-//        getActionBar().setHomeButtonEnabled(true); //讓左上角的App Icon顯示
-//        mDrawerToggle.syncState();
-
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set an OnMenuItemClickListener to handle menu item clicks
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // Handle the menu item
-                return true;
-            }
-        });
-        // Inflate a menu to be displayed in the toolbar
-        toolbar.inflateMenu(R.menu.main);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-        mDrawerToggle.syncState();
-        drawer.setDrawerListener(mDrawerToggle);
-
 
 
         NavigationView view = (NavigationView) findViewById(R.id.navigation_view);

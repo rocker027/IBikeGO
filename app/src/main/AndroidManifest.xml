@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".blog.BlogCreateActivity"></activity>
+        <activity android:name=".blog.BlogInsertActivity"></activity>
         <activity android:name=".blog.BlogDetailActivity"></activity>
 
     </application>

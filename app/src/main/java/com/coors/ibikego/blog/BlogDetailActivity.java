@@ -21,7 +21,7 @@ public class BlogDetailActivity extends AppCompatActivity {
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         TextView tvTime = (TextView) findViewById(R.id.tvTime);
         TextView tvContent = (TextView) findViewById(R.id.tvContent);
-        imageView.setImageResource(blog.getImageId());
+//        imageView.setImageResource(blog.getImageId());
         tvTitle.setText(blog.getBlog_title());
         tvTime.setText(blog.getBlog_cre().toString());
         tvContent.setText(blog.getBlog_content());

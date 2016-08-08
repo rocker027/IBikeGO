@@ -4,4 +4,11 @@
     <string name="setting">設定</string>
     <string name="navigation_drawer_open">開啟導覽列</string>
     <string name="navigation_drawer_close">關閉導覽列</string>
+    <string name="msg_NoCameraAppsFound">沒找到照片</string>
+    <string name="msg_BlogTitleIsInvalid">標題不可為空白</string>
+    <string name="msg_NoImage">沒有照片</string>
+    <string name="msg_InsertFail">新增失敗</string>
+    <string name="msg_InsertSuccess">新增成功</string>
+    <string name="msg_NoNetwork">沒有網路</string>
+    <string name="text_NotGranted">沒有授權</string>
 </resources>

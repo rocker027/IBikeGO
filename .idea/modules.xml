@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/IBikeGO.iml" filepath="$PROJECT_DIR$/IBikeGO.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ibikego_v1.iml" filepath="$PROJECT_DIR$/Ibikego_v1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

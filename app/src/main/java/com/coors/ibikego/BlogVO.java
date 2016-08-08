@@ -13,16 +13,16 @@ public class BlogVO implements Serializable {
     private String blog_content;
     private java.sql.Date blog_cre;
     private Integer blog_del;
-    private int imageId;
+//    private int imageId;
 
-    public BlogVO(Integer blog_no, Integer mem_no, String blog_title, String blog_content, Date blog_cre, Integer blog_del, int imageId) {
+    public BlogVO(Integer blog_no, Integer mem_no, String blog_title, String blog_content, Date blog_cre, Integer blog_del) {
         this.blog_no = blog_no;
         this.mem_no = mem_no;
         this.blog_title = blog_title;
         this.blog_content = blog_content;
         this.blog_cre = blog_cre;
         this.blog_del = blog_del;
-        this.imageId = imageId;
+//        this.imageId = imageId;
     }
 
     public Integer getBlog_no() {
@@ -73,11 +73,11 @@ public class BlogVO implements Serializable {
         this.blog_del = blog_del;
     }
 
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
+//    public int getImageId() {
+//        return imageId;
+//    }
+//
+//    public void setImageId(int imageId) {
+//        this.imageId = imageId;
+//    }
 }

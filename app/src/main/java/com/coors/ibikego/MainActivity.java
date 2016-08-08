@@ -1,12 +1,17 @@
 package com.coors.ibikego;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +22,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.coors.ibikego.attractions.AttractionsFragment;
 import com.coors.ibikego.blog.BlogFragment;
-import com.coors.ibikego.blog.BlogCreateActivity;
+import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.breaks.BreakFragment;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         initToolbar();
 
+        //將左側DrawerLayout 跟 toolbar 綁定
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set an OnMenuItemClickListener to handle menu item clicks
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -87,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateBlog(View view) {
-        startActivity(new Intent(this, BlogCreateActivity.class));
+        startActivity(new Intent(this, BlogInsertActivity.class));
     }
 
 
@@ -101,18 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
-//            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//            fab.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent (MainActivity.this,FilmsDeatilActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("film_no",tvFilm_No.getText().toString());
-//                    intent.putExtras(bundle);
-//                    startActivity(intent);
-//
-//                }
-//            });
             pageList = new ArrayList<>();
             pageList.add(new Page(new BlogFragment(), "單車日誌"));
             pageList.add(new Page(new AttractionsFragment(), "景點"));
@@ -222,6 +219,49 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //安裝的權限詢問
+    private static final int REQ_PERMISSIONS = 0;
 
+    // New Permission see Appendix A
+    private void askPermissions() {
+        String[] permissions = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CALL_PHONE
+        };
+
+        Set<String> permissionsRequest = new HashSet<>();
+        for (String permission : permissions) {
+            int result = ContextCompat.checkSelfPermission(this, permission);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                permissionsRequest.add(permission);
+            }
+        }
+
+        if (!permissionsRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    permissionsRequest.toArray(new String[permissionsRequest.size()]),
+                    REQ_PERMISSIONS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQ_PERMISSIONS:
+                String text = "";
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        text += permissions[i] + "\n";
+                    }
+                }
+                if (!text.isEmpty()) {
+                    text += getString(R.string.text_NotGranted);
+                    Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }
 

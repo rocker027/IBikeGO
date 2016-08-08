@@ -58,7 +58,7 @@ public class BlogGetImageTask extends AsyncTask<Object, Integer, Bitmap>{
             if (bitmap != null) {
                 imageView.setImageBitmap(bitmap);
             } else {
-                imageView.setImageResource(R.drawable.ic_add_a_photo_while_24dp);
+                imageView.setImageResource(R.drawable.ic_insert_photo_black_24dp);
             }
         }
         super.onPostExecute(bitmap);

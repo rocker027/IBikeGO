@@ -67,7 +67,7 @@ public class BlogFragment extends Fragment {
             String url = Common.URL + "blog/blogApp.do";
             int blog_no = blog.getBlog_no();
             int imageSize = 250;
-            new BlogGetImageTask(viewHolder.imageView).execute(url, blog_no, imageSize);
+            new BlogGetImageTask(viewHolder.ivRecycleView).execute(url, blog_no, imageSize);
             viewHolder.tvTitle.setText(blog.getBlog_title());
             viewHolder.tvTime.setText(blog.getBlog_cre().toString());
             viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
@@ -87,7 +87,7 @@ public class BlogFragment extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder {
             View itemView;
             TextView tvTime, tvTitle, tvMem_no;
-            ImageView imageView;
+            ImageView ivRecycleView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -95,7 +95,7 @@ public class BlogFragment extends Fragment {
                 tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
                 tvTime = (TextView) itemView.findViewById(R.id.tvTime);
                 tvMem_no = (TextView) itemView.findViewById(R.id.tvMem_no);
-                imageView = (ImageView) itemView.findViewById(R.id.imageView);
+                ivRecycleView = (ImageView) itemView.findViewById(R.id.ivRecycleView);
             }
         }
 

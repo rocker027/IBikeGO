@@ -57,7 +57,7 @@ public class BlogInsertTask extends AsyncTask<Object,Integer,Integer>{
             return null;
         }
 
-        return Integer.parseInt(result);
+        return null;
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {

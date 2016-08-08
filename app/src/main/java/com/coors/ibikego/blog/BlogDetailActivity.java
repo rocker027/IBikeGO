@@ -6,18 +6,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.coors.ibikego.BlogVO;
+import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class BlogDetailActivity extends AppCompatActivity {
-
+//    private final static String ACTION = "getImage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blog_detail);
 
         BlogVO blog = (BlogVO) getIntent().getExtras().getSerializable("blog");
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+
+        int blog_no = blog.getBlog_no();
+
+        String url = Common.URL + "blog/blogApp.do";
+        ImageView ivDetail = (ImageView) findViewById(R.id.ivDetail);
+        try {
+            new BlogGetImageTask(ivDetail).execute(url,blog_no, 250).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+//        ImageView imageView = (ImageView) findViewById(R.id.imageView);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         TextView tvTime = (TextView) findViewById(R.id.tvTime);
         TextView tvContent = (TextView) findViewById(R.id.tvContent);

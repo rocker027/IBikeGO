@@ -176,8 +176,6 @@ public class MainActivity extends AppCompatActivity {
     private void initDrawer()
     {
         //left Drawer
-
-
         NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -215,8 +213,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     //安裝的權限詢問

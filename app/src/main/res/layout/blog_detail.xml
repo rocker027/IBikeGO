@@ -4,52 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/bg_while"
     tools:context=".blog.BlogDetailActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
-
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/appBar"
-                fab:layout_scrollFlags="scroll|enterAlways"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:background="#01B468"
-                    fab:layout_scrollFlags="scroll|enterAlways"
-                    android:minHeight="?attr/actionBarSize" />
-
-            </android.support.design.widget.AppBarLayout>
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivDetail"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_alignParentTop="true"
-                android:layout_below="@+id/appBar"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="150dp" />
+
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/imageView"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
@@ -61,10 +37,8 @@
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvTitle"
-                android:layout_alignStart="@+id/tvTitle"
-                android:layout_below="@+id/tvTitle"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="15dp"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -72,15 +46,14 @@
                 android:id="@+id/tvContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvTime"
-                android:layout_alignStart="@+id/tvTime"
-                android:layout_below="@+id/tvTime"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="15dp"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu"
@@ -117,6 +90,5 @@
         <!--android:layout_height="wrap_content"-->
         <!--fab:fab_label="Menu item 3"-->
         <!--fab:fab_size="mini" />-->
-
     </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>

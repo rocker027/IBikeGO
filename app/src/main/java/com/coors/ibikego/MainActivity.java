@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_search) {
+            startActivity(new Intent(this,SearchActivity.class));
             return true;
         }
 

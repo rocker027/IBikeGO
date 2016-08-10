@@ -28,6 +28,7 @@ import com.coors.ibikego.attractions.AttractionsFragment;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.breaks.BreakFragment;
+import com.coors.ibikego.member.MemberLoginActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +51,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initViewPager();
         initToolbar();
+        initDrawer();
 
+
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // home icon will keep still without calling syncState()
+        mDrawerToggle.syncState();
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("toolbar");
         //將左側DrawerLayout 跟 toolbar 綁定
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set an OnMenuItemClickListener to handle menu item clicks
@@ -72,19 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(mDrawerToggle);
-    }
-
-    @Override
-    public void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // home icon will keep still without calling syncState()
-        mDrawerToggle.syncState();
-    }
-
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle("toolbar");
     }
 
     private void initViewPager() {
@@ -183,10 +186,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
                 drawer.closeDrawers();
-                Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.item_Blog:
-//                        Common.showToast(MainActivity.this,"camera");
+                        Common.showToast(MainActivity.this,"camera");
                         break;
                     case R.id.item_Attractions:
 //                        Common.showToast(MainActivity.this,"gallery");
@@ -209,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.item_logout:
 //                        Common.showToast(MainActivity.this,"send");
+                        break;
+                    case R.id.item_login:
+                        startActivity(new Intent(MainActivity.this, MemberLoginActivity.class));
                         break;
                 }
                 return true;

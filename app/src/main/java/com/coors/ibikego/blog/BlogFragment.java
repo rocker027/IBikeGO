@@ -9,10 +9,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.coors.ibikego.BlogVO;
@@ -72,6 +75,7 @@ public class BlogFragment extends Fragment {
             viewHolder.tvTime.setText(blog.getBlog_cre().toString());
             viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
 //            viewHolder.imageView.setImageResource(blog.getImageId());
+            //點選cardview 轉頁
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,6 +86,57 @@ public class BlogFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+
+            //長按cardview跳出選單，檢舉、收藏
+//            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    PopupMenu popupMenu = new PopupMenu(, view, Gravity.END);
+//                    popupMenu.inflate(R.menu.popup_menu);
+//                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//                            switch (item.getItemId()) {
+//                                case R.id.insert:
+//                                    Intent insertIntent = new Intent(SpotListActivity.this, SpotInsertActivity.class);
+//                                    startActivity(insertIntent);
+//                                    break;
+//                                case R.id.update:
+//                                    Intent updateIntent = new Intent(SpotListActivity.this,
+//                                            SpotUpdateActivity.class);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putSerializable("spot", spot);
+//                                    updateIntent.putExtras(bundle);
+//                                    startActivity(updateIntent);
+//                                    break;
+//                                case R.id.delete:
+//                                    if (Common.networkConnected(SpotListActivity.this)) {
+//                                        String url = Common.URL + "SpotServlet";
+//                                        String action = "spotDelete";
+//                                        int count = 0;
+//                                        try {
+//                                            count = new SpotUpdateTask().execute(url, action, spot, null).get();
+//                                        } catch (Exception e) {
+//                                            Log.e(TAG, e.toString());
+//                                        }
+//                                        if (count == 0) {
+//                                            Common.showToast(SpotListActivity.this, R.string.msg_DeleteFail);
+//                                        } else {
+//                                            spots.remove(position);
+//                                            SpotsRecyclerViewAdapter.this.notifyDataSetChanged();
+//                                            Common.showToast(SpotListActivity.this, R.string.msg_DeleteSuccess);
+//                                        }
+//                                    } else {
+//                                        Common.showToast(SpotListActivity.this, R.string.msg_NoNetwork);
+//                                    }
+//                            }
+//                            return true;
+//                        }
+//                    });
+//                    popupMenu.show();
+//                    return true;
+//                }
+//            });
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

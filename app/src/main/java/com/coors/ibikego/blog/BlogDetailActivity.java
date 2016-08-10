@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +17,8 @@ import java.util.concurrent.ExecutionException;
 
 
 public class BlogDetailActivity extends AppCompatActivity {
-//    private final static String ACTION = "getImage";
+    private BlogVO blog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class BlogDetailActivity extends AppCompatActivity {
         initToolbar();
 
 
-        BlogVO blog = (BlogVO) getIntent().getExtras().getSerializable("blog");
+        blog = (BlogVO) getIntent().getExtras().getSerializable("blog");
 
         int blog_no = blog.getBlog_no();
 
@@ -69,5 +71,12 @@ public class BlogDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickBlogFavor(View view) {
+
+    }
+
+    public void onClickBlogReport(View view) {
     }
 }

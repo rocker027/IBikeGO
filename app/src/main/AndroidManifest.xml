@@ -24,7 +24,11 @@
         </activity>
         <activity android:name=".blog.BlogInsertActivity" />
         <activity android:name=".blog.BlogDetailActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".blog.BlogUpdateActivity"/>
+        <activity android:name=".member.MemberLoginActivity"/>
+        <activity android:name=".member.MemberSignUpActivity"/>
+        <activity android:name=".member.MemberLostPwActivity"/>
     </application>
 
 </manifest>

@@ -49,6 +49,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
+                android:textSize="22sp"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#0000FF" />
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="6dp"
+                android:textSize="18sp"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -67,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:textSize="18sp"
                 android:layout_marginTop="6dp"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -90,6 +93,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_favorite"
             android:layout_width="wrap_content"
+            android:onClick="onClickBlogFavor"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_noselect_24dp"
             fab:fab_label="加入收藏"
@@ -99,6 +103,7 @@
             android:id="@+id/menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickBlogReport"
             android:src="@drawable/ic_addnew_24dp"
             fab:fab_label="檢舉"
             fab:fab_size="mini" />

@@ -45,5 +45,10 @@
         android:icon="@drawable/ic_navi_logout_24dp"
         android:title="登出" />
 
+    <item
+        android:id="@+id/item_login"
+        android:icon="@drawable/ic_navi_logout_24dp"
+        android:title="登入" />
+
 
 </menu>

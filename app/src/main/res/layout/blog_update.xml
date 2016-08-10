@@ -3,26 +3,27 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_bike">
+    android:background="@drawable/bg_bike"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    fab:layout_scrollFlags="scroll|enterAlways">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#01B468"
-        android:minHeight="?attr/actionBarSize"
-        fab:navigationIcon="?attr/homeAsUpIndicator"
-        fab:layout_scrollFlags="scroll|enterAlways" />
+        android:theme="@style/AppTheme.AppBarOverlay"
+        fab:layout_scrollFlags="scroll|enterAlways">
 
-</android.support.design.widget.AppBarLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            fab:layout_scrollFlags="scroll|enterAlways"
+            fab:navigationIcon="?attr/homeAsUpIndicator" />
+
+    </android.support.design.widget.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,29 +41,28 @@
                 android:src="@drawable/ic_insert_photo_black_24dp" />
 
 
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                fab:hintTextAppearance="@style/MyHintText"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                fab:hintTextAppearance="@style/MyHintText">
 
                 <!--<EditText-->
-                    <!--android:id="@+id/etBlogTitle"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="5dp"-->
-                    <!--android:hint="日誌標題"-->
-                    <!--android:inputType=""-->
-                    <!--android:maxLength="30"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:textSize="20sp" />-->
+                <!--android:id="@+id/etBlogTitle"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:hint="日誌標題"-->
+                <!--android:inputType=""-->
+                <!--android:maxLength="30"-->
+                <!--android:singleLine="true"-->
+                <!--android:textSize="20sp" />-->
                 <EditText
-                android:id="@+id/etBlogTitle"
-                style="@style/FullWidthEditText"
+                    android:id="@+id/etBlogTitle"
+                    style="@style/FullWidthEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="日誌標題"/>
+                    android:hint="日誌標題" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -87,8 +87,6 @@
 
 
     </ScrollView>
-
-
 
 
     <com.github.clans.fab.FloatingActionMenu

@@ -31,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         spinner = (Spinner)findViewById(R.id.spinner);
         searchList = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         spinner.setAdapter(searchList);
+        spinner.setSelection(0, true);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Toast.makeText(SearchActivity.this, "請選擇想要查詢的項目",Toast.LENGTH_SHORT).show();
@@ -69,8 +71,6 @@ public class SearchActivity extends AppCompatActivity {
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +86,8 @@ public class SearchActivity extends AppCompatActivity {
         etkeyword.setText("");
         keyword = "";
         selectItem = "";
+        spinner.setSelection(0, true);
+
     }
 
 

@@ -16,8 +16,8 @@ import java.net.URL;
 /**
  * Created by cuser on 2016/8/1.
  */
-public class MemberCheckTask extends AsyncTask<Object, Integer, String> {
-    private final static String TAG = "MemberCheckTask";
+public class MemberLoginTask extends AsyncTask<Object, Integer, String> {
+    private final static String TAG = "MemberLoginTask";
 
     @Override
     protected String doInBackground(Object... params) {
@@ -25,13 +25,13 @@ public class MemberCheckTask extends AsyncTask<Object, Integer, String> {
         String url = params[0].toString();
         String action = params[1].toString();
         String mem_acc = (String) params[2];
-        String mem_email = (String) params[3];
+        String mem_pw = (String) params[3];
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
         jsonObject.addProperty("mem_acc", mem_acc);
-        jsonObject.addProperty("mem_email", mem_email);
+        jsonObject.addProperty("mem_pw", mem_pw);
 //        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
 //        if (params[8] != null) {
 //            String mem_photo = params[8].toString();

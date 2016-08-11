@@ -1,11 +1,8 @@
 package com.coors.ibikego.member;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -13,10 +10,9 @@ import android.widget.Toast;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
-import com.google.gson.Gson;
 
 public class MemberLostPwActivity extends AppCompatActivity {
-    private final static String TAG = "MemberCheckTask";
+    private final static String TAG = "MemberLostPwTask";
     private EditText etLostAcc,etLostMail;
 
     @Override
@@ -53,7 +49,7 @@ public class MemberLostPwActivity extends AppCompatActivity {
             String action = "lostPw";
             try {
 
-               String str =  new MemberCheckTask().execute(url, action, mem_acc, mem_email).get();
+               String str =  new MemberLostPwTask().execute(url, action, mem_acc, mem_email).get();
 
 
                 if("\"noMatch\"".equals(str)){

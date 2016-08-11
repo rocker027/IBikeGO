@@ -1,4 +1,4 @@
-package com.coors.ibikego.blog;
+package com.coors.ibikego.member;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.coors.ibikego.R;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedWriter;
@@ -14,28 +15,27 @@ import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.coors.ibikego.R;
 
 /**
  * Created by cuser on 2016/8/8.
  */
-public class BlogGetImageTask extends AsyncTask<Object, Integer, Bitmap>{
+public class MemberGetImageTask extends AsyncTask<Object, Integer, Bitmap>{
     private final static String TAG = "MemberGetImageTask";
     private final static String ACTION = "getImage";
     private final WeakReference<ImageView> imageViewWeakReference;
 
-    public BlogGetImageTask(ImageView imageView) {
+    public MemberGetImageTask(ImageView imageView) {
         this.imageViewWeakReference = new WeakReference<>(imageView);
     }
 
     @Override
     protected Bitmap doInBackground(Object... params) {
         String url = params[0].toString();
-        int blog_no = Integer.parseInt(params[1].toString());
+        int mem_no = Integer.parseInt(params[1].toString());
         int imageSize = Integer.parseInt(params[2].toString());
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("blog_no", blog_no);
+        jsonObject.addProperty("mem_no", mem_no);
         jsonObject.addProperty("imageSize", imageSize);
 
         Bitmap bitmap;

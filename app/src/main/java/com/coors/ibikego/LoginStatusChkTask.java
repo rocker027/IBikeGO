@@ -1,50 +1,54 @@
-package com.coors.ibikego.member;
+package com.coors.ibikego;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Member;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by cuser on 2016/8/1.
+ * Created by cuser on 2016/8/11.
  */
-public class MemberCheckTask extends AsyncTask<Object, Integer, String> {
-    private final static String TAG = "MemberCheckTask";
+public class LoginStatusChkTask extends AsyncTask<Object, Integer, MemberVO> {
+    private final static String TAG = "LoginStatusChkTask";
 
     @Override
-    protected String doInBackground(Object... params) {
+    protected MemberVO doInBackground(Object... params) {
 //      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
         String url = params[0].toString();
         String action = params[1].toString();
         String mem_acc = (String) params[2];
-        String mem_email = (String) params[3];
-        String result;
+        String mem_pw = (String) params[3];
+//        MemberVO memberVO;
+        String jsonIn = null;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
         jsonObject.addProperty("mem_acc", mem_acc);
-        jsonObject.addProperty("mem_email", mem_email);
-//        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
-//        if (params[8] != null) {
-//            String mem_photo = params[8].toString();
-//            jsonObject.addProperty("mem_photo", mem_photo);
-//        }
+        jsonObject.addProperty("mem_pw", mem_pw);
         try {
-            result=getRemoteData(url, jsonObject.toString());
+            jsonIn=getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
+        Gson gson = new Gson();
+        Type listType = new TypeToken<MemberVO>() {
+        }.getType();
 
-        return result;
+        return gson.fromJson(jsonIn, listType);
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {
@@ -75,5 +79,4 @@ public class MemberCheckTask extends AsyncTask<Object, Integer, String> {
         Log.d(TAG, "jsonIn: " + sb);
         return sb.toString();
     }
-
 }

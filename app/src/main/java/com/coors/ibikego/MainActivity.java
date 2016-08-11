@@ -2,6 +2,7 @@ package com.coors.ibikego;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,12 +23,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coors.ibikego.attractions.AttractionsFragment;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.breaks.BreakFragment;
+import com.coors.ibikego.member.MemberGetImageTask;
 import com.coors.ibikego.member.MemberLoginActivity;
 
 import java.util.ArrayList;
@@ -41,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView view;
+    private  Menu nav_Menu;
+    private SharedPreferences pref;
+    private TextView tvNav_UserName,tvNav_UserMail;
+    private ImageView ivNav_UserPhoto;
+    private String userName, userMail, userAcc,userPw;
+    private Integer memno;
+    public static final int FUNC_LOGIN = 1;
 
 
     @Override
@@ -52,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         initToolbar();
         initDrawer();
+
 
 
     }
@@ -177,10 +190,84 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //登入後返回
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == FUNC_LOGIN){
+            if(resultCode == RESULT_OK){
+
+                //若登入完成，將登入頁面所寫入偏好設定檔的值讀出
+                if(!pref.getString("pref_acc","").equals(""))
+                {
+                    userAcc = pref.getString("pref_acc", "");
+                }
+                if(!pref.getString("pref_pw","").equals(""))
+                {
+                    userPw = pref.getString("pref_pw", "");
+                }
+                if(!pref.getString("pref_name","").equals(""))
+                {
+                    userName = pref.getString("pref_name", "");
+                }
+                if(!pref.getString("pref_email","").equals(""))
+                {
+                    userMail = pref.getString("pref_mail", "");
+                }
+            }else {
+                finish();
+            }
+        }
+    }
+
     private void initDrawer()
     {
-        //left Drawer
-        NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
+        //左側使用者導覽列
+        view = (NavigationView) findViewById(R.id.navigation_view);
+        //取得navigate的menu
+        nav_Menu = view.getMenu();
+        //取得naviate header view 上的textView
+        View headerLayout = view.getHeaderView(0);
+        tvNav_UserName = (TextView) headerLayout.findViewById(R.id.tvNaviUserName);
+        tvNav_UserMail = (TextView) headerLayout.findViewById(R.id.tvNaviUserEmail);
+        ivNav_UserPhoto = (ImageView) headerLayout.findViewById(R.id.ivNaviUser);
+        pref = getSharedPreferences(Common.PREF_FILE,
+                MODE_PRIVATE);
+        String url = Common.URL + "member/memberApp.do";
+
+        //若已經登入完畢，但是設定檔為未登入
+        if (pref.getBoolean("login", false))
+        {
+            try {
+                userAcc=pref.getString("pref_acc","");
+                userPw=pref.getString("pref_pw","");
+                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
+                memno =member.getMem_no();
+                userName =pref.getString("pref_name","");
+                tvNav_UserName.setText(userName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」
+        boolean login = pref.getBoolean("login", false);
+        if (login) {
+            nav_Menu.findItem(R.id.item_login).setVisible(true);
+            nav_Menu.findItem(R.id.item_logout).setVisible(false);
+            userName =pref.getString("pref_name","");
+            userMail =pref.getString("pref_mail","");
+            memno =pref.getInt("pref_memno",0);
+
+            tvNav_UserName.setText(userName);
+            tvNav_UserMail.setText(userMail);
+            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 150);
+//            nav_Menu.findItem(R.id.nav_take_meal).setVisible(false);
+//            nav_Menu.findItem(R.id.nav_approach).setVisible(false);
+        }
+
+        //navigateView item 監聽器
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -210,10 +297,20 @@ public class MainActivity extends AppCompatActivity {
 //                        Common.showToast(MainActivity.this,"send");
                         break;
                     case R.id.item_logout:
-//                        Common.showToast(MainActivity.this,"send");
+                        pref.edit().putBoolean("login", false).apply();
+
+//                        nav_Menu.findItem(R.id.nav_loginout).setVisible(false);
+//                        nav_Menu.findItem(R.id.nav_login).setVisible(true);
+//                        nav_Menu.findItem(R.id.nav_take_meal).setVisible(false);
+//                        nav_Menu.findItem(R.id.nav_approach).setVisible(false);
+//                        tvNav_UserName.setText("User Name");
+//                        ivNav_UserPhoto.setImageResource(R.drawable.user_icon);
+
                         break;
                     case R.id.item_login:
-                        startActivity(new Intent(MainActivity.this, MemberLoginActivity.class));
+                        Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+                        startActivityForResult(intent, FUNC_LOGIN);
+//                        Common.animSlideAnimRight(MainActivity.this);//                        (new Intent(MainActivity.this, MemberLoginActivity.class));
                         break;
                 }
                 return true;
@@ -245,6 +342,8 @@ public class MainActivity extends AppCompatActivity {
                     REQ_PERMISSIONS);
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

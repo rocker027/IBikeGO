@@ -1,16 +1,21 @@
 package com.coors.ibikego.member;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coors.ibikego.Common;
+import com.coors.ibikego.MemberVO;
 import com.coors.ibikego.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class MemberLoginActivity extends AppCompatActivity {
     private final static String TAG = "MemberLoginTask";
@@ -56,11 +61,37 @@ public class MemberLoginActivity extends AppCompatActivity {
 
                 if("\"noMatch\"".equals(str)){
                     Toast.makeText(this, "帳號與密碼不相符，請重新確認", Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(view,"帳號與電子信箱不相符，請重新確認", Snackbar.LENGTH_LONG).show();
-                }else {
-
-                    Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    Gson gson = new Gson();
+                    MemberVO memberVO = gson.fromJson(str, MemberVO.class);
+//                    JsonObject jObject = gson.fromJson(str, JsonObject.class);
+//                    String memberJson = jObject.get("memberVO").getAsString();
+
+                    Integer memno = memberVO.getMem_no();
+                    String userAcc = memberVO.getMem_acc();
+                    String password = memberVO.getMem_pw();
+                    String userName = memberVO.getMem_name();
+                    String userMail = memberVO.getMem_email();
+
+//                    User user = new User(
+//                            jObject.get("mem_no").getAsString(),
+//                            jObject.get("password").getAsString(),
+//                            Base64.decode(jObject.get("imageBase64").getAsString(), Base64.DEFAULT)
+//                    );
+                        SharedPreferences pref = getSharedPreferences(Common.PREF_FILE,
+                                MODE_PRIVATE);
+                        pref.edit()
+                                .putBoolean("login", true)
+                                .putInt("pref_memno", memno)
+                                .putString("pref_acc", userAcc)
+                                .putString("pref_pw", password)
+                                .putString("pref_name", userName)
+                                .putString("pref_mail", userMail)
+                                .apply();
+                        setResult(RESULT_OK,getIntent());
+                        finish();
+                    }
 
 
             } catch (Exception e) {
@@ -87,6 +118,5 @@ public class MemberLoginActivity extends AppCompatActivity {
 
     public void onClickSignUp(View view) {
         startActivity(new Intent(MemberLoginActivity.this,MemberSignUpActivity.class));
-
     }
 }

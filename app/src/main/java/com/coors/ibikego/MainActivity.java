@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private String userName, userMail, userAcc,userPw;
     private Integer memno;
     public static final int FUNC_LOGIN = 1;
+    private final static String TAG = "chkLoginStatus";
+
 
 
     @Override
@@ -64,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         initToolbar();
         initDrawer();
-
 
 
     }
@@ -111,8 +113,16 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    //fab 新增單車日誌功能
     public void onCreateBlog(View view) {
-        startActivity(new Intent(this, BlogInsertActivity.class));
+        boolean islogin = pref.getBoolean("login", false);
+        if (islogin) {
+            startActivity(new Intent(this, BlogInsertActivity.class));
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+            startActivityForResult(intent, FUNC_LOGIN);
+        }
     }
 
 
@@ -166,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.menu_setting) {
+            boolean login = pref.getBoolean("login", false);
+            String status = String.valueOf(login);
+            Log.d(TAG,status);
             return true;
         }
         //按下任意ActionBar選單時觸發
@@ -235,14 +248,14 @@ public class MainActivity extends AppCompatActivity {
                 MODE_PRIVATE);
         String url = Common.URL + "member/memberApp.do";
 
-        //若已經登入完畢，但是設定檔為未登入
+        //若檢查設定檔為是否為未登入
         if (pref.getBoolean("login", false))
         {
             try {
                 userAcc=pref.getString("pref_acc","");
                 userPw=pref.getString("pref_pw","");
-                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
-                memno =member.getMem_no();
+//                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
+//                memno =member.getMem_no();
                 userName =pref.getString("pref_name","");
                 tvNav_UserName.setText(userName);
             } catch (Exception e) {
@@ -252,19 +265,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」
-        boolean login = pref.getBoolean("login", false);
-        if (login) {
-            nav_Menu.findItem(R.id.item_login).setVisible(true);
-            nav_Menu.findItem(R.id.item_logout).setVisible(false);
+        boolean islogin = pref.getBoolean("login", false);
+        if (islogin) {
+            nav_Menu.findItem(R.id.item_login).setVisible(false);
+            nav_Menu.findItem(R.id.item_logout).setVisible(true);
+            nav_Menu.findItem(R.id.item_MemSetting).setVisible(true);
+            nav_Menu.findItem(R.id.item_MemFriend).setVisible(true);
             userName =pref.getString("pref_name","");
             userMail =pref.getString("pref_mail","");
             memno =pref.getInt("pref_memno",0);
 
             tvNav_UserName.setText(userName);
             tvNav_UserMail.setText(userMail);
-            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 150);
-//            nav_Menu.findItem(R.id.nav_take_meal).setVisible(false);
-//            nav_Menu.findItem(R.id.nav_approach).setVisible(false);
+            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 64);
+        }else {
+            nav_Menu.findItem(R.id.item_login).setVisible(true);
+            nav_Menu.findItem(R.id.item_logout).setVisible(false);
+            nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
+            nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
         }
 
         //navigateView item 監聽器
@@ -290,21 +308,21 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.item_MemFriend:
 //                        Common.showToast(MainActivity.this,"share");
                         break;
-                    case R.id.item_Activity:
+//                    case R.id.item_Activity:
 //                        Common.showToast(MainActivity.this,"send");
-                        break;
+//                        break;
                     case R.id.item_BikeMode:
 //                        Common.showToast(MainActivity.this,"send");
                         break;
                     case R.id.item_logout:
                         pref.edit().putBoolean("login", false).apply();
 
-//                        nav_Menu.findItem(R.id.nav_loginout).setVisible(false);
-//                        nav_Menu.findItem(R.id.nav_login).setVisible(true);
-//                        nav_Menu.findItem(R.id.nav_take_meal).setVisible(false);
-//                        nav_Menu.findItem(R.id.nav_approach).setVisible(false);
-//                        tvNav_UserName.setText("User Name");
-//                        ivNav_UserPhoto.setImageResource(R.drawable.user_icon);
+                        nav_Menu.findItem(R.id.item_logout).setVisible(false);
+                        nav_Menu.findItem(R.id.item_login).setVisible(true);
+                        nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
+                        nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
+                        tvNav_UserName.setText("未登入");
+                        ivNav_UserPhoto.setImageResource(R.mipmap.ic_launcher);
 
                         break;
                     case R.id.item_login:

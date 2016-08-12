@@ -21,18 +21,20 @@ import java.net.URL;
 /**
  * Created by cuser on 2016/8/11.
  */
-public class LoginStatusChkTask extends AsyncTask<Object, Integer, MemberVO> {
+public class LoginStatusChkTask extends AsyncTask<Object, String, MemberVO> {
     private final static String TAG = "LoginStatusChkTask";
+    private final static String ACTION = "login";
 
     @Override
-    protected MemberVO doInBackground(Object... params) {
+    protected boolean doInBackground(Object... params) {
 //      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
         String url = params[0].toString();
-        String action = params[1].toString();
-        String mem_acc = (String) params[2];
-        String mem_pw = (String) params[3];
+        String action = ACTION;
+        String mem_acc = (String) params[1];
+        String mem_pw = (String) params[2];
 //        MemberVO memberVO;
         String jsonIn = null;
+        boolean bl = false;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
@@ -40,15 +42,16 @@ public class LoginStatusChkTask extends AsyncTask<Object, Integer, MemberVO> {
         jsonObject.addProperty("mem_pw", mem_pw);
         try {
             jsonIn=getRemoteData(url, jsonObject.toString());
+            if(寫login比對)
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
-        Gson gson = new Gson();
-        Type listType = new TypeToken<MemberVO>() {
-        }.getType();
+//        Gson gson = new Gson();
+//        Type listType = new TypeToken<MemberVO>() {
+//        }.getType();
 
-        return gson.fromJson(jsonIn, listType);
+        return ;
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {

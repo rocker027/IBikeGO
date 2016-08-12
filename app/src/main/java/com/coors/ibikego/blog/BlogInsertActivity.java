@@ -2,6 +2,7 @@ package com.coors.ibikego.blog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -37,11 +38,14 @@ public class BlogInsertActivity extends AppCompatActivity {
     private byte[] image;
     private ImageView imageView;
     private EditText etTitle, etContent;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blog_create);
+        //先載入偏好設定檔
+        pref = getSharedPreferences(Common.PREF_FILE,MODE_PRIVATE);
         findViews();
 
     }
@@ -125,8 +129,12 @@ public class BlogInsertActivity extends AppCompatActivity {
             return;
         }
 
+
         String blog_no= "0";
-        String mem_no = "10003";
+        //從偏好設定檔中取出會員編號
+        String mem_no = String.valueOf(pref.getInt("pref_memno",0));
+
+
 
         //先行定義時間格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -135,6 +143,7 @@ public class BlogInsertActivity extends AppCompatActivity {
         //透過SimpleDateFormat的format方法將Date轉為字串
         String now = sdf.format(dt);
         String blog_cre = now;
+        //blog狀態為0（正常）
         String blog_del = "0";
 
         if (Common.networkConnected(this)) {

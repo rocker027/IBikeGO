@@ -21,7 +21,7 @@ import java.net.URL;
  */
 public class MemberGetImageTask extends AsyncTask<Object, Integer, Bitmap>{
     private final static String TAG = "MemberGetImageTask";
-    private final static String ACTION = "getImage";
+    private final static String ACTION = "getMemberImage";
     private final WeakReference<ImageView> imageViewWeakReference;
 
     public MemberGetImageTask(ImageView imageView) {

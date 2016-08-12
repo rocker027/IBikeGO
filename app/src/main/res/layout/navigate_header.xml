@@ -6,19 +6,25 @@
     android:background="#01B468"
     android:padding="16dp">
 
-    <ImageView
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:layout_width="76dp"
+        android:layout_height="76dp"
         android:id="@+id/ivNaviUser"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginTop="16dp"/>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivNaviUser"-->
+        <!--android:layout_width="64dp"-->
+        <!--android:layout_height="64dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--/>-->
 
     <TextView
         android:id="@+id/tvNaviUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NodeKing"
         android:textSize="14sp"/>
 
     <TextView
@@ -26,6 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="nodeking@gmail.com" />
+        />
 
 </LinearLayout>

@@ -95,6 +95,7 @@ public class MemberSignUpActivity extends AppCompatActivity {
         String mem_name = etMem_name.getText().toString().trim();
         String mem_email = etMem_email.getText().toString().trim();
         String mem_reg = "1";
+        int count = 0;
 
         //各別驗證資料是否有效，帳號、Name、密碼、密碼是否一致、電話、電子信箱
         boolean isValid = isValid_Acc(etMem_acc) & isValid_Pw(etMem_pw)
@@ -103,15 +104,33 @@ public class MemberSignUpActivity extends AppCompatActivity {
         if (!isValid) {
             return;
         }
+
+        if (image == null) {
+            Common.showToast(this, R.string.msg_NoImage);
+            return;
+        }
+
         if (Common.networkConnected(this)) {
+            String imageBase64;
             String url = Common.URL + "member/memberApp.do";
-            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+//            if(image!= null) {
+                imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+//            }else{
+//                imageBase64=null;
+//            }
             String action = "insert";
             try {
-                new MemberInsertTask().execute(url, action, mem_no,mem_acc, mem_pw, mem_name, mem_email, mem_reg, imageBase64).get();
+                count=new MemberInsertTask().execute(url, action, mem_no,mem_acc, mem_pw, mem_name, mem_email, mem_reg, imageBase64).get();
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
+
+            if (count == 0) {
+                Common.showToast(MemberSignUpActivity.this, R.string.msg_InsertFail);
+            } else {
+                Common.showToast(MemberSignUpActivity.this, R.string.msg_InsertSuccess);
+            }
+
         } else {
             Common.showToast(this, R.string.msg_NoNetwork);
         }

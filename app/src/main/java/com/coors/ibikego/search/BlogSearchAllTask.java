@@ -1,63 +1,58 @@
-package com.coors.ibikego.member;
+package com.coors.ibikego.search;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.coors.ibikego.BlogVO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
- * Created by cuser on 2016/8/7.
+ * Created by cuser on 2016/8/13.
  */
-public class MemberInsertTask extends AsyncTask<Object,Integer,Integer>{
-    private final static String TAG = "MemberInsertTask";
+public class BlogSearchAllTask extends AsyncTask<Object, Integer, List<BlogVO>> {
+
+    private final static String TAG = "BlogGetSearchTask";
+    private final static String ACTION = "getSearch";
 
     @Override
-    protected Integer doInBackground(Object... params) {
-//      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
+    protected List<BlogVO> doInBackground(Object... params) {
+        String jsonIn;
         String url = params[0].toString();
-        String action = params[1].toString();
-        String mem_no = (String) params[2];
-        String mem_acc = (String) params[3];
-        String mem_pw = (String) params[4];
-        String mem_name = (String) params[5];
-        String mem_email = (String) params[6];
-        String mem_reg = (String) params[7];
-        String result;
+        String keyword = (String) params[1];
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("action", action);
-        jsonObject.addProperty("mem_no", mem_no);
-        jsonObject.addProperty("mem_acc", mem_acc);
-        jsonObject.addProperty("mem_pw", mem_pw);
-        jsonObject.addProperty("mem_name", mem_name);
-        jsonObject.addProperty("mem_email", mem_email);
-        jsonObject.addProperty("mem_reg", mem_reg);
+        jsonObject.addProperty("action", ACTION);
+        jsonObject.addProperty("keyword", keyword);
 
-//        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
-        if (params[8] != null) {
-            String mem_photo = params[8].toString();
-            jsonObject.addProperty("mem_photo", mem_photo);
-        }
         try {
-            result=getRemoteData(url, jsonObject.toString());
+            jsonIn = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
 
-        return Integer.parseInt(result);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
+
+        Type listType = new TypeToken<List<BlogVO>>() {
+        }.getType();
+        return gson.fromJson(jsonIn, listType);
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder jsonIn = new StringBuilder();
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setDoInput(true); // allow inputs
         connection.setDoOutput(true); // allow outputs
@@ -75,13 +70,13 @@ public class MemberInsertTask extends AsyncTask<Object,Integer,Integer>{
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                sb.append(line);
+                jsonIn.append(line);
             }
         } else {
             Log.d(TAG, "response code: " + responseCode);
         }
         connection.disconnect();
-        Log.d(TAG, "jsonIn: " + sb);
-        return sb.toString();
+        Log.d(TAG, "jsonIn: " + jsonIn);
+        return jsonIn.toString();
     }
 }

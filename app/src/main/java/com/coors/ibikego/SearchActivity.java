@@ -13,12 +13,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.coors.ibikego.search.SearchBlogActivity;
+
+
 public class SearchActivity extends AppCompatActivity {
     private Spinner spinner;
     private String[] list = {"請選擇","單車日誌", "景點", "休息站"};
     private EditText etkeyword;
     private ArrayAdapter<String> searchList;
-    private String keyword,selectItem;
+//    private String keyword;
+    private StringBuilder selectItem,keyword;
 
 
     //spinner
@@ -28,6 +32,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         etkeyword = (EditText) findViewById(R.id.etSearchKey);
+
         spinner = (Spinner)findViewById(R.id.spinner);
         searchList = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         spinner.setAdapter(searchList);
@@ -38,25 +43,28 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if("單車日誌".equals(list[position].toString()))
                 {
-                    selectItem = list[position].toString();
+//                    String key = "單車日誌";
+                    selectItem = new StringBuilder(list[position].toString());
                     Toast.makeText(SearchActivity.this, "你選的是"+list[position], Toast.LENGTH_SHORT).show();
+
                 }
 
                 if("景點".equals(list[position].toString()))
                 {
-                    selectItem = list[position].toString();
+                    selectItem = new StringBuilder(list[position].toString());
+//                    selectItem = list[position].toString();
                     Toast.makeText(SearchActivity.this, "你選的是"+list[position], Toast.LENGTH_SHORT).show();
                 }
 
                 if("休息站".equals(list[position].toString()))
                 {
-                    selectItem = list[position].toString();
+                    selectItem = new StringBuilder(list[position].toString());
                     Toast.makeText(SearchActivity.this, "你選的是"+list[position], Toast.LENGTH_SHORT).show();
                 }
 
                 if("請選擇".equals(list[position].toString()))
                 {
-                    selectItem ="";
+                    selectItem = new StringBuilder("noSelect");
 //                    Toast.makeText(SearchActivity.this, "尚未選擇要搜尋的項目", Toast.LENGTH_SHORT).show();
                 }
 
@@ -80,16 +88,48 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onClickSearch(View view) {
+        if(etkeyword.getText().toString().trim().length() <= 0){
+            etkeyword.setError("請輸入想查詢的關鍵字");
+        }
+        keyword = new StringBuilder("%"+etkeyword.getText().toString()+"%");
+
+        if("單車日誌".equals(selectItem.toString())) {
+            Intent intent = new Intent(SearchActivity.this, SearchBlogActivity.class);
+            Bundle bundle = new Bundle();
+//            bundle.putSerializable("selectItem", selectItem);
+            bundle.putSerializable("keyword",keyword);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+        if("景點".equals(selectItem.toString())) {
+//            Intent intent = new Intent(SearchActivity.this, SearchBlogActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("key", selectItem);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+        }
+
+        if("休息站".equals(selectItem.toString())) {
+//            Intent intent = new Intent(SearchActivity.this, SearchBreakActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("key", selectItem);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+        }
+
+        if("noSelect".equals(selectItem.toString())) {
+            Toast.makeText(SearchActivity.this, "請選擇想要查詢的項目",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onClickReset(View view) {
         etkeyword.setText("");
-        keyword = "";
-        selectItem = "";
+        keyword = new StringBuilder("");
+        selectItem = new StringBuilder("");
         spinner.setSelection(0, true);
 
     }
-
 
 
 }

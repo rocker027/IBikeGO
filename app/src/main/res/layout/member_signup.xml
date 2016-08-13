@@ -56,13 +56,13 @@
                 <!--account-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:hint="請輸入帳號">
 
                     <EditText
                         android:id="@+id/et_mem_regAcc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="請輸入帳號"
                         android:maxLength="30"
                         android:singleLine="true"
                         android:textSize="18sp" />
@@ -72,13 +72,13 @@
                 <!--pw-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:hint="請輸入密碼">
 
                     <EditText
                         android:id="@+id/et_mem_regPw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="請輸入密碼"
                         android:inputType="textPassword"
                         android:maxLength="30"
                         android:singleLine="true"
@@ -89,13 +89,13 @@
                 <!--pw2-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:hint="再一次輸入密碼">
 
                     <EditText
                         android:id="@+id/et_mem_regPw2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="再一次輸入密碼"
                         android:inputType="textPassword"
                         android:maxLength="30"
                         android:singleLine="true"
@@ -106,13 +106,13 @@
                 <!--name-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:hint="輸入你的名稱">
 
                     <EditText
                         android:id="@+id/et_mem_regName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="輸入你的名稱"
                         android:inputType="textPersonName"
                         android:maxLength="45"
                         android:singleLine="true"
@@ -123,13 +123,13 @@
                 <!--email-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:hint="輸入你的電子信箱">
 
                     <EditText
                         android:id="@+id/et_mem_regEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="輸入你的電子信箱"
                         android:inputType="textEmailAddress"
                         android:maxLength="75"
                         android:singleLine="true"
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickRegSumbit"
-                    android:text="Register Submit"
+                    android:text="送出註冊"
                     android:textSize="24sp" />
 
             </LinearLayout>

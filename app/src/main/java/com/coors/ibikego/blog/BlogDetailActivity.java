@@ -63,6 +63,8 @@ public class BlogDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here

@@ -4,29 +4,34 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/item_Blog"
-            android:checked="true"
+            android:checked="false"
             android:icon="@drawable/ic_navi_blog_24dp"
             android:title="單車日誌" />
         <item
             android:id="@+id/item_Attractions"
+            android:checked="false"
             android:icon="@drawable/ic_navi_attractions_24dp"
             android:title="景點" />
         <item
             android:id="@+id/item_Break"
+            android:checked="false"
             android:icon="@drawable/ic_navi_break_24dp"
             android:title="休息點" />
     </group>
     <item
         android:icon="@drawable/ic_navi_account_24dp"
+        android:id="@+id/item_MemberMenu"
         android:title="會員專區">
         <menu>
             <item
                 android:id="@+id/item_MemSetting"
+                android:checked="false"
                 android:icon="@drawable/ic_navi_member_24dp"
                 android:title="會員資料" />
 
             <item
                 android:id="@+id/item_MemFriend"
+                android:checked="false"
                 android:icon="@drawable/ic_navi_friend_24dp"
                 android:title="好友名單" />
 
@@ -38,15 +43,18 @@
         <!--android:title="揪團功能" />-->
     <item
         android:id="@+id/item_BikeMode"
+        android:checked="false"
         android:icon="@drawable/ic_navi_bike_24dp"
         android:title="騎車模式" />
     <item
         android:id="@+id/item_logout"
+        android:checked="false"
         android:icon="@drawable/ic_navi_logout_24dp"
         android:title="登出" />
 
     <item
         android:id="@+id/item_login"
+        android:checked="false"
         android:icon="@drawable/ic_navi_logout_24dp"
         android:title="登入" />
 

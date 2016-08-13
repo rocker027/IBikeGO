@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         initToolbar();
         initDrawer();
+        askPermissions();
 
 
     }
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //tablayout viewpager
     private class MyPagerAdapter extends FragmentPagerAdapter {
         List<Page> pageList;
 
@@ -248,20 +249,20 @@ public class MainActivity extends AppCompatActivity {
                 MODE_PRIVATE);
         String url = Common.URL + "member/memberApp.do";
 
-        //若檢查設定檔為是否為未登入
-        if (pref.getBoolean("login", false))
-        {
-            try {
-                userAcc=pref.getString("pref_acc","");
-                userPw=pref.getString("pref_pw","");
-//                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
-//                memno =member.getMem_no();
-                userName =pref.getString("pref_name","");
-                tvNav_UserName.setText(userName);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        若檢查設定檔為是否為未登入
+//        if (pref.getBoolean("login", false))
+//        {
+//            try {
+//                userAcc=pref.getString("pref_acc","");
+//                userPw=pref.getString("pref_pw","");
+////                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
+////                memno =member.getMem_no();
+//                userName =pref.getString("pref_name","");
+//                tvNav_UserName.setText(userName);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
         // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」
@@ -271,6 +272,10 @@ public class MainActivity extends AppCompatActivity {
             nav_Menu.findItem(R.id.item_logout).setVisible(true);
             nav_Menu.findItem(R.id.item_MemSetting).setVisible(true);
             nav_Menu.findItem(R.id.item_MemFriend).setVisible(true);
+            nav_Menu.findItem(R.id.item_BikeMode).setVisible(true);
+            nav_Menu.findItem(R.id.item_MemberMenu).setVisible(true);
+
+
             userName =pref.getString("pref_name","");
             userMail =pref.getString("pref_mail","");
             memno =pref.getInt("pref_memno",0);
@@ -283,6 +288,10 @@ public class MainActivity extends AppCompatActivity {
             nav_Menu.findItem(R.id.item_logout).setVisible(false);
             nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
             nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
+            nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
+            nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
+
+
         }
 
         //navigateView item 監聽器
@@ -306,13 +315,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.item_MemFriend:
-//                        Common.showToast(MainActivity.this,"share");
+                        Common.showToast(MainActivity.this,"item_MemFriend");
                         break;
 //                    case R.id.item_Activity:
 //                        Common.showToast(MainActivity.this,"send");
 //                        break;
                     case R.id.item_BikeMode:
-//                        Common.showToast(MainActivity.this,"send");
+                        Common.showToast(MainActivity.this,"item_BikeMode");
                         break;
                     case R.id.item_logout:
                         pref.edit().putBoolean("login", false).apply();
@@ -321,7 +330,10 @@ public class MainActivity extends AppCompatActivity {
                         nav_Menu.findItem(R.id.item_login).setVisible(true);
                         nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
                         nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
+                        nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
+                        nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
                         tvNav_UserName.setText("未登入");
+                        tvNav_UserMail.setText("");
                         ivNav_UserPhoto.setImageResource(R.mipmap.ic_launcher);
 
                         break;
@@ -342,8 +354,8 @@ public class MainActivity extends AppCompatActivity {
     // New Permission see Appendix A
     private void askPermissions() {
         String[] permissions = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CALL_PHONE
+                Manifest.permission.READ_EXTERNAL_STORAGE
+//                ,Manifest.permission.CALL_PHONE
         };
 
         Set<String> permissionsRequest = new HashSet<>();

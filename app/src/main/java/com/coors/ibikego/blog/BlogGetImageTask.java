@@ -20,7 +20,7 @@ import com.coors.ibikego.R;
  * Created by cuser on 2016/8/8.
  */
 public class BlogGetImageTask extends AsyncTask<Object, Integer, Bitmap>{
-    private final static String TAG = "MemberGetImageTask";
+    private final static String TAG = "BlogGetImageTask";
     private final static String ACTION = "getImage";
     private final WeakReference<ImageView> imageViewWeakReference;
 

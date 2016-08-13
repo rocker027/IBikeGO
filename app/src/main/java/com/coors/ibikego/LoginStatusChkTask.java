@@ -21,12 +21,12 @@ import java.net.URL;
 /**
  * Created by cuser on 2016/8/11.
  */
-public class LoginStatusChkTask extends AsyncTask<Object, String, MemberVO> {
+public class LoginStatusChkTask extends AsyncTask<Object, String, String> {
     private final static String TAG = "LoginStatusChkTask";
     private final static String ACTION = "login";
 
     @Override
-    protected boolean doInBackground(Object... params) {
+    protected String doInBackground(Object... params) {
 //      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
         String url = params[0].toString();
         String action = ACTION;
@@ -34,7 +34,7 @@ public class LoginStatusChkTask extends AsyncTask<Object, String, MemberVO> {
         String mem_pw = (String) params[2];
 //        MemberVO memberVO;
         String jsonIn = null;
-        boolean bl = false;
+        String result = null;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
@@ -42,7 +42,12 @@ public class LoginStatusChkTask extends AsyncTask<Object, String, MemberVO> {
         jsonObject.addProperty("mem_pw", mem_pw);
         try {
             jsonIn=getRemoteData(url, jsonObject.toString());
-            if(寫login比對)
+            //若檢查帳密不相符時，將bl設定為false
+            if("\"noMatch\"".equals(jsonIn)){
+                result = "false";
+            }else {
+                result = "true";
+            }
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
@@ -51,7 +56,7 @@ public class LoginStatusChkTask extends AsyncTask<Object, String, MemberVO> {
 //        Type listType = new TypeToken<MemberVO>() {
 //        }.getType();
 
-        return ;
+        return result;
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {

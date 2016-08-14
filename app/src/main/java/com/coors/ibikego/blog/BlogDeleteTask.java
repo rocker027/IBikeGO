@@ -3,47 +3,39 @@ package com.coors.ibikego.blog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.BlogVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-class BlogUpdateTask extends AsyncTask<Object, Integer, Integer> {
-    private final static String TAG = "BlogUpdateTask";
-    private final static String ACTION = "update";
+/**
+ * Created by cuser on 2016/8/7.
+ */
+public class BlogDeleteTask extends AsyncTask<Object,Integer,Integer>{
+    private final static String TAG = "BlogDeleteTask";
+    private final static String ACTION = "delete";
+
 
     @Override
     protected Integer doInBackground(Object... params) {
 //      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
         String url = params[0].toString();
         String action = ACTION;
-        String blog_no = (String) params[1];
-        String blog_title = (String) params[2];
-        String blog_content = (String) params[3];
-        String blog_cre = (String) params[4];
+        String blog_no = params[1].toString();
+        String blog_cre = params[2].toString();
+//        BlogVO blog = (BlogVO) params[2];
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
         jsonObject.addProperty("blog_no", blog_no);
-        jsonObject.addProperty("blog_title", blog_title);
-        jsonObject.addProperty("blog_content", blog_content);
         jsonObject.addProperty("blog_cre", blog_cre);
-        if (params[5] != null) {
-            String imageBase64 = params[6].toString();
-            jsonObject.addProperty("imageBase64", imageBase64);
-        }
+
         try {
             result = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {

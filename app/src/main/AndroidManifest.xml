@@ -31,6 +31,7 @@
         <activity android:name=".member.MemberLostPwActivity" />
         <activity android:name=".search.SearchBlogActivity" />
         <activity android:name=".member.MemberBlogManageActivity"></activity>
+        <activity android:name=".blog.BlogDetailMemberActivity"></activity>
     </application>
 
 </manifest>

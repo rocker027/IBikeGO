@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_bike"
-    tools:context=".blog.BlogDetailActivity">
+    tools:context=".blog.BlogDetailMemberActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
             android:onClick="onClickEdit"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_noselect_24dp"
-            fab:fab_label="加入收藏"
+            fab:fab_label="修改"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:onClick="onClickDelete"
             android:src="@drawable/ic_addnew_24dp"
-            fab:fab_label="檢舉"
+            fab:fab_label="刪除"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

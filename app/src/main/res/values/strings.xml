@@ -12,4 +12,8 @@
     <string name="msg_NoNetwork">沒有網路</string>
     <string name="text_NotGranted">沒有授權</string>
     <string name="etKeyword">請輸入關鍵字</string>
+    <string name="msg_DeleteFail">刪除失敗</string>
+    <string name="msg_DeleteSuccess">刪除成功</string>
+    <string name="msg_BlogEditFail">修改失敗</string>
+    <string name="msg_BlogEditSuccess">修改成功</string>
 </resources>

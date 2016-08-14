@@ -45,29 +45,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:hint="日誌標題"
                 fab:hintTextAppearance="@style/MyHintText">
 
-                <!--<EditText-->
-                <!--android:id="@+id/etBlogTitle"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:hint="日誌標題"-->
-                <!--android:inputType=""-->
-                <!--android:maxLength="30"-->
-                <!--android:singleLine="true"-->
-                <!--android:textSize="20sp" />-->
                 <EditText
                     android:id="@+id/etBlogTitle"
                     style="@style/FullWidthEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="日誌標題" />
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:hint="日誌內容"
                 android:layout_height="wrap_content">
 
                 <EditText
@@ -75,7 +67,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:hint="日誌內容"
                     android:inputType="textMultiLine"
                     android:maxLength="150"
                     android:singleLine="true"

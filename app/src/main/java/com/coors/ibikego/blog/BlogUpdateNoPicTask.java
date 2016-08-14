@@ -3,25 +3,19 @@ package com.coors.ibikego.blog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.BlogVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-class BlogUpdateTask extends AsyncTask<Object, Integer, Integer> {
+class BlogUpdateNoPicTask extends AsyncTask<Object, Integer, Integer> {
     private final static String TAG = "BlogUpdateTask";
-    private final static String ACTION = "update";
+    private final static String ACTION = "updateNoPic";
 
     @Override
     protected Integer doInBackground(Object... params) {
@@ -40,10 +34,7 @@ class BlogUpdateTask extends AsyncTask<Object, Integer, Integer> {
         jsonObject.addProperty("blog_title", blog_title);
         jsonObject.addProperty("blog_content", blog_content);
         jsonObject.addProperty("blog_cre", blog_cre);
-        if (params[5] != null) {
-            String imageBase64 = params[6].toString();
-            jsonObject.addProperty("imageBase64", imageBase64);
-        }
+
         try {
             result = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {

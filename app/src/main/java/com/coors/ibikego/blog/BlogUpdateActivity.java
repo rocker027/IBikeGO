@@ -2,6 +2,7 @@ package com.coors.ibikego.blog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -12,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.coors.ibikego.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
 
@@ -27,6 +30,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class BlogUpdateActivity extends AppCompatActivity {
     private final static String TAG = "BlogUpdateActivity";
@@ -36,13 +40,42 @@ public class BlogUpdateActivity extends AppCompatActivity {
     private byte[] image;
     private ImageView imageView;
     private EditText etTitle, etContent;
+    private SharedPreferences pref;
+    String url = Common.URL + "blog/blogApp.do";
+    private BlogVO blogVO;
+
+//    private String now,blog_cre;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blog_update);
+        initToolBar();
+        pref = getSharedPreferences(Common.PREF_FILE,
+                MODE_PRIVATE);
         findViews();
+
+        blogVO = (BlogVO) getIntent().getExtras().getSerializable("blog");
+        etTitle.setText(blogVO.getBlog_title());
+        etContent.setText(blogVO.getBlog_content());
+        String blog_no = String.valueOf(blogVO.getBlog_no());
+        new BlogGetImageTask(imageView).execute(url, blog_no,150);
+
     }
+
+    private void initToolBar() {
+        // toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
 
     private void findViews() {
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -112,20 +145,17 @@ public class BlogUpdateActivity extends AppCompatActivity {
 
     public void onFinish(View view) {
         String blog_title = etTitle.getText().toString().trim();
+        String blog_content = etContent.getText().toString().trim();
         if (blog_title.length() <= 0) {
             Toast.makeText(this, R.string.msg_BlogTitleIsInvalid,
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        String blog_content = etContent.getText().toString().trim();
-        if (image == null) {
-            Common.showToast(this, R.string.msg_NoImage);
-            return;
-        }
-
-        String blog_no= "0";
-        String mem_no = "10003";
-
+//        if (image == null) {
+//            Common.showToast(this, R.string.msg_NoImage);
+//            return;
+//        }
+        String blog_no= String.valueOf(blogVO.getBlog_no());
         //先行定義時間格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //取得現在時間
@@ -133,25 +163,44 @@ public class BlogUpdateActivity extends AppCompatActivity {
         //透過SimpleDateFormat的format方法將Date轉為字串
         String now = sdf.format(dt);
         String blog_cre = now;
-        String blog_del = "0";
 
         if (Common.networkConnected(this)) {
             String url = Common.URL + "blog/blogApp.do";
-//            BlogVO blog = new BlogVO(0,mem_no, blog_title, blog_content, blog_cre, blog_del);
-            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
-            String action = "insert";
-            int count = 0;
-            try {
-//                count = new BlogUpdateTask().execute(url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64).get();
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
+
+            if(image !=null){
+                String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+                int count = 0;
+                try {
+                    count = new BlogUpdateTask().execute(url,blog_no,blog_title, blog_content, blog_cre, imageBase64).get();
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+                if (count == 0) {
+                    Common.showToast(BlogUpdateActivity.this, R.string.msg_BlogEditFail);
+                    return;
+                } else {
+                    Common.showToast(BlogUpdateActivity.this, R.string.msg_BlogEditSuccess);
+                    return;
+                }
             }
-//            if (count == 0) {
-//                Common.showToast(BlogUpdateActivity.this, R.string.msg_InsertFail);
-//            } else {
-//                Common.showToast(BlogUpdateActivity.this, R.string.msg_InsertSuccess);
-//            }
-        } else {
+            else {
+                int count=0;
+                try {
+                    count = new BlogUpdateNoPicTask().execute(url,blog_no,blog_title, blog_content, blog_cre).get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (count == 0) {
+                    Common.showToast(BlogUpdateActivity.this, R.string.msg_InsertFail);
+                    return;
+                } else {
+                    Common.showToast(BlogUpdateActivity.this, R.string.msg_InsertSuccess);
+                    return;
+                }
+            }
+
+        }
+        else {
             Common.showToast(this, R.string.msg_NoNetwork);
         }
         finish();

@@ -19,10 +19,12 @@ import android.widget.Toast;
 
 import com.coors.ibikego.BlogVO;
 import com.coors.ibikego.Common;
+import com.coors.ibikego.MemberVO;
 import com.coors.ibikego.R;
 import com.coors.ibikego.SearchActivity;
 import com.coors.ibikego.blog.BlogDetailActivity;
 import com.coors.ibikego.blog.BlogGetImageTask;
+import com.coors.ibikego.member.MemberGetOneTask;
 
 import java.util.List;
 
@@ -103,11 +105,21 @@ public class SearchBlogActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
             final BlogVO blog = blogList.get(position);
             int blog_no = blog.getBlog_no();
+
+            MemberVO memberVO=null;
+            String mem_pk = String.valueOf(blog.getMem_no());
+            try {
+                memberVO = new MemberGetOneTask().execute(url,mem_pk).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             int imageSize = 250;
             new BlogGetImageTask(viewHolder.ivRecycleView).execute(url, blog_no, imageSize);
             viewHolder.tvTitle.setText(blog.getBlog_title());
             viewHolder.tvTime.setText(blog.getBlog_cre().toString());
-            viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
+            viewHolder.tvMem_no.setText(memberVO.getMem_name());
+//            viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
 //            viewHolder.imageView.setImageResource(blog.getImageId());
             //點選cardview 轉頁
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

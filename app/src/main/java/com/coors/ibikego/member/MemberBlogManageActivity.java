@@ -34,6 +34,7 @@ import com.coors.ibikego.blog.BlogUpdateActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MemberBlogManageActivity extends AppCompatActivity {
     private static final String TAG = "BlogManage";
@@ -101,8 +102,9 @@ public class MemberBlogManageActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(
                         1, StaggeredGridLayoutManager.VERTICAL));
         try {
+            memberList = new MemberGetAllTask().execute(url).get();
             blogList = new MemberBlogManageTask().execute(url,mem_no).get();
-            recyclerView.setAdapter(new BlogManageAdapter(this, blogList));
+            recyclerView.setAdapter(new BlogManageAdapter(this, blogList,memberList));
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -114,10 +116,11 @@ public class MemberBlogManageActivity extends AppCompatActivity {
         private List<MemberVO> memberList;
         private LayoutInflater inflater;
 
-        public BlogManageAdapter(Context context, List<BlogVO> blogList) {
+        public BlogManageAdapter(Context context, List<BlogVO> blogList , List<MemberVO> memberList) {
             this.context = context;
             inflater = LayoutInflater.from(context);
             this.blogList = blogList;
+            this.memberList = memberList;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -151,12 +154,29 @@ public class MemberBlogManageActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
             final BlogVO blog = blogList.get(position);
             final int blog_no = blog.getBlog_no();
+            MemberVO memberVO=null;
+            String mem_pk = String.valueOf(blog.getMem_no());
+            try {
+                memberVO = new MemberGetOneTask().execute(url,mem_pk).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             int imageSize = 250;
             new BlogGetImageTask(viewHolder.ivRecycleView).execute(url, blog_no, imageSize);
 
             viewHolder.tvTitle.setText(blog.getBlog_title());
             viewHolder.tvTime.setText(blog.getBlog_cre().toString());
-            viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
+            //test1
+//            for(MemberVO memberVO : memberList){
+//                if(blog.getMem_no()==memberVO.getMem_no()){
+//                    mem_name = memberVO.getMem_name();
+//                    viewHolder.tvMem_no.setText(mem_name);
+//
+//                }
+//            }
+            viewHolder.tvMem_no.setText(memberVO.getMem_name());
+//            viewHolder.tvMem_no.setText(String.valueOf(blog.getMem_no()));
 //            viewHolder.imageView.setImageResource(blog.getImageId());
             //點選cardview 轉頁
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

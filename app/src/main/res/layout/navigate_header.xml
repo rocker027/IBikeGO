@@ -6,9 +6,9 @@
     android:background="#01B468"
     android:padding="16dp">
 
-    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:id="@+id/ivNaviUser"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"/>

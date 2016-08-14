@@ -32,6 +32,7 @@ import com.coors.ibikego.attractions.AttractionsFragment;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.breaks.BreakFragment;
+import com.coors.ibikego.member.MemberBlogManageActivity;
 import com.coors.ibikego.member.MemberGetImageTask;
 import com.coors.ibikego.member.MemberLoginActivity;
 
@@ -228,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     userMail = pref.getString("pref_mail", "");
                 }
+                initDrawer();
             }else {
                 finish();
             }
@@ -268,28 +270,17 @@ public class MainActivity extends AppCompatActivity {
         // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」
         boolean islogin = pref.getBoolean("login", false);
         if (islogin) {
-            nav_Menu.findItem(R.id.item_login).setVisible(false);
-            nav_Menu.findItem(R.id.item_logout).setVisible(true);
-            nav_Menu.findItem(R.id.item_MemSetting).setVisible(true);
-            nav_Menu.findItem(R.id.item_MemFriend).setVisible(true);
-            nav_Menu.findItem(R.id.item_BikeMode).setVisible(true);
-            nav_Menu.findItem(R.id.item_MemberMenu).setVisible(true);
+            logInVisible();
 
-
-            userName =pref.getString("pref_name","");
-            userMail =pref.getString("pref_mail","");
-            memno =pref.getInt("pref_memno",0);
-
-            tvNav_UserName.setText(userName);
-            tvNav_UserMail.setText(userMail);
-            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 64);
+            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 50);
         }else {
-            nav_Menu.findItem(R.id.item_login).setVisible(true);
-            nav_Menu.findItem(R.id.item_logout).setVisible(false);
-            nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
-            nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
-            nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
-            nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
+            logOutUnVisible();
+//            nav_Menu.findItem(R.id.item_login).setVisible(true);
+//            nav_Menu.findItem(R.id.item_logout).setVisible(false);
+//            nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
+//            nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
+//            nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
+//            nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
 
 
         }
@@ -314,6 +305,21 @@ public class MainActivity extends AppCompatActivity {
 //                        Common.showToast(MainActivity.this,"manage");
                         break;
 
+                    case R.id.item_MemBlog:
+                        boolean islogin = pref.getBoolean("login", false);
+                        if (islogin) {
+//                            String resule = new LoginStatusChkTask().execute(url, mem_acc, mem_pw).get();
+//                            re
+//                            if(resu)
+                            startActivity(new Intent(MainActivity.this, MemberBlogManageActivity.class));
+                        }
+                        else {
+                            Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+                            startActivityForResult(intent, FUNC_LOGIN);
+                        }
+//                        Common.showToast(MainActivity.this,"manage");
+                        break;
+
                     case R.id.item_MemFriend:
                         Common.showToast(MainActivity.this,"item_MemFriend");
                         break;
@@ -325,16 +331,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.item_logout:
                         pref.edit().putBoolean("login", false).apply();
+                        logOutUnVisible();
 
-                        nav_Menu.findItem(R.id.item_logout).setVisible(false);
-                        nav_Menu.findItem(R.id.item_login).setVisible(true);
-                        nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
-                        nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
-                        nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
-                        nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
-                        tvNav_UserName.setText("未登入");
-                        tvNav_UserMail.setText("");
-                        ivNav_UserPhoto.setImageResource(R.mipmap.ic_launcher);
 
                         break;
                     case R.id.item_login:
@@ -346,6 +344,36 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    //登入後，顯示會員可以使用的功能項目
+    private void logInVisible() {
+        nav_Menu.findItem(R.id.item_login).setVisible(false);
+        nav_Menu.findItem(R.id.item_logout).setVisible(true);
+        nav_Menu.findItem(R.id.item_MemSetting).setVisible(true);
+        nav_Menu.findItem(R.id.item_MemFriend).setVisible(true);
+        nav_Menu.findItem(R.id.item_BikeMode).setVisible(true);
+        nav_Menu.findItem(R.id.item_MemberMenu).setVisible(true);
+
+        userName =pref.getString("pref_name","");
+        userMail =pref.getString("pref_mail","");
+        memno =pref.getInt("pref_memno",0);
+
+        tvNav_UserName.setText(userName);
+        tvNav_UserMail.setText(userMail);
+    }
+
+    //登出後，顯示會員可以使用的功能項目隱藏，並修改會員大頭貼的照片跟名稱
+    private void logOutUnVisible() {
+        nav_Menu.findItem(R.id.item_logout).setVisible(false);
+        nav_Menu.findItem(R.id.item_login).setVisible(true);
+        nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
+        nav_Menu.findItem(R.id.item_MemFriend).setVisible(false);
+        nav_Menu.findItem(R.id.item_BikeMode).setVisible(false);
+        nav_Menu.findItem(R.id.item_MemberMenu).setVisible(false);
+        tvNav_UserName.setText("未登入");
+        tvNav_UserMail.setText("");
+        ivNav_UserPhoto.setImageResource(R.mipmap.ic_launcher);
     }
 
     //安裝的權限詢問

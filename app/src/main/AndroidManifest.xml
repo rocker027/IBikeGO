@@ -29,7 +29,8 @@
         <activity android:name=".member.MemberLoginActivity" />
         <activity android:name=".member.MemberSignUpActivity" />
         <activity android:name=".member.MemberLostPwActivity" />
-        <activity android:name=".search.SearchBlogActivity"></activity>
+        <activity android:name=".search.SearchBlogActivity" />
+        <activity android:name=".member.MemberBlogManageActivity"></activity>
     </application>
 
 </manifest>

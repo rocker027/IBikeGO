@@ -96,7 +96,6 @@ public class SearchActivity extends AppCompatActivity {
         if("單車日誌".equals(selectItem.toString())) {
             Intent intent = new Intent(SearchActivity.this, SearchBlogActivity.class);
             Bundle bundle = new Bundle();
-//            bundle.putSerializable("selectItem", selectItem);
             bundle.putSerializable("keyword",keyword);
             intent.putExtras(bundle);
             startActivity(intent);

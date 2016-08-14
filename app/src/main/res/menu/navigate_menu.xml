@@ -30,6 +30,12 @@
                 android:title="會員資料" />
 
             <item
+                android:id="@+id/item_MemBlog"
+                android:checked="false"
+                android:icon="@drawable/ic_navi_member_24dp"
+                android:title="管理單車日誌" />
+
+            <item
                 android:id="@+id/item_MemFriend"
                 android:checked="false"
                 android:icon="@drawable/ic_navi_friend_24dp"

@@ -102,7 +102,7 @@ public class MemberBlogManageActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(
                         1, StaggeredGridLayoutManager.VERTICAL));
         try {
-            memberList = new MemberGetAllTask().execute(url).get();
+//            memberList = new MemberGetAllTask().execute(url).get();
             blogList = new MemberBlogManageTask().execute(url,mem_no).get();
             recyclerView.setAdapter(new BlogManageAdapter(this, blogList,memberList));
         } catch (Exception e) {

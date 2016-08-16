@@ -29,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coors.ibikego.attractions.AttractionsFragment;
+import com.coors.ibikego.bikemode.BikeModeMainActivity;
+import com.coors.ibikego.bikemode.GeocoderActivity;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.breaks.BreakFragment;
@@ -251,30 +253,14 @@ public class MainActivity extends AppCompatActivity {
                 MODE_PRIVATE);
         String url = Common.URL + "member/memberApp.do";
 
-//        若檢查設定檔為是否為未登入
-//        if (pref.getBoolean("login", false))
-//        {
-//            try {
-//                userAcc=pref.getString("pref_acc","");
-//                userPw=pref.getString("pref_pw","");
-////                MemberVO member = new LoginStatusChkTask().execute(url,userAcc,userPw).get();
-////                memno =member.getMem_no();
-//                userName =pref.getString("pref_name","");
-//                tvNav_UserName.setText(userName);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
-        // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」
+        // 從偏好設定檔中取得登入狀態來決定是否顯示「登出」按鈕
         boolean islogin = pref.getBoolean("login", false);
         if (islogin) {
             logInVisible();
 
             new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 50);
         }else {
-            logOutUnVisible();
+//            logOutUnVisible();
 //            nav_Menu.findItem(R.id.item_login).setVisible(true);
 //            nav_Menu.findItem(R.id.item_logout).setVisible(false);
 //            nav_Menu.findItem(R.id.item_MemSetting).setVisible(false);
@@ -306,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.item_MemBlog:
+
                         boolean islogin = pref.getBoolean("login", false);
                         if (islogin) {
 //                            String resule = new LoginStatusChkTask().execute(url, mem_acc, mem_pw).get();
@@ -321,12 +308,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.item_MemFriend:
+//                        initDrawer();
                         Common.showToast(MainActivity.this,"item_MemFriend");
                         break;
 //                    case R.id.item_Activity:
 //                        Common.showToast(MainActivity.this,"send");
 //                        break;
                     case R.id.item_BikeMode:
+                        startActivity(new Intent(MainActivity.this,BikeModeMainActivity.class));
+
                         Common.showToast(MainActivity.this,"item_BikeMode");
                         break;
                     case R.id.item_logout:
@@ -354,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.item_MemFriend).setVisible(true);
         nav_Menu.findItem(R.id.item_BikeMode).setVisible(true);
         nav_Menu.findItem(R.id.item_MemberMenu).setVisible(true);
+        nav_Menu.findItem(R.id.item_MemBlog).setVisible(true);
 
         userName =pref.getString("pref_name","");
         userMail =pref.getString("pref_mail","");
@@ -382,7 +373,9 @@ public class MainActivity extends AppCompatActivity {
     // New Permission see Appendix A
     private void askPermissions() {
         String[] permissions = {
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
 //                ,Manifest.permission.CALL_PHONE
         };
 

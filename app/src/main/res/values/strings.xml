@@ -16,4 +16,17 @@
     <string name="msg_DeleteSuccess">刪除成功</string>
     <string name="msg_BlogEditFail">修改失敗</string>
     <string name="msg_BlogEditSuccess">修改成功</string>
+    <string name="locIsEmpty">請輸入地點名稱</string>
+    <string name="locIsNotFound">找不到地點</string>
+    <string name="text_btClearMap">清除</string>
+    <string name="text_btResetMap">重設</string>
+    <string name="marker_title">終點</string>
+    <string name="marker_snippet">最後位置</string>
+    <string name="text_btRecStart">開始紀錄路徑</string>
+    <string name="msg_GoogleApiClientConnectionSuspended">google連線暫停</string>
+    <string name="msg_GoogleApiClientConnectionFailed">google map連線失敗</string>
+    <string name="text_ShouldGrant">未取得權限</string>
+    <string name="msg_InvalidInput">輸入驗證錯誤</string>
+    <string name="msg_LocationNotAvailable">找不到地址</string>
+    <string name="msg_LastLocationNotAvailable">失去衛星訊號</string>
 </resources>

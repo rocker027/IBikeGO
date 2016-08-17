@@ -21,32 +21,19 @@ public class BikeTrackInsertTask extends AsyncTask<Object,Integer,Integer>{
 
     @Override
     protected Integer doInBackground(Object... params) {
-//      url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64
+//        new BikeTrackInsertTask().execute(url,action ,json);
+
         String url = params[0].toString();
         String action = params[1].toString();
 //        BlogVO blog = (BlogVO) params[2];
-        String blog_no = (String) params[2];
-        String mem_no = (String) params[3];
-        String blog_title = (String) params[4];
-        String blog_content = (String) params[5];
-        String blog_cre = (String) params[6];
-        String blog_del = (String) params[7];
+        String json = params[2].toString();
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
-        jsonObject.addProperty("blog_no", blog_no);
-        jsonObject.addProperty("mem_no", mem_no);
-        jsonObject.addProperty("blog_title", blog_title);
-        jsonObject.addProperty("blog_content", blog_content);
-        jsonObject.addProperty("blog_cre", blog_cre);
-        jsonObject.addProperty("blog_del", blog_del);
+        jsonObject.addProperty("json", json);
 
 //        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
-        if (params[8] != null) {
-            String imageBase64 = params[8].toString();
-            jsonObject.addProperty("imageBase64", imageBase64);
-        }
         try {
             result = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {

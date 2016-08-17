@@ -29,4 +29,6 @@
     <string name="msg_InvalidInput">輸入驗證錯誤</string>
     <string name="msg_LocationNotAvailable">找不到地址</string>
     <string name="msg_LastLocationNotAvailable">失去衛星訊號</string>
+    <string name="marker_title_now">最後更新位置</string>
+    <string name="marker_title_From">出發點</string>
 </resources>

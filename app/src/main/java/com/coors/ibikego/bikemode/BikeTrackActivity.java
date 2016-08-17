@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.coors.ibikego.BlogVO;
 import com.coors.ibikego.Common;
+import com.coors.ibikego.LatlngVO;
 import com.coors.ibikego.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
@@ -61,21 +63,47 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private Location lastLocation;
     private GoogleMap map;
     private Marker marker_NowPoint;
+    private Marker marker_FromPoint;
     private LatLng FromPoint=null, NowPoint=null;
     private PolylineOptions polylineOptions;
     private ArrayList<LatLng> pointlist = new ArrayList<LatLng>();
+//    private String[] details = null;
+    private StringBuilder sb = null;
+
+//    private JsonObject jsonObject = new JsonObject();
+
 
 
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            StringBuilder sb = null;
             updateLastLocationInfo(location);
             lastLocation = location;
             if(lastLocation != null){
                 if(FromPoint == null){
                     FromPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 }
+//                LatlngVO latlngVO = new LatlngVO();
+//                latlngVO.setLat(String.valueOf(lastLocation.getLatitude()));
+//                latlngVO.setLng(String.valueOf(lastLocation.getLongitude()));
+//                latlngVO.setAltitude(String.valueOf(lastLocation.getAltitude()));
+//                latlngVO.setSpeed(String.valueOf(lastLocation.getSpeed()));
+//                latlngVO.setTime(String.valueOf(lastLocation.getTime()));
+//                if (latlngVO==null) {
+//                    return;
+//                }else {
+//                    details.add(latlngVO.getLat());
+//                }
+//                sb.append("lat");
+//                sb.append(String.valueOf(lastLocation.getLatitude()));
+//                sb.append("lng");
+//                sb.append(String.valueOf(lastLocation.getLongitude()));
+
+//                jsonObject.addProperty("lat", latlngVO.getLat());
+//                jsonObject.addProperty("lng", latlngVO.getLng());
+
+
+
                 NowPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 pointlist.add(NowPoint);
 
@@ -84,10 +112,10 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 TextView tvLastLocation = (TextView) findViewById(R.id.tvLastLocation);
                 TextView tvSpeed = (TextView) findViewById(R.id.tvSpeed);
 
-                sb = new StringBuilder(String.valueOf(FromPoint.latitude)+String.valueOf(FromPoint.longitude));
+//                sb = new StringBuilder(String.valueOf(FromPoint.latitude)+String.valueOf(FromPoint.longitude));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 15));
 
-                tvStartLocation.setText(sb.toString());
+
                 tvLastLocation.setText(String.valueOf(lastLocation.getSpeed()));
                 addPolylinesPolygonsToMap();
 
@@ -226,7 +254,13 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private void addMarkersToMap() {
         marker_NowPoint = map.addMarker(new MarkerOptions()
                 .position(NowPoint)
-                .title(getString(R.string.marker_title))
+                .title(getString(R.string.marker_title_now))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+        marker_FromPoint = map.addMarker(new MarkerOptions()
+                .position(FromPoint)
+                .title(getString(R.string.marker_title_From))
                 .snippet(getString(R.string.marker_snippet))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
@@ -364,14 +398,20 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         String url = Common.URL + "routedetails/routedetailsApp.do";
         String action = "insert";
         Gson gson = new Gson();
-        String json = gson.toJson(pointlist);
-        Log.d(TAG, json);
-        String speed = String.valueOf(lastLocation.getSpeed());
-        Log.d(TAG, speed);
+//        String json = gson.toJson(pointlist);
+//        Log.d(TAG, json);
+
+        String json = "[{\"latitude\":24.9588,\"longitude\":121.5439983,\"mVersionCode\":1},{\"latitude\":24.9578933,\"longitude\":121.53824,\"mVersionCode\":1}]";
+        //反序列化
+        Type listType = new TypeToken<List<LatLng>>() {
+        }.getType();
+        List<LatLng> latLngs = gson.fromJson(json, listType);
+        for (LatLng ll :latLngs){
+            Double lat = ll.latitude;
+            Double lng = ll.longitude;
+            Log.d(TAG, lat.toString());
+            Log.d(TAG, lng.toString());
+        }
         new BikeTrackInsertTask().execute(url,action ,json);
-            //反序列化
-//        Type listType = new TypeToken<List<BlogVO>>() {
-//        }.getType();
-//        List<LatLng> latLngs = gson.fromJson(json, listType);    }
-}
+    }
 }

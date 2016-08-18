@@ -22,7 +22,7 @@
     <string name="text_btResetMap">重設</string>
     <string name="marker_title">終點</string>
     <string name="marker_snippet">最後位置</string>
-    <string name="text_btRecStart">開始紀錄路徑</string>
+    <string name="text_btRecStart">保存路徑</string>
     <string name="msg_GoogleApiClientConnectionSuspended">google連線暫停</string>
     <string name="msg_GoogleApiClientConnectionFailed">google map連線失敗</string>
     <string name="text_ShouldGrant">未取得權限</string>
@@ -31,4 +31,5 @@
     <string name="msg_LastLocationNotAvailable">失去衛星訊號</string>
     <string name="marker_title_now">最後更新位置</string>
     <string name="marker_title_From">出發點</string>
+    <string name="text_btShowMarker">顯示標記</string>
 </resources>

@@ -39,10 +39,10 @@
         <activity android:name=".search.SearchBlogActivity" />
         <activity android:name=".member.MemberBlogManageActivity" />
         <activity android:name=".blog.BlogDetailMemberActivity" />
-        <activity android:name=".bikemode.BikeModeMainActivity"></activity>
-        <activity android:name=".bikemode.GeocoderActivity"></activity>
-        <activity android:name=".bikemode.PolylinesPolygonsActivity"></activity>
-        <activity android:name=".bikemode.BikeTrackActivity"></activity>
+        <activity android:name=".bikemode.BikeModeMainActivity" />
+        <activity android:name=".bikemode.GeocoderActivity" />
+        <activity android:name=".bikemode.PolylinesPolygonsActivity" />
+        <activity android:name=".bikemode.BikeTrackActivity" />
     </application>
 
 </manifest>

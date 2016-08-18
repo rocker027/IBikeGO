@@ -3,12 +3,10 @@ package com.coors.ibikego.bikemode;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,8 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.coors.ibikego.BlogVO;
 import com.coors.ibikego.Common;
+import com.coors.ibikego.GetStringDate;
 import com.coors.ibikego.LatlngVO;
 import com.coors.ibikego.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -35,25 +33,18 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -69,7 +60,10 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private ArrayList<LatLng> pointlist = new ArrayList<LatLng>();
 //    private String[] details = null;
     private StringBuilder sb = null;
+    private List<LatlngVO> latlngVOs = new LinkedList<LatlngVO>();
+    private SharedPreferences pref ;
 
+    //找尋偏好設定檔
 //    private JsonObject jsonObject = new JsonObject();
 
 
@@ -79,10 +73,28 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         public void onLocationChanged(Location location) {
             updateLastLocationInfo(location);
             lastLocation = location;
+            pref= getSharedPreferences(Common.PREF_FILE,
+                    MODE_PRIVATE);
+            Integer mem_no =pref.getInt("pref_memno",0);
+
             if(lastLocation != null){
                 if(FromPoint == null){
                     FromPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 }
+
+                LatlngVO latlngVO = new LatlngVO();
+                latlngVO.setLat(lastLocation.getLatitude());
+                latlngVO.setLng(lastLocation.getLongitude());
+                latlngVO.setMem_no(mem_no);
+                latlngVO.setTime(lastLocation.getTime());
+                latlngVO.setAltitude(lastLocation.getAltitude());
+                latlngVO.setSpeed(lastLocation.getSpeed());
+                latlngVO.setRoute_time(new GetStringDate().getDate_cre());
+
+                latlngVOs.add(latlngVO);
+
+
+
 //                LatlngVO latlngVO = new LatlngVO();
 //                latlngVO.setLat(String.valueOf(lastLocation.getLatitude()));
 //                latlngVO.setLng(String.valueOf(lastLocation.getLongitude()));
@@ -108,15 +120,11 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 pointlist.add(NowPoint);
 
 
-                TextView tvStartLocation = (TextView) findViewById(R.id.tvStartLocation);
-                TextView tvLastLocation = (TextView) findViewById(R.id.tvLastLocation);
-                TextView tvSpeed = (TextView) findViewById(R.id.tvSpeed);
 
 //                sb = new StringBuilder(String.valueOf(FromPoint.latitude)+String.valueOf(FromPoint.longitude));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 15));
 
 
-                tvLastLocation.setText(String.valueOf(lastLocation.getSpeed()));
                 addPolylinesPolygonsToMap();
 
             }
@@ -183,7 +191,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map2);
+        setContentView(R.layout.bike_track);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fmMap);
@@ -298,7 +306,6 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void updateLastLocationInfo(Location lastLocation) {
-        TextView tvLastLocation = (TextView) findViewById(R.id.tvLastLocation);
         String message = "";
         message += "The Information of the Last Location \n";
 
@@ -320,7 +327,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 + lastLocation.getBearing() + "\n";
         message += "speed (meters/second): " + lastLocation.getSpeed() + "\n";
 
-        tvLastLocation.setText(message);
+//        tvLastLocation.setText(message);
     }
 
     private boolean lastLocationFound() {
@@ -395,23 +402,32 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     public void onClickRec(View view) {
-        String url = Common.URL + "routedetails/routedetailsApp.do";
-        String action = "insert";
+        EditText etTitile = (EditText) findViewById(R.id.et_TrackTitile);
+        String trackTitle = etTitile.getText().toString().trim();
+        if(trackTitle.length() <= 0 || trackTitle.isEmpty()){
+            etTitile.setError("請輸入本次主題名稱");
+        }
+
+//        String url = Common.URL + "routedetails/routedetailsApp.do";
+        String url = Common.URL + "route/routeApp";
+        String action = "insertWithDetails";
         Gson gson = new Gson();
-//        String json = gson.toJson(pointlist);
+        Integer mem_no =pref.getInt("pref_memno",0);//        String json = gson.toJson(pointlist);
+        String json = gson.toJson(latlngVOs);
+
 //        Log.d(TAG, json);
 
-        String json = "[{\"latitude\":24.9588,\"longitude\":121.5439983,\"mVersionCode\":1},{\"latitude\":24.9578933,\"longitude\":121.53824,\"mVersionCode\":1}]";
+//        String json = "[{\"latitude\":24.9588,\"longitude\":121.5439983,\"mVersionCode\":1},{\"latitude\":24.9578933,\"longitude\":121.53824,\"mVersionCode\":1}]";
         //反序列化
-        Type listType = new TypeToken<List<LatLng>>() {
-        }.getType();
-        List<LatLng> latLngs = gson.fromJson(json, listType);
-        for (LatLng ll :latLngs){
-            Double lat = ll.latitude;
-            Double lng = ll.longitude;
-            Log.d(TAG, lat.toString());
-            Log.d(TAG, lng.toString());
-        }
-        new BikeTrackInsertTask().execute(url,action ,json);
+//        Type listType = new TypeToken<List<LatLng>>() {
+//        }.getType();
+//        List<LatLng> latLngs = gson.fromJson(json, listType);
+//        for (LatLng ll :latLngs){
+//            Double lat = ll.latitude;
+//            Double lng = ll.longitude;
+//            Log.d(TAG, lat.toString());
+//            Log.d(TAG, lng.toString());
+//        }
+        new BikeTrackInsertTask().execute(url,action,json,mem_no,trackTitle);
     }
 }

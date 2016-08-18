@@ -27,11 +27,15 @@ public class BikeTrackInsertTask extends AsyncTask<Object,Integer,Integer>{
         String action = params[1].toString();
 //        BlogVO blog = (BlogVO) params[2];
         String json = params[2].toString();
+        String mem_no = params[3].toString();
+        String route_name = params[4].toString();
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", action);
         jsonObject.addProperty("json", json);
+        jsonObject.addProperty("mem_no", mem_no);
+        jsonObject.addProperty("route_name", route_name);
 
 //        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
         try {

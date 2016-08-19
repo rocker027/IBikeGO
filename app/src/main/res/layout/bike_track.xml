@@ -15,15 +15,28 @@
         android:layout_gravity="bottom|left"
         android:orientation="vertical">
 
+        <ToggleButton
+            android:id="@+id/btnTravelPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="週邊資訊 OFF"
+            android:textOn="週邊資訊 ON" />
+
+        <ToggleButton
+            android:id="@+id/btnGroupPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="車友位置 OFF"
+            android:textOn="車友位置 ON" />
+
         <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/et_TrackTitile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="請輸入本次主題名稱"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:id="@+id/et_TrackTitile"
-            android:hint="請輸入本次主題名稱"
-            />
+            android:paddingTop="5dp" />
 
 
         <LinearLayout
@@ -44,8 +57,8 @@
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
                 android:onClick="onResetMapClick"
                 android:text="@string/text_btShowMarker" />
 

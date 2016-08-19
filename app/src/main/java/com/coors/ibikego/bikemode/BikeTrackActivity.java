@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.GetStringDate;
@@ -95,36 +96,11 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 
 
 
-//                LatlngVO latlngVO = new LatlngVO();
-//                latlngVO.setLat(String.valueOf(lastLocation.getLatitude()));
-//                latlngVO.setLng(String.valueOf(lastLocation.getLongitude()));
-//                latlngVO.setAltitude(String.valueOf(lastLocation.getAltitude()));
-//                latlngVO.setSpeed(String.valueOf(lastLocation.getSpeed()));
-//                latlngVO.setTime(String.valueOf(lastLocation.getTime()));
-//                if (latlngVO==null) {
-//                    return;
-//                }else {
-//                    details.add(latlngVO.getLat());
-//                }
-//                sb.append("lat");
-//                sb.append(String.valueOf(lastLocation.getLatitude()));
-//                sb.append("lng");
-//                sb.append(String.valueOf(lastLocation.getLongitude()));
-
-//                jsonObject.addProperty("lat", latlngVO.getLat());
-//                jsonObject.addProperty("lng", latlngVO.getLng());
-
-
 
                 NowPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 pointlist.add(NowPoint);
 
-
-
-//                sb = new StringBuilder(String.valueOf(FromPoint.latitude)+String.valueOf(FromPoint.longitude));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 15));
-
-
                 addPolylinesPolygonsToMap();
 
             }
@@ -196,14 +172,40 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fmMap);
         mapFragment.getMapAsync(this);
-//        initPoints();
 
-
-    }
-
-    private void initPoints() {
+        findToggleBtn();
 
     }
+
+    private void findToggleBtn() {
+        final ToggleButton btnGroupPos = (ToggleButton) findViewById(R.id.btnGroupPos);
+        ToggleButton btnTravelPos = (ToggleButton) findViewById(R.id.btnTravelPos);
+
+        btnGroupPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnGroupPos.isChecked()){
+                    addMarkersGroupToMap();
+                    Toast.makeText(BikeTrackActivity.this, "Group ON",Toast.LENGTH_SHORT).show();
+                }else {
+                    addMarkersToMap();
+                    Toast.makeText(BikeTrackActivity.this, "Group is off",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnTravelPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnGroupPos.isChecked()){
+                    Toast.makeText(BikeTrackActivity.this, "Travel ON",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(BikeTrackActivity.this, "Travel is off",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void onMapReady(GoogleMap map) {
@@ -252,6 +254,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 
     }
 
+    //畫追蹤路徑線段
     private void addPolylinesPolygonsToMap() {
         polylineOptions = new PolylineOptions();
         polylineOptions.addAll(pointlist);
@@ -259,6 +262,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         map.addPolyline(polylineOptions);
     }
 
+    //增加起點與目前點的marker
     private void addMarkersToMap() {
         marker_NowPoint = map.addMarker(new MarkerOptions()
                 .position(NowPoint)
@@ -273,6 +277,23 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
     }
+
+    //增加Group成員的marker
+    private void addMarkersGroupToMap() {
+        marker_NowPoint = map.addMarker(new MarkerOptions()
+                .position(NowPoint)
+                .title(getString(R.string.marker_title_now))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+        marker_FromPoint = map.addMarker(new MarkerOptions()
+                .position(FromPoint)
+                .title(getString(R.string.marker_title_From))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+    }
+
 
     @Override
     protected void onResume() {
@@ -408,26 +429,12 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
             etTitile.setError("請輸入本次主題名稱");
         }
 
-//        String url = Common.URL + "routedetails/routedetailsApp.do";
         String url = Common.URL + "route/routeApp";
         String action = "insertWithDetails";
         Gson gson = new Gson();
         Integer mem_no =pref.getInt("pref_memno",0);//        String json = gson.toJson(pointlist);
         String json = gson.toJson(latlngVOs);
 
-//        Log.d(TAG, json);
-
-//        String json = "[{\"latitude\":24.9588,\"longitude\":121.5439983,\"mVersionCode\":1},{\"latitude\":24.9578933,\"longitude\":121.53824,\"mVersionCode\":1}]";
-        //反序列化
-//        Type listType = new TypeToken<List<LatLng>>() {
-//        }.getType();
-//        List<LatLng> latLngs = gson.fromJson(json, listType);
-//        for (LatLng ll :latLngs){
-//            Double lat = ll.latitude;
-//            Double lng = ll.longitude;
-//            Log.d(TAG, lat.toString());
-//            Log.d(TAG, lng.toString());
-//        }
         new BikeTrackInsertTask().execute(url,action,json,mem_no,trackTitle);
     }
 }

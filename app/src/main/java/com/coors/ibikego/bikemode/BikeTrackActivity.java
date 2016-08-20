@@ -33,7 +33,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -63,9 +66,205 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private StringBuilder sb = null;
     private List<LatlngVO> latlngVOs = new LinkedList<LatlngVO>();
     private SharedPreferences pref ;
+    private Marker markerGroup1,markerGroup2,markerGroup3,markerGroup4,markerGroup5;
+    private List<LatLng> grouplist;
+    private LatLng pos1,pos2,pos3,pos4,pos5;
+    private List<Marker> markers;
 
-    //找尋偏好設定檔
-//    private JsonObject jsonObject = new JsonObject();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.bike_track);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.fmMap);
+        mapFragment.getMapAsync(this);
+        initPos();
+        findToggleBtn();
+
+    }
+
+    private void initPos() {
+        pos1 = new LatLng(24.151287, 121.625537);
+        pos2 = new LatLng(23.791952, 120.861379);
+        pos3 = new LatLng(25.033611, 121.565000);
+
+
+    }
+
+    private void findToggleBtn() {
+        final ToggleButton btnGroupPos = (ToggleButton) findViewById(R.id.btnGroupPos);
+        ToggleButton btnTravelPos = (ToggleButton) findViewById(R.id.btnTravelPos);
+
+        btnGroupPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnGroupPos.isChecked()){
+                    if(markerGroup1!=null){
+                        markerGroup1.remove();
+                    }
+                    if(markerGroup2!=null){
+                        markerGroup2.remove();
+                    }
+
+                    if(markerGroup3!=null){
+                        markerGroup3.remove();
+                    }
+                    addMarkersG1ToMap();
+                    addMarkersG2ToMap();
+                    addMarkersG3ToMap();
+                    Toast.makeText(BikeTrackActivity.this, "Group ON",Toast.LENGTH_SHORT).show();
+                }else {
+                    markerGroup1.remove();
+                    markerGroup2.remove();
+                    markerGroup3.remove();
+//                      markerGroup3.remove();
+
+                    Toast.makeText(BikeTrackActivity.this, "Group is off",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnTravelPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnGroupPos.isChecked()){
+                    Toast.makeText(BikeTrackActivity.this, "Travel ON",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(BikeTrackActivity.this, "Travel is off",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        this.map = map;
+        setUpMap();
+    }
+
+    private void setUpMap() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(true);
+
+
+//        CameraPosition cameraPosition = new CameraPosition.Builder()
+//                .target(NowPoint)
+//                .zoom(16)
+//                .build();
+//        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//        addMarkersG1ToMap();
+//        addMarkersG2ToMap();
+//        addMarkersG3ToMap();
+//        addMarkersToMap();
+
+//        map.setInfoWindowAdapter(new MyInfoWindowAdapter());
+//
+//        MyMarkerListener myMarkerListener = new MyMarkerListener();
+//        map.setOnMarkerClickListener(myMarkerListener);
+//        map.setOnInfoWindowClickListener(myMarkerListener);
+
+    }
+
+    //畫追蹤路徑線段
+    private void addPolylinesPolygonsToMap() {
+        polylineOptions = new PolylineOptions();
+        polylineOptions.addAll(pointlist);
+        polylineOptions.width(5).color(Color.MAGENTA);
+        map.addPolyline(polylineOptions);
+    }
+
+    //增加起點與目前點的marker
+    private void addMarkersToMap() {
+        marker_NowPoint = map.addMarker(new MarkerOptions()
+                .position(NowPoint)
+                .title(getString(R.string.marker_title_now))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+        marker_FromPoint = map.addMarker(new MarkerOptions()
+                .position(FromPoint)
+                .title(getString(R.string.marker_title_From))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+    }
+
+    //增加Group成員的marker
+    private void addMarkersG1ToMap() {
+        MarkerOptions markerOpt = new MarkerOptions();
+        markerOpt.position(pos1);
+        markerOpt.title("台北101");
+        markerOpt.icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling)));
+        markerGroup1 = map.addMarker(markerOpt);
+    }
+
+    private void addMarkersG2ToMap() {
+        MarkerOptions markerOpt = new MarkerOptions();
+        markerOpt.position(pos2);
+        markerOpt.title("台北101");
+        markerOpt.icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling)));
+        markerGroup2 = map.addMarker(markerOpt);
+    }
+
+    private void addMarkersG3ToMap() {
+        MarkerOptions markerOpt = new MarkerOptions();
+        markerOpt.position(pos3);
+        markerOpt.title("台北101");
+        markerOpt.icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling)));
+        markerGroup3 = map.addMarker(markerOpt);
+    }
+
+    private void addMarkersG4ToMap() {
+        MarkerOptions markerOpt = new MarkerOptions();
+        markerOpt.position(new LatLng(25.033611, 121.565000));
+        markerOpt.title("台北101");
+        markerOpt.icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling)));
+        markerGroup4 = map.addMarker(markerOpt);
+    }
+
+    private void addMarkersG5oMap() {
+        MarkerOptions markerOpt = new MarkerOptions();
+        markerOpt.position(new LatLng(25.033611, 121.565000));
+        markerOpt.title("台北101");
+        markerOpt.icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling)));
+        markerGroup5 = map.addMarker(markerOpt);
+    }
+
+
+//       Marker aaa = map.addMarker(new MarkerOptions()
+//                .position(new LatLng(24.9996,121.855))
+//                .title(getString(R.string.marker_title_From))
+////                .snippet(getString(R.string.marker_snippet))
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_navi_bike_24dp)));
+
+//        markerGroup2 = map.addMarker(new MarkerOptions()
+//                .position(pos2)
+//                .title(getString(R.string.marker_title_From))
+//                .snippet(getString(R.string.marker_snippet))
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_navi_bike_24dp)));
+
 
 
 
@@ -78,7 +277,9 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                     MODE_PRIVATE);
             Integer mem_no =pref.getInt("pref_memno",0);
 
+            //當位置改變時
             if(lastLocation != null){
+                //抓到第一個位置
                 if(FromPoint == null){
                     FromPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 }
@@ -100,7 +301,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 NowPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 pointlist.add(NowPoint);
 
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 15));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 16));
                 addPolylinesPolygonsToMap();
 
             }
@@ -164,135 +365,11 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bike_track);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fmMap);
-        mapFragment.getMapAsync(this);
-
-        findToggleBtn();
-
-    }
-
-    private void findToggleBtn() {
-        final ToggleButton btnGroupPos = (ToggleButton) findViewById(R.id.btnGroupPos);
-        ToggleButton btnTravelPos = (ToggleButton) findViewById(R.id.btnTravelPos);
-
-        btnGroupPos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btnGroupPos.isChecked()){
-                    addMarkersGroupToMap();
-                    Toast.makeText(BikeTrackActivity.this, "Group ON",Toast.LENGTH_SHORT).show();
-                }else {
-                    addMarkersToMap();
-                    Toast.makeText(BikeTrackActivity.this, "Group is off",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnTravelPos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btnGroupPos.isChecked()){
-                    Toast.makeText(BikeTrackActivity.this, "Travel ON",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(BikeTrackActivity.this, "Travel is off",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        this.map = map;
-        setUpMap();
-    }
-
-    private void setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        map.setMyLocationEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
 
 
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(NowPoint)
-//                .zoom(16)
-//                .build();
-//        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-//        addMarkersToMap();
-
-//        map.setInfoWindowAdapter(new MyInfoWindowAdapter());
-//
-//        MyMarkerListener myMarkerListener = new MyMarkerListener();
-//        map.setOnMarkerClickListener(myMarkerListener);
-//        map.setOnInfoWindowClickListener(myMarkerListener);
-
-    }
-
-    //畫追蹤路徑線段
-    private void addPolylinesPolygonsToMap() {
-        polylineOptions = new PolylineOptions();
-        polylineOptions.addAll(pointlist);
-        polylineOptions.width(5).color(Color.MAGENTA);
-        map.addPolyline(polylineOptions);
-    }
-
-    //增加起點與目前點的marker
-    private void addMarkersToMap() {
-        marker_NowPoint = map.addMarker(new MarkerOptions()
-                .position(NowPoint)
-                .title(getString(R.string.marker_title_now))
-                .snippet(getString(R.string.marker_snippet))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
-
-        marker_FromPoint = map.addMarker(new MarkerOptions()
-                .position(FromPoint)
-                .title(getString(R.string.marker_title_From))
-                .snippet(getString(R.string.marker_snippet))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
-
-    }
-
-    //增加Group成員的marker
-    private void addMarkersGroupToMap() {
-        marker_NowPoint = map.addMarker(new MarkerOptions()
-                .position(NowPoint)
-                .title(getString(R.string.marker_title_now))
-                .snippet(getString(R.string.marker_snippet))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
-
-        marker_FromPoint = map.addMarker(new MarkerOptions()
-                .position(FromPoint)
-                .title(getString(R.string.marker_title_From))
-                .snippet(getString(R.string.marker_snippet))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
-
-    }
 
 
     @Override

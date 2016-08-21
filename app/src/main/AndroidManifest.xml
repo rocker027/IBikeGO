@@ -41,8 +41,9 @@
         <activity android:name=".blog.BlogDetailMemberActivity" />
         <activity android:name=".bikemode.BikeModeMainActivity" />
         <activity android:name=".bikemode.GeocoderActivity" />
-        <activity android:name=".bikemode.PolylinesPolygonsActivity" />
+        <activity android:name=".bikemode.BikeTrackPolylinesActivity" />
         <activity android:name=".bikemode.BikeTrackActivity" />
+        <activity android:name=".bikemode.BikeTrackListActivity"></activity>
     </application>
 
 </manifest>

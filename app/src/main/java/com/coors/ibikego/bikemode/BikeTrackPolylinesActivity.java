@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.coors.ibikego.R;
 import com.coors.ibikego.RouteDetailsVO;
+import com.coors.ibikego.RouteVO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -22,20 +23,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class PolylinesPolygonsActivity extends AppCompatActivity implements
+public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         OnMapReadyCallback {
     private GoogleMap map;
     private Marker marker_ToPoint;
@@ -53,7 +49,7 @@ public class PolylinesPolygonsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.polyline_polygon_activity);
+        setContentView(R.layout.bike_polyline_activity);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fmMap);
@@ -68,8 +64,8 @@ public class PolylinesPolygonsActivity extends AppCompatActivity implements
     }
 
     private void initPoints() {
-
-        String route_no = "26";
+        RouteVO routeVO = (RouteVO) getIntent().getExtras().getSerializable("routeVO");
+        Integer route_no = routeVO.getRoute_no();
         String url = null;
         List<RouteDetailsVO> detailsVOList = null;
         try {
@@ -222,7 +218,7 @@ public class PolylinesPolygonsActivity extends AppCompatActivity implements
 
         @Override
         public void onInfoWindowClick(Marker marker) {
-            Toast.makeText(PolylinesPolygonsActivity.this, marker.getTitle(),
+            Toast.makeText(BikeTrackPolylinesActivity.this, marker.getTitle(),
                     Toast.LENGTH_SHORT).show();
         }
 
@@ -233,7 +229,7 @@ public class PolylinesPolygonsActivity extends AppCompatActivity implements
 
         MyInfoWindowAdapter() {
             infoWindow = View.inflate(
-                    PolylinesPolygonsActivity.this,
+                    BikeTrackPolylinesActivity.this,
                     R.layout.custom_info_window,
                     null);
         }

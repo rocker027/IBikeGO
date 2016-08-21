@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.MemberVO;
 import com.coors.ibikego.RouteDetailsVO;
+import com.coors.ibikego.RouteVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -21,19 +21,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class BikeGetOneDeatailsTask extends AsyncTask<Object, Integer, List<RouteDetailsVO> >{
-    private final static String TAG = "BikeGetOneDeatailsTask";
-    String url_this = Common.URL + "routedetails/routedetailsApp.do";
-    private final static String ACTION = "getOneDetails";
+/**
+ * Created by user on 2016/8/21.
+ */
+public class BikeTrackListAllTask extends AsyncTask<Object,Integer,List<RouteVO>>{
+    private final static String TAG = "BikeGetTrackListTask";
+    String url_this = Common.URL + "route/routeApp";
+    private final static String ACTION = "getMemberTrackList";
 
     @Override
-    protected List<RouteDetailsVO> doInBackground(Object... params) {
+    protected List<RouteVO> doInBackground(Object... params) {
         String url = url_this;
         String jsonIn;
-        String route_no = params[1].toString();
+        String mem_no = params[1].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("route_no", route_no);
+        jsonObject.addProperty("mem_no", mem_no);
         try {
             jsonIn = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
@@ -43,7 +46,7 @@ public class BikeGetOneDeatailsTask extends AsyncTask<Object, Integer, List<Rout
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
 
-        Type listType = new TypeToken<List<RouteDetailsVO>>() {
+        Type listType = new TypeToken<List<RouteVO>>() {
         }.getType();
         return gson.fromJson(jsonIn, listType);
     }
@@ -59,6 +62,7 @@ public class BikeGetOneDeatailsTask extends AsyncTask<Object, Integer, List<Rout
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         bw.write(jsonOut);
         Log.d(TAG, "jsonOut: " + jsonOut);
+        Log.d(TAG, "URL: " + url);
         bw.close();
 
         int responseCode = connection.getResponseCode();

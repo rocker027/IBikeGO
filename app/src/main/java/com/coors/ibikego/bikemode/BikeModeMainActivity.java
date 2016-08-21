@@ -20,7 +20,7 @@ public class BikeModeMainActivity extends AppCompatActivity {
     }
 
     public void onClick2(View view) {
-        startActivity(new Intent(this,PolylinesPolygonsActivity.class));
+        startActivity(new Intent(this,BikeTrackListActivity.class));
 
     }
 }

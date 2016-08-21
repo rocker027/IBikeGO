@@ -3,20 +3,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center_vertical"
     android:orientation="vertical"
+    android:background="@drawable/bg_bike"
     tools:context="com.coors.ibikego.bikemode.BikeModeMainActivity">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:onClick="onClick"
-        android:src="@drawable/ic_navi_bike_24dp" />
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="?attr/homeAsUpIndicator" />
+
+    </android.support.design.widget.AppBarLayout>
 
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:onClick="onClick2"
-        android:src="@drawable/ic_navi_attractions_24dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_while"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_navi_bike_24dp" />
+
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="開啟路線紀錄"
+            android:textSize="36sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_while"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:onClick="onClick2"
+            android:src="@drawable/ic_navi_attractions_24dp" />
+
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="查看先前紀錄"
+            android:textSize="36sp" />
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -2,32 +2,23 @@ package com.coors.ibikego.blog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.coors.ibikego.BlogVO;
+import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
-import com.coors.ibikego.MemberVO;
+import com.coors.ibikego.daovo.MemberVO;
 import com.coors.ibikego.R;
 import com.coors.ibikego.member.MemberGetOneTask;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.String.*;
 
 public class BlogFragment extends Fragment {
     private static final String TAG = "BlogFragment";

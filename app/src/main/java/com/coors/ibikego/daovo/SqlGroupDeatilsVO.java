@@ -11,7 +11,7 @@ public class SqlGroupDeatilsVO implements Serializable {
     private String mem_name;
     private Double Group_lat;
     private Double Group_lng;
-    private java.sql.Timestamp Group_update_time;
+    private java.sql.Date Group_update_time;
 
     public Integer getMem_no() {
         return mem_no;
@@ -45,11 +45,11 @@ public class SqlGroupDeatilsVO implements Serializable {
         Group_lng = group_lng;
     }
 
-    public Timestamp getGroup_update_time() {
+    public java.sql.Date getGroup_update_time() {
         return Group_update_time;
     }
 
-    public void setGroup_update_time(Timestamp group_update_time) {
+    public void setGroup_update_time(java.sql.Date group_update_time) {
         Group_update_time = group_update_time;
     }
 }

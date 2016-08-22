@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
-import com.coors.ibikego.RouteVO;
+import com.coors.ibikego.daovo.RouteVO;
 
 import java.util.List;
 

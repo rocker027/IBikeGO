@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.coors.ibikego.BlogVO;
+import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
 
@@ -30,7 +30,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class BlogUpdateActivity extends AppCompatActivity {
     private final static String TAG = "BlogUpdateActivity";

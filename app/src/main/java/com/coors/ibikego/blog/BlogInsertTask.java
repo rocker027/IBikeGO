@@ -3,9 +3,6 @@ package com.coors.ibikego.blog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.BlogVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;

@@ -3,21 +3,15 @@ package com.coors.ibikego.blog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.BlogVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 class BlogUpdateTask extends AsyncTask<Object, Integer, Integer> {
     private final static String TAG = "BlogUpdateTask";

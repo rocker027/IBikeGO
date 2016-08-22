@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.coors.ibikego.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
 

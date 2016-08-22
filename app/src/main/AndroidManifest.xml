@@ -43,7 +43,8 @@
         <activity android:name=".bikemode.GeocoderActivity" />
         <activity android:name=".bikemode.BikeTrackPolylinesActivity" />
         <activity android:name=".bikemode.BikeTrackActivity" />
-        <activity android:name=".bikemode.BikeTrackListActivity"></activity>
+        <activity android:name=".bikemode.BikeTrackListActivity" />
+        <activity android:name=".bikemode.BikeGroupKeyActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.MemberVO;
+import com.coors.ibikego.daovo.MemberVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -18,7 +18,6 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 public class MemberGetOneTask extends AsyncTask<Object, Integer, MemberVO> {
     private final static String TAG = "MemberGetOneTask";

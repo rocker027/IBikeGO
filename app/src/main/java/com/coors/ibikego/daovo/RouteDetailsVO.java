@@ -1,4 +1,4 @@
-package com.coors.ibikego;
+package com.coors.ibikego.daovo;
 
 public class RouteDetailsVO implements java.io.Serializable {
     private Integer route_det_no;

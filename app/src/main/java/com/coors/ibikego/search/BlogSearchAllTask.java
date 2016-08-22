@@ -3,7 +3,7 @@ package com.coors.ibikego.search;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.BlogVO;
+import com.coors.ibikego.daovo.BlogVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;

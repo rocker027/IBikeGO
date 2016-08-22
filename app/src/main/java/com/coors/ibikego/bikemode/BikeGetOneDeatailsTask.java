@@ -4,8 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.MemberVO;
-import com.coors.ibikego.RouteDetailsVO;
+import com.coors.ibikego.daovo.RouteDetailsVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;

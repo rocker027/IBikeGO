@@ -19,13 +19,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.coors.ibikego.BlogVO;
+import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.LoginStatusChkTask;
-import com.coors.ibikego.MemberVO;
+import com.coors.ibikego.daovo.MemberVO;
 import com.coors.ibikego.R;
 import com.coors.ibikego.blog.BlogDeleteTask;
-import com.coors.ibikego.blog.BlogDetailActivity;
 import com.coors.ibikego.blog.BlogDetailMemberActivity;
 import com.coors.ibikego.blog.BlogGetImageTask;
 import com.coors.ibikego.blog.BlogInsertActivity;
@@ -34,7 +33,6 @@ import com.coors.ibikego.blog.BlogUpdateActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class MemberBlogManageActivity extends AppCompatActivity {
     private static final String TAG = "BlogManage";

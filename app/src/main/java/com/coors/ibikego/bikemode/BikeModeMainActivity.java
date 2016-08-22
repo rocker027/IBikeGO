@@ -21,6 +21,9 @@ public class BikeModeMainActivity extends AppCompatActivity {
 
     public void onClick2(View view) {
         startActivity(new Intent(this,BikeTrackListActivity.class));
+    }
 
+    public void onClickGroupKey(View view) {
+        startActivity(new Intent(this,BikeGroupKeyActivity.class));
     }
 }

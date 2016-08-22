@@ -6,14 +6,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coors.ibikego.R;
-import com.coors.ibikego.RouteDetailsVO;
-import com.coors.ibikego.RouteVO;
+import com.coors.ibikego.daovo.RouteDetailsVO;
+import com.coors.ibikego.daovo.RouteVO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         OnMapReadyCallback {
+    private final static String TAG = "BikeTrackPolylines";
     private GoogleMap map;
     private Marker marker_ToPoint;
     private Marker marker_yushan;
@@ -78,10 +80,7 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
             ToPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
         }
 
-//        taroko = new LatLng(24.151287, 121.625537);
-//        yushan = new LatLng(23.791952, 120.861379);
-//        kenting = new LatLng(21.985712, 120.813217);
-//        yangmingshan = new LatLng(25.091075, 121.559834);
+        Log.d(TAG, String.valueOf(pointlist.size()));
     }
 
     private void setUpMap() {
@@ -131,49 +130,9 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
                 .snippet(getString(R.string.marker_snippet))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
-//        marker_yushan = map.addMarker(new MarkerOptions().position(yushan)
-//                .title(getString(R.string.marker_title_yushan))
-//                .snippet(getString(R.string.marker_snippet_yushan))
-//                .draggable(true));
-//
-//        marker_kenting = map.addMarker(new MarkerOptions().position(kenting)
-//                .title(getString(R.string.marker_title_kenting))
-//                .snippet(getString(R.string.marker_snippet_kenting))
-//                .icon(BitmapDescriptorFactory
-//                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-//
-//        marker_yangmingshan = map.addMarker(new MarkerOptions()
-//                .position(yangmingshan)
-//                .title(getString(R.string.marker_title_yangmingshan))
-//                .snippet(getString(R.string.marker_snippet_yangmingshan))
-//                .icon(BitmapDescriptorFactory
-//                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 
     private void addPolylinesPolygonsToMap() {
-
-
-//        Iterator<RouteDetailsVO> iterator = detailsVOList.iterator();
-//
-//        while (iterator.hasNext()){
-//            RouteDetailsVO detailsVO = new RouteDetailsVO();
-//            pointlist.add(new LatLng(detailsVO.getRoute_det_lati(),detailsVO.getRoute_det_longi()));
-//        }
-
-
-//        pointlist.add(new LatLng(24.2,120.1));
-//        pointlist.add(new LatLng(24.2,120.11));
-//        pointlist.add(new LatLng(24.2,120.111));
-//        pointlist.add(new LatLng(24.2,120.1111));
-//        pointlist.add(new LatLng(24.2,120.1113));
-//        pointlist.add(new LatLng(24.2,120.1114));
-//        pointlist.add(new LatLng(24.2,120.1115));
-//        pointlist.add(new LatLng(24.2,120.1116));
-//        pointlist.add(new LatLng(24.2,120.1117));
-//        pointlist.add(new LatLng(24.2,120.1118));
-//        pointlist.add(new LatLng(24.2,120.1119));
-//        pointlist.add(new LatLng(24.2,120.1120));
-//        pointlist.add(new LatLng(24.2,120.1121));
 
         polylineOptions = new PolylineOptions();
         polylineOptions.addAll(pointlist);
@@ -181,31 +140,6 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         map.addPolyline(polylineOptions);
 
 
-
-
-//        Polyline polyline = map.addPolyline(
-//                new PolylineOptions()
-//                        .add(yushan, yangmingshan, taroko)
-//                        .width(5)
-//                        .color(Color.MAGENTA)
-//                        .zIndex(1));
-//
-//        polyline.setWidth(6);
-//
-//        map.addPolygon(
-//                new PolygonOptions()
-//                        .add(yushan, taroko, kenting)
-//                        .strokeWidth(5)
-//                        .strokeColor(Color.BLUE)
-//                        .fillColor(Color.argb(200, 100, 150, 0)));
-//
-//        map.addCircle(
-//                new CircleOptions()
-//                        .center(yushan)
-//                        .radius(100000)
-//                        .strokeWidth(5)
-//                        .strokeColor(Color.TRANSPARENT)
-//                        .fillColor(Color.argb(100, 0, 0, 100)));
     }
 
 

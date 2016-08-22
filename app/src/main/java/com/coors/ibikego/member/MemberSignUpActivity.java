@@ -7,7 +7,6 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,10 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.MainActivity;
-import com.coors.ibikego.MemberVO;
 import com.coors.ibikego.R;
-import com.coors.ibikego.blog.BlogInsertTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

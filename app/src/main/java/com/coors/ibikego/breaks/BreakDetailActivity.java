@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.coors.ibikego.R;
-import com.coors.ibikego.TravelVO;
+import com.coors.ibikego.daovo.TravelVO;
 
 public class BreakDetailActivity extends AppCompatActivity {
 

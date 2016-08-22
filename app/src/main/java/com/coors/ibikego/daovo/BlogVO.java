@@ -1,4 +1,4 @@
-package com.coors.ibikego;
+package com.coors.ibikego.daovo;
 
 import java.io.Serializable;
 import java.sql.Date;

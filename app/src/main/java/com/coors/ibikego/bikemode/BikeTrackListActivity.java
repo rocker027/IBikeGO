@@ -96,6 +96,7 @@ public class BikeTrackListActivity extends AppCompatActivity {
             final RouteVO routeVO = routeVOs.get(position);
             viewHolder.tvTitle.setText(routeVO.getRoute_name());
             viewHolder.tvTime.setText("路線建立日期："+routeVO.getRoute_cre().toString());
+
             //點選cardview 轉頁
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.daovo.RouteVO;
+import com.coors.ibikego.daovo.SqlGroupMemVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -21,27 +21,32 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by user on 2016/8/22.
+ * Created by user on 2016/8/23.
  */
-public class BikeGroupKeyJoinTask extends AsyncTask<Object,Integer,Integer>{
-    private final static String TAG = "BikeGroupKeyJoinTask";
+public class BikeGroupAbortTask extends AsyncTask<Object, Integer, Integer> {
+    private final static String TAG = "BikeGroupAbortTask";
     String url_this = Common.URL + "groupdetails/groupdetailsApp";
-    private final static String ACTION = "joinGroupKey";
+    private final static String ACTION = "getGroupAbort";
 
     @Override
     protected Integer doInBackground(Object... params) {
         String url = url_this;
         String jsonIn;
-        String groupDetailsVO = params[0].toString();
+        String groupdetails_no = params[0].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("groupDetailsVO", groupDetailsVO);
+        jsonObject.addProperty("groupdetails_no", groupdetails_no);
         try {
             jsonIn = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
+
+        Type listType = new TypeToken<List<SqlGroupMemVO>>() {
+        }.getType();
         return Integer.parseInt(jsonIn);
     }
 
@@ -56,7 +61,6 @@ public class BikeGroupKeyJoinTask extends AsyncTask<Object,Integer,Integer>{
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         bw.write(jsonOut);
         Log.d(TAG, "jsonOut: " + jsonOut);
-        Log.d(TAG, "URL: " + url);
         bw.close();
 
         int responseCode = connection.getResponseCode();

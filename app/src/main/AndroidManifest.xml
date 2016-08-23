@@ -44,7 +44,8 @@
         <activity android:name=".bikemode.BikeTrackPolylinesActivity" />
         <activity android:name=".bikemode.BikeTrackActivity" />
         <activity android:name=".bikemode.BikeTrackListActivity" />
-        <activity android:name=".bikemode.BikeGroupKeyActivity"></activity>
+        <activity android:name=".bikemode.BikeGroupKeyActivity" />
+        <activity android:name=".bikemode.BikeGroupRoomActivity"></activity>
     </application>
 
 </manifest>

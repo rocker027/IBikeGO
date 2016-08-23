@@ -19,16 +19,18 @@ import java.net.URL;
  */
 public class BikeGroupKeyCreateTask extends AsyncTask<Object,Integer,Integer> {
     private final static String TAG = "BikeGroupKeyCreateTask";
-    String url_this = Common.URL + "group/groupApp";
+    String url_this = Common.URL + "groupbike/groupbikeApp";
     private final static String ACTION = "createGroupKey";
 
     @Override
     protected Integer doInBackground(Object... params) {
         String url = url_this;
         String jsonIn;
-        String key = params[0].toString();
+        String mem_no = params[0].toString();
+        String key = params[1].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
+        jsonObject.addProperty("mem_no", mem_no);
         jsonObject.addProperty("key", key);
         try {
             jsonIn = getRemoteData(url, jsonObject.toString());

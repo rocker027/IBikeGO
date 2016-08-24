@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.coors.ibikego.search.SearchAttractionsActivity;
 import com.coors.ibikego.search.SearchBlogActivity;
+import com.coors.ibikego.search.SearchBreakActivity;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -22,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText etkeyword;
     private ArrayAdapter<String> searchList;
 //    private String keyword;
-    private StringBuilder selectItem,keyword;
+    private StringBuilder selectItem;
 
 
     //spinner
@@ -90,41 +92,45 @@ public class SearchActivity extends AppCompatActivity {
     public void onClickSearch(View view) {
         if(etkeyword.getText().toString().trim().length() <= 0){
             etkeyword.setError("請輸入想查詢的關鍵字");
+            return;
         }
-        keyword = new StringBuilder("%"+etkeyword.getText().toString()+"%");
+        StringBuilder keyword = new StringBuilder("%"+etkeyword.getText().toString()+"%");
 
         if("單車日誌".equals(selectItem.toString())) {
             Intent intent = new Intent(SearchActivity.this, SearchBlogActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("keyword",keyword);
+            bundle.putString("keyword",keyword.toString());
             intent.putExtras(bundle);
             startActivity(intent);
+            return;
         }
 
         if("景點".equals(selectItem.toString())) {
-//            Intent intent = new Intent(SearchActivity.this, SearchBlogActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("key", selectItem);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
+            Intent intent = new Intent(SearchActivity.this, SearchAttractionsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("keyword1",keyword.toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+            return;
         }
 
-        if("休息站".equals(selectItem.toString())) {
-//            Intent intent = new Intent(SearchActivity.this, SearchBreakActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("key", selectItem);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
+        if("休息點".equals(selectItem.toString())) {
+            Intent intent = new Intent(SearchActivity.this, SearchBreakActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("keyword",keyword);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            return;
         }
 
         if("noSelect".equals(selectItem.toString())) {
             Toast.makeText(SearchActivity.this, "請選擇想要查詢的項目",Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 
     public void onClickReset(View view) {
         etkeyword.setText("");
-        keyword = new StringBuilder("");
         selectItem = new StringBuilder("");
         spinner.setSelection(0, true);
 

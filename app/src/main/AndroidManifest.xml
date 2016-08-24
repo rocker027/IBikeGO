@@ -45,7 +45,11 @@
         <activity android:name=".bikemode.BikeTrackActivity" />
         <activity android:name=".bikemode.BikeTrackListActivity" />
         <activity android:name=".bikemode.BikeGroupKeyActivity" />
-        <activity android:name=".bikemode.BikeGroupRoomActivity"></activity>
+        <activity android:name=".bikemode.BikeGroupRoomActivity" />
+        <activity android:name=".travel.AttractionsDetailActivity" />
+        <activity android:name=".travel.TravelShowMapActivity" />
+        <activity android:name=".search.SearchAttractionsActivity" />
+        <activity android:name=".search.SearchBreakActivity"></activity>
     </application>
 
 </manifest>

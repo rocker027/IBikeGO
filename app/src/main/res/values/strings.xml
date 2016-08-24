@@ -32,4 +32,9 @@
     <string name="marker_title_now">最後更新位置</string>
     <string name="marker_title_From">出發點</string>
     <string name="text_btShowMarker">顯示標記</string>
+    <string name="msg_NoTravelsFound">找不到相關地點</string>
+    <string name="msg_MapNotDisplayed">地圖無法顯示</string>
+    <string name="col_Name">名稱</string>
+    <string name="col_PhoneNo">聯絡電話</string>
+    <string name="col_Address">地址</string>
 </resources>

@@ -8,12 +8,13 @@
     android:layout_marginTop="5dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="@dimen/cardview_default_elevation">
+    card_view:cardCornerRadius="25dp"
+    card_view:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_while"
         android:gravity="center_vertical"
         android:paddingBottom="8dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -50,31 +51,28 @@
                 android:textColor="@color/secondary_text_default_material_light"
                 android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvTel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="3"
+                android:paddingTop="2.5dp"
+                android:text="03-88050202"
+                android:textColor="@color/secondary_text_default_material_light"
+                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:paddingTop="3dp"
-                    android:text="By："
-                    android:textColor="@color/secondary_text_default_material_light"
-                    android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
+            <TextView
+                android:id="@+id/tvAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="3"
+                android:paddingTop="2.5dp"
+                android:text="address"
+                android:textColor="@color/secondary_text_default_material_light"
+                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
 
-                <TextView
-                    android:id="@+id/tvMem_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="3"
-                    android:paddingTop="2.5dp"
-                    android:text="Author"
-                    android:textColor="@color/secondary_text_default_material_light"
-                    android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

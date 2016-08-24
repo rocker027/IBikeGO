@@ -28,12 +28,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.coors.ibikego.attractions.AttractionsFragment;
+import com.coors.ibikego.travel.AttractionsFragment;
 import com.coors.ibikego.bikemode.BikeModeMainActivity;
-import com.coors.ibikego.bikemode.GeocoderActivity;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
-import com.coors.ibikego.breaks.BreakFragment;
+import com.coors.ibikego.travel.BreakFragment;
 import com.coors.ibikego.member.MemberBlogManageActivity;
 import com.coors.ibikego.member.MemberGetImageTask;
 import com.coors.ibikego.member.MemberLoginActivity;

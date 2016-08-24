@@ -327,7 +327,14 @@ public class MainActivity extends AppCompatActivity {
                         Common.showToast(MainActivity.this,"item_BikeMode");
                         break;
                     case R.id.item_logout:
-                        pref.edit().putBoolean("login", false).apply();
+                        pref.edit().putBoolean("login", false)
+                                .remove("pref_acc")
+                                .remove("pref_pw")
+                                .remove("pref_name")
+                                .remove("pref_email")
+                                .remove("pref_key")
+                                .remove("pref_memno")
+                                .apply();
                         logOutUnVisible();
 
 

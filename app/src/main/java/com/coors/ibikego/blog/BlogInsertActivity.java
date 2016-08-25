@@ -146,21 +146,22 @@ public class BlogInsertActivity extends AppCompatActivity {
         String blog_del = "0";
 
         if (Common.networkConnected(this)) {
-            String url = Common.URL + "blog/blogApp.do";
+            String url = Common.URL + "blog/blogApp";
 //            BlogVO blog = new BlogVO(0,mem_no, blog_title, blog_content, blog_cre, blog_del);
             String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             String action = "insert";
-//            int count = 0;
+            int count = 0;
             try {
-               new BlogInsertTask().execute(url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64).get();
+              count= new BlogInsertTask().execute(url, action, blog_no,mem_no, blog_title, blog_content, blog_cre, blog_del, imageBase64).get();
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
-//            if (count == 0) {
-//                Common.showToast(BlogInsertActivity.this, R.string.msg_InsertFail);
-//            } else {
-//                Common.showToast(BlogInsertActivity.this, R.string.msg_InsertSuccess);
-//            }
+            if (count == 0) {
+                Common.showToast(BlogInsertActivity.this, R.string.msg_InsertFail);
+            } else {
+
+                Common.showToast(BlogInsertActivity.this, R.string.msg_InsertSuccess);
+            }
         } else {
             Common.showToast(this, R.string.msg_NoNetwork);
         }

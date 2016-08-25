@@ -49,7 +49,8 @@
         <activity android:name=".travel.AttractionsDetailActivity" />
         <activity android:name=".travel.TravelShowMapActivity" />
         <activity android:name=".search.SearchAttractionsActivity" />
-        <activity android:name=".search.SearchBreakActivity"></activity>
+        <activity android:name=".search.SearchBreakActivity" />
+        <activity android:name=".search.SearchAllActivity"></activity>
     </application>
 
 </manifest>

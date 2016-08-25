@@ -22,7 +22,22 @@ import java.util.List;
 
 public class BlogFragment extends Fragment {
     private static final String TAG = "BlogFragment";
+    BlogAdapter blogAdapter;
     private List<BlogVO> blogList;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        blogList = null;
+
+        String url = Common.URL + "blog/blogApp";
+        try {
+            blogList = new BlogGetAllTask().execute(url).get();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        blogAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +45,7 @@ public class BlogFragment extends Fragment {
 
         blogList = null;
 
-        String url = Common.URL + "blog/blogApp.do";
+        String url = Common.URL + "blog/blogApp";
         try {
             blogList = new BlogGetAllTask().execute(url).get();
         } catch (Exception e) {
@@ -40,7 +55,8 @@ public class BlogFragment extends Fragment {
         View view = inflater.inflate(R.layout.blog_fragment, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setAdapter(new BlogAdapter(inflater));
+        blogAdapter = new BlogAdapter(inflater);
+        recyclerView.setAdapter(blogAdapter);
         return view;
     }
 
@@ -60,7 +76,7 @@ public class BlogFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             final BlogVO blog = blogList.get(position);
-            String url = Common.URL + "blog/blogApp.do";
+            String url = Common.URL + "blog/blogApp";
             int blog_no = blog.getBlog_no();
             MemberVO memberVO=null;
             String mem_pk = String.valueOf(blog.getMem_no());

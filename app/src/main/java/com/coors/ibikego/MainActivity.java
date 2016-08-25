@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coors.ibikego.search.SearchAllActivity;
 import com.coors.ibikego.travel.AttractionsFragment;
 import com.coors.ibikego.bikemode.BikeModeMainActivity;
 import com.coors.ibikego.blog.BlogFragment;
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_search) {
-            startActivity(new Intent(this,SearchActivity.class));
+            startActivity(new Intent(this,SearchAllActivity.class));
             return true;
         }
 

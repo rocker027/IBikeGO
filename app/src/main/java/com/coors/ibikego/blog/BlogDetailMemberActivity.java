@@ -36,7 +36,7 @@ public class BlogDetailMemberActivity extends AppCompatActivity {
 
         int blog_no = blog.getBlog_no();
 
-        String url = Common.URL + "blog/blogApp.do";
+        String url = Common.URL + "blog/blogApp";
         ImageView ivDetail = (ImageView) findViewById(R.id.ivDetail);
         try {
             new BlogGetImageTask(ivDetail).execute(url,blog_no, 250).get();

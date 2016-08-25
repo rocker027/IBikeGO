@@ -40,7 +40,7 @@ public class BlogUpdateActivity extends AppCompatActivity {
     private ImageView imageView;
     private EditText etTitle, etContent;
     private SharedPreferences pref;
-    String url = Common.URL + "blog/blogApp.do";
+    String url = Common.URL + "blog/blogApp";
     private BlogVO blogVO;
 
 //    private String now,blog_cre;

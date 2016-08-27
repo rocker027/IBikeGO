@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +28,9 @@ import com.coors.ibikego.daovo.LatlngVO;
 import com.coors.ibikego.R;
 import com.coors.ibikego.daovo.RouteVO;
 import com.coors.ibikego.daovo.SqlGroupDeatilsVO;
+import com.coors.ibikego.daovo.TravelVO;
+import com.coors.ibikego.travel.TravelGetAllTask;
+import com.coors.ibikego.travel.TravelGetBitmapTask;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,12 +48,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -64,7 +74,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private StringBuilder sb = null;
     private List<LatlngVO> latlngVOs = new LinkedList<LatlngVO>();
     private SharedPreferences pref ;
-    private Marker markerGroup1,markerGroup2,markerGroup3,markerGroup4,markerGroup5;
+    private Marker markerGroup1,markerGroup2,markerGroup3,markerGroup4,markerGroup5,markerTravels;
     private List<LatLng> grouplist;
     private LatLng pos1,pos2,pos3,pos4,pos5;
     private boolean btnGroupClick =false;
@@ -82,7 +92,45 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         initPos();
         findToggleBtn();
 
+
+
     }
+
+
+    private void showAllTravels() {
+//        map.clear();
+
+        List<TravelVO> travelVOList = null;
+        String action = "getAllTravel";
+        try {
+            travelVOList = new TravelGetAllTask().execute(action).get();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        if(travelVOList != null){
+            for (TravelVO travelVO : travelVOList) {
+
+                double lat = travelVO.getTra_lati();
+                double lng = travelVO.getTra_longi();
+                LatLng latLng = new LatLng(lat, lng);
+                markerTravels = map.addMarker(new MarkerOptions()
+                        .position(latLng).title(travelVO
+                        .getTra_name()).snippet(travelVO.getTra_add()));
+
+                map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
+
+//                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                    @Override
+//                    public boolean onMarkerClick(Marker marker) {
+//                        return false;
+//                    }
+//                });
+            }
+
+
+        }
+    }
+
 
     private void initPos() {
         pos1 = new LatLng(24.9667, 121.192);
@@ -134,23 +182,14 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             }
         });
-
-        btnTravelPos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btnGroupPos.isChecked()){
-                    Toast.makeText(BikeTrackActivity.this, "Travel ON",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(BikeTrackActivity.this, "Travel is off",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
         setUpMap();
+        showAllTravels();
+
     }
 
     private void setUpMap() {
@@ -230,12 +269,13 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 //        markerGroup5 = map.addMarker(new MarkerOptions().position(pos5).title("member 2").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
     }
 
+
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            List<SqlGroupDeatilsVO> sqlGroupDeatilsVOs = null;
             updateLastLocationInfo(location);
             lastLocation = location;
+            List<SqlGroupDeatilsVO> sqlGroupDeatilsVOs = null;
             pref= getSharedPreferences(Common.PREF_FILE,
                     MODE_PRIVATE);
             Integer mem_no =pref.getInt("pref_memno",0);
@@ -258,22 +298,44 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 
                 latlngVOs.add(latlngVO);
 
-                String key = "W5AXTVXC";
+                Double lat = lastLocation.getLatitude();
+                Double lng = lastLocation.getLongitude();
+                String key = pref.getString("pref_key","");
+                Integer groupbike_no = pref.getInt("pref_groupno", 0);
                 try {
                     sqlGroupDeatilsVOs = new BikeGroupPosFlashTask().execute(key).get();
+                    new BikeGroupUpdatePos().execute(mem_no,groupbike_no,lat,lng).get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                if(sqlGroupDeatilsVOs == null || sqlGroupDeatilsVOs.isEmpty()){
+                    Common.showToast(BikeTrackActivity.this,"目前沒有查詢到資料");
+                }else {
+                    Common.showToast(BikeTrackActivity.this,"車友位置已更新");
+                    map.clear();
+                    addMarkersG1ToMap();
+                    showAllTravels();
+                }
 //
-                int count= 0 ;
-                //查詢車友位置List中，個別放置在不同的pos中
-//                for(SqlGroupDeatilsVO obj: sqlGroupDeatilsVOs){
-                while (sqlGroupDeatilsVOs.iterator().hasNext()){
-                    SqlGroupDeatilsVO obj = new SqlGroupDeatilsVO();
-                    if(count==0){
-                        LatLng pos = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-                        pos1 = pos;
-                    }
+//                int count= 0 ;
+//                查詢車友位置List中，個別放置在不同的pos中
+                Map<Integer,LatLng> posMap = new LinkedHashMap<Integer,LatLng>();
+
+                for(SqlGroupDeatilsVO obj: sqlGroupDeatilsVOs){
+//                while (sqlGroupDeatilsVOs.iterator().hasNext()){
+//                    SqlGroupDeatilsVO obj = new SqlGroupDeatilsVO();
+//
+                    LatLng latlng = new LatLng(obj.getGroup_lat(),obj.getGroup_lng());
+//                    posMap.put(obj.getMem_no(), latlng);
+                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
+
+
+//
+//                    if(count==0){
+//                        LatLng pos = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
+//                        pos1 = pos;
+//                    }
 //                    if(count==1){
 //                        pos2 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
 //                    }
@@ -287,7 +349,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 //                        pos5 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
 //                    }
 //                    count++;
-//
+
                 }
 
 

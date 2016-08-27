@@ -1,51 +1,48 @@
-package com.coors.ibikego.travel;
+package com.coors.ibikego.bikemode;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.coors.ibikego.Common;
-import com.coors.ibikego.daovo.TravelVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 /**
- * Created by user on 2016/8/24.
+ * Created by user on 2016/8/27.
  */
-public class TravelGetAllTask extends AsyncTask<Object, Integer, List<TravelVO>> {
-    private final static String TAG = "TravelGetAllTask";
-//    private final static String ACTION = "getAllTravel";
-    private final static String url = Common.URL + "travel/travelApp";
+public class BikeGroupUpdatePos extends AsyncTask<Object,Integer,Integer> {
+    private final static String TAG = "BikeGroupUpdatePosTask";
+    String url_this = Common.URL + "groupdetails/groupdetailsApp";
+    private final static String ACTION = "updatePos";
 
     @Override
-    protected List<TravelVO> doInBackground(Object... params) {
+    protected Integer doInBackground(Object... params) {
+        String url = url_this;
         String jsonIn;
-        String ACTION = params[0].toString();
+        String mem_no = params[0].toString();
+        String groupbike_no = params[1].toString();
+        String lat = params[2].toString();
+        String lng = params[3].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
+        jsonObject.addProperty("mem_no", mem_no);
+        jsonObject.addProperty("groupbike_no", groupbike_no);
+        jsonObject.addProperty("lat", lat);
+        jsonObject.addProperty("lng", lng);
         try {
             jsonIn = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
-
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
-
-        Type listType = new TypeToken<List<TravelVO>>() {
-        }.getType();
-        return gson.fromJson(jsonIn, listType);
+        return Integer.parseInt(jsonIn);
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {
@@ -59,6 +56,7 @@ public class TravelGetAllTask extends AsyncTask<Object, Integer, List<TravelVO>>
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         bw.write(jsonOut);
         Log.d(TAG, "jsonOut: " + jsonOut);
+        Log.d(TAG, "URL: " + url);
         bw.close();
 
         int responseCode = connection.getResponseCode();

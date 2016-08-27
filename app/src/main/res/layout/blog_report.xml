@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bike"
+    tools:context=".blog.BlogReportActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/appbar"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        fab:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            fab:layout_scrollFlags="scroll|enterAlways"
+            fab:navigationIcon="?attr/homeAsUpIndicator" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/ivDetail"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_below="@id/appbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:text="檢舉內容"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0000FF"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tvTarget"
+        android:layout_below="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="6dp"
+        android:background="@drawable/bg_while_2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18sp" />
+
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_below="@+id/tvTarget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="6dp"
+        android:hint="請輸入檢舉內容"
+        android:background="@drawable/bg_while_2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/etContent"
+        android:layout_margin="6dp"
+        android:layout_height="wrap_content">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:onClick="onBlogReport"
+            android:layout_weight="1"
+            android:text="送出檢舉" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onBlogReportCancel"
+            android:layout_weight="1"
+            android:text="取消" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

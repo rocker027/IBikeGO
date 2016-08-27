@@ -50,7 +50,8 @@
         <activity android:name=".travel.TravelShowMapActivity" />
         <activity android:name=".search.SearchAttractionsActivity" />
         <activity android:name=".search.SearchBreakActivity" />
-        <activity android:name=".search.SearchAllActivity"></activity>
+        <activity android:name=".search.SearchAllActivity" />
+        <activity android:name=".blog.BlogReportActivity"></activity>
     </application>
 
 </manifest>

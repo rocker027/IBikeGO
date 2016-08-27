@@ -36,7 +36,7 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        initGetDate();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bike_group_room);
         initToolbar();
-        initGetDate();
+//        initGetDate();
     }
     private void initGetDate() {
         pref = getSharedPreferences(Common.PREF_FILE,

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
@@ -50,6 +51,10 @@ public class BlogFragment extends Fragment {
             blogList = new BlogGetAllTask().execute(url).get();
         } catch (Exception e) {
             Log.e(TAG, e.toString());
+        }
+
+        if(blogList == null || blogList.isEmpty()){
+            Toast.makeText(getContext(),"與資料庫連線失敗",Toast.LENGTH_SHORT).show();
         }
 
         View view = inflater.inflate(R.layout.blog_fragment, container, false);

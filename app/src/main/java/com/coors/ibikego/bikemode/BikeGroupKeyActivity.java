@@ -17,8 +17,11 @@ import com.coors.ibikego.R;
 import com.coors.ibikego.RanPwd;
 import com.coors.ibikego.daovo.GroupBikeVO;
 import com.coors.ibikego.daovo.GroupDetailsVO;
+import com.coors.ibikego.daovo.SqlGroupDeatilsVO;
+import com.coors.ibikego.daovo.SqlGroupMemVO;
 import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class BikeGroupKeyActivity extends AppCompatActivity {
@@ -66,11 +69,24 @@ public class BikeGroupKeyActivity extends AppCompatActivity {
         }else {
             key = etKeyIn.getText().toString();
             try {
+                List<SqlGroupDeatilsVO> sqlGroupDeatilsVOs = null;
+                sqlGroupDeatilsVOs = new BikeGroupPosFlashTask().execute(key).get();
+
+                if(sqlGroupDeatilsVOs != null){
+                    for(SqlGroupDeatilsVO mem:sqlGroupDeatilsVOs){
+                        if(pref.getInt("pref_memno",0) == mem.getMem_no()){
+                            pref.edit().putInt("pref_groupno",mem.getGroupbike_no());
+                            Toast.makeText(this,"加入失敗,已經加入連線",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
 
                 GroupDetailsVO groupDetailsVO = new GroupDetailsVO();
                 groupDetailsVO.setMem_no(pref.getInt("pref_memno",0));
                 GroupBikeVO groupBikeVO  = new BikeGetGroupNoTask().execute(key).get();
                 groupDetailsVO.setGroupbike_no(groupBikeVO.getGroupbike_no());
+                pref.edit().putInt("pref_groupno",groupBikeVO.getGroupbike_no());
                 String objtostr = new Gson().toJson(groupDetailsVO);
 
                 int isOK = new BikeGroupKeyJoinTask().execute(objtostr).get();
@@ -78,6 +94,7 @@ public class BikeGroupKeyActivity extends AppCompatActivity {
                     Toast.makeText(this,"加入失敗，請確認連線Key是否正確",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this,"加入成功",Toast.LENGTH_SHORT).show();
+                    pref.edit().putString("pref_key",key).apply();
                     startActivity(new Intent(BikeGroupKeyActivity.this,BikeGroupRoomActivity.class));
                 }
             } catch (Exception e) {

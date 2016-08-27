@@ -1,9 +1,13 @@
 package com.coors.ibikego.travel;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.coors.ibikego.Common;
+import com.coors.ibikego.R;
 import com.coors.ibikego.daovo.TravelVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,47 +19,67 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
 /**
- * Created by user on 2016/8/24.
+ * Created by user on 2016/8/25.
  */
-public class TravelGetAllTask extends AsyncTask<Object, Integer, List<TravelVO>> {
+public class TravelGetBitmapTask extends AsyncTask <Object,Integer,Bitmap> {
     private final static String TAG = "TravelGetAllTask";
-//    private final static String ACTION = "getAllTravel";
+    private final static String ACTION = "getImage";
     private final static String url = Common.URL + "travel/travelApp";
+    private final WeakReference<ImageView> imageViewWeakReference;
+
+    public TravelGetBitmapTask(ImageView imageView) {
+        this.imageViewWeakReference = new WeakReference<>(imageView);
+    }
 
     @Override
-    protected List<TravelVO> doInBackground(Object... params) {
-        String jsonIn;
-        String ACTION = params[0].toString();
+    protected Bitmap doInBackground(Object... params) {
+        String tra_no = params[0].toString();
+        String imageSize = params[0].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
+        jsonObject.addProperty("tra_no", tra_no);
+        jsonObject.addProperty("imageSize", imageSize);
+
+        Bitmap bitmap;
         try {
-            jsonIn = getRemoteData(url, jsonObject.toString());
+            bitmap = getRemoteImage(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
-
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
-
-        Type listType = new TypeToken<List<TravelVO>>() {
-        }.getType();
-        return gson.fromJson(jsonIn, listType);
+        return bitmap;
     }
 
-    private String getRemoteData(String url, String jsonOut) throws IOException {
-        StringBuilder jsonIn = new StringBuilder();
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+        if (isCancelled()) {
+            bitmap = null;
+        }
+        ImageView imageView = imageViewWeakReference.get();
+        if (imageView != null) {
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                imageView.setImageResource(R.drawable.ic_insert_photo_black_24dp);
+            }
+        }
+        super.onPostExecute(bitmap);
+    }
+
+    private Bitmap getRemoteImage(String url, String jsonOut) throws IOException {
+        Bitmap bitmap = null;
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setDoInput(true); // allow inputs
         connection.setDoOutput(true); // allow outputs
         connection.setUseCaches(false); // do not use a cached copy
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("charset", "UTF-8");
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         bw.write(jsonOut);
         Log.d(TAG, "jsonOut: " + jsonOut);
@@ -64,16 +88,11 @@ public class TravelGetAllTask extends AsyncTask<Object, Integer, List<TravelVO>>
         int responseCode = connection.getResponseCode();
 
         if (responseCode == 200) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                jsonIn.append(line);
-            }
+            bitmap = BitmapFactory.decodeStream(connection.getInputStream());
         } else {
             Log.d(TAG, "response code: " + responseCode);
         }
         connection.disconnect();
-        Log.d(TAG, "jsonIn: " + jsonIn);
-        return jsonIn.toString();
+        return bitmap;
     }
 }

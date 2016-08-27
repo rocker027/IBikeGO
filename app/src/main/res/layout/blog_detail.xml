@@ -39,7 +39,7 @@
             <ImageView
                 android:id="@+id/ivDetail"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="wrap_content" />
 
 
             <TextView
@@ -93,7 +93,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_favorite"
             android:layout_width="wrap_content"
-            android:onClick="onClickEdit"
+            android:onClick="onClickBlogFavor"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_noselect_24dp"
             fab:fab_label="加入收藏"
@@ -103,7 +103,7 @@
             android:id="@+id/menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickDelete"
+            android:onClick="onClickBlogReport"
             android:src="@drawable/ic_addnew_24dp"
             fab:fab_label="檢舉"
             fab:fab_size="mini" />

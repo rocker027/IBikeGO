@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Integer memno;
     public static final int FUNC_LOGIN = 1;
     private final static String TAG = "chkLoginStatus";
+    private MyPagerAdapter myPagerAdapter;
 
 
 
@@ -71,15 +72,6 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         initDrawer();
         askPermissions();
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initDrawer();
-
     }
 
     @Override
@@ -87,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         // home icon will keep still without calling syncState()
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(myPagerAdapter != null) {
+            myPagerAdapter.notifyDataSetChanged();
+        }
     }
 
     private void initToolbar() {
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         if (islogin) {
             logInVisible();
 
-            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 50);
+            new MemberGetImageTask(ivNav_UserPhoto).execute(url, memno, 300);
         }else {
 //            logOutUnVisible();
 //            nav_Menu.findItem(R.id.item_login).setVisible(true);

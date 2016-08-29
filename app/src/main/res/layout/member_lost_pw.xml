@@ -4,20 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_bike"
+    android:background="@drawable/bike_bg01"
     android:orientation="vertical"
     tools:context="com.coors.ibikego.member.MemberLostPwActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#01B468"
-        android:minHeight="?attr/actionBarSize"
-        android:title="忘記密碼"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="#01B468"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:title="忘記密碼"-->
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+        <!--app:navigationIcon="?attr/homeAsUpIndicator" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:hint="請輸入帳號"
             app:hintTextAppearance="@style/MyHintText">
 
 
@@ -36,8 +55,7 @@
                 style="@style/FullWidthEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#5002B468"
-                android:hint="請輸入帳號" />
+                 />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -45,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:hint="請輸入電子信箱"
             app:hintTextAppearance="@style/MyHintText">
 
             <EditText
@@ -52,7 +71,7 @@
                 style="@style/FullWidthEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="請輸入電子信箱" />
+                 />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -61,26 +80,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.beardedhen.androidbootstrap.BootstrapButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_margin="6dp"
                 android:onClick="onClickLostPw"
                 android:text="送出"
-                android:textSize="18sp"
                 android:theme="@style/MyButton" />
 
-            <Button
+            <com.beardedhen.androidbootstrap.BootstrapButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_margin="6dp"
                 android:onClick="onClickLostReset"
                 android:text="重設"
-                android:textSize="18sp"
                 android:theme="@style/MyButton" />
 
         </LinearLayout>

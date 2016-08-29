@@ -37,6 +37,7 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initGetDate();
+        initToolbar();
     }
 
     @Override

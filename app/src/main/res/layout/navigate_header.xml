@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="172dp"
     android:orientation="horizontal"
-    android:background="#01B468"
+    android:background="@drawable/naviview_bg"
     >
 
 
-    <ImageView
-        android:layout_width="148dp"
-        android:layout_height="match_parent"
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="16dp"
         android:id="@+id/ivNaviUser"
-        android:layout_marginTop="24dp"
 
 
         />

@@ -17,13 +17,8 @@ import android.widget.TextView;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
-import com.coors.ibikego.blog.BlogDetailActivity;
-import com.coors.ibikego.blog.BlogGetImageTask;
-import com.coors.ibikego.daovo.BlogVO;
-import com.coors.ibikego.daovo.MemberVO;
 import com.coors.ibikego.daovo.TravelVO;
-import com.coors.ibikego.member.MemberGetOneTask;
-import com.coors.ibikego.travel.AttractionsDetailActivity;
+import com.coors.ibikego.travel.TravelDetailActivity;
 import com.coors.ibikego.travel.TravelGetImageTask;
 
 import java.util.List;
@@ -112,7 +107,7 @@ public class SearchAttractionsActivity extends AppCompatActivity {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(SearchAttractionsActivity.this, AttractionsDetailActivity.class);
+                    Intent intent = new Intent(SearchAttractionsActivity.this, TravelDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("travelVO", travelVO);
                     intent.putExtras(bundle);

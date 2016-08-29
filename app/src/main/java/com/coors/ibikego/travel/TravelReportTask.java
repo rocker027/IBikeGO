@@ -1,4 +1,4 @@
-package com.coors.ibikego.blog;
+package com.coors.ibikego.travel;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,28 +17,27 @@ import java.net.URL;
 /**
  * Created by user on 2016/8/27.
  */
-public class BlogReportTask extends AsyncTask<Object,Integer,String> {
+public class TravelReportTask extends AsyncTask<Object,Integer,String> {
     private final static String TAG = "TravelReportTask";
-    private String ACTION = "reportBlog";
+    private String ACTION = "reportTravel";
     private String url = Common.URL + "reportcollect/reportcollectAPP";
 
     @Override
     protected String doInBackground(Object... params) {
 //        new BikeTrackInsertTask().execute(url,action ,json);
 
-        String blog_no = params[0].toString();
+        String tra_no = params[0].toString();
         String mem_no = params[1].toString();
         String rep_cnt = params[2].toString();
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("blog_no", blog_no);
+        jsonObject.addProperty("tra_no", tra_no);
         jsonObject.addProperty("mem_no", mem_no);
         jsonObject.addProperty("rep_cnt", rep_cnt);
 
 
-//        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
         try {
             result = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {

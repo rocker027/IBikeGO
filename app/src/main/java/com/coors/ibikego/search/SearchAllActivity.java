@@ -133,7 +133,7 @@ public class SearchAllActivity extends AppCompatActivity {
 //                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
-//                        Intent intent = new Intent(SearchAllAdapter.this, AttractionsDetailActivity.class);
+//                        Intent intent = new Intent(SearchAllAdapter.this, TravelDetailActivity.class);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putSerializable("travelVO", travelVO);
 //                        intent.putExtras(bundle);

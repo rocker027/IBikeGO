@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_bike"
-    tools:context=".travel.AttractionsDetailActivity">
+    tools:context=".travel.TravelDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -123,7 +123,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_favorite"
             android:layout_width="wrap_content"
-            android:onClick="onClickEdit"
+            android:onClick="onTravelFavor"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_noselect_24dp"
             fab:fab_label="加入收藏"
@@ -133,7 +133,7 @@
             android:id="@+id/menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickDelete"
+            android:onClick="onTravelReport"
             android:src="@drawable/ic_addnew_24dp"
             fab:fab_label="檢舉"
             fab:fab_size="mini" />

@@ -4,28 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#01B468"
-        android:minHeight="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="#01B468"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+        <!--app:navigationIcon="?attr/homeAsUpIndicator" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
+        android:background="@drawable/bike_bg07"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/viewA"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.8"
-            android:background="#01B468"
+            android:layout_weight="2.5"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -60,6 +79,7 @@
                     android:hint="請輸入帳號">
 
                     <EditText
+                        style="@style/FullWidthEditText"
                         android:id="@+id/et_mem_regAcc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,6 +97,7 @@
 
                     <EditText
                         android:id="@+id/et_mem_regPw"
+                        style="@style/FullWidthEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -89,11 +110,13 @@
                 <!--pw2-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
                     android:hint="再一次輸入密碼">
 
                     <EditText
                         android:id="@+id/et_mem_regPw2"
+                        style="@style/FullWidthEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -111,6 +134,7 @@
 
                     <EditText
                         android:id="@+id/et_mem_regName"
+                        style="@style/FullWidthEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
@@ -128,6 +152,7 @@
 
                     <EditText
                         android:id="@+id/et_mem_regEmail"
+                        style="@style/FullWidthEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
@@ -139,7 +164,7 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-                <Button
+                <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/btn_mem_regSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

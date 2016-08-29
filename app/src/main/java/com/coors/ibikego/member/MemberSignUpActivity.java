@@ -36,14 +36,10 @@ public class MemberSignUpActivity extends AppCompatActivity {
     private static final int REQUEST_PICK_IMAGE = 1;
     private byte[] image;
 
-    private EditText etMem_no;
     private EditText etMem_acc;
     private EditText etMem_pw;
     private EditText etMem_pw2;
     private EditText etMem_name;
-    //    private EditText etMem_nickname;
-//    private EditText etMem_add;
-//    private EditText etMem_phone;
     private EditText etMem_email;
     private ImageView imageView;
 
@@ -156,25 +152,12 @@ public class MemberSignUpActivity extends AppCompatActivity {
         }
     }
 
-    //驗證電話格式 ok
-//    private boolean isValid_Phone(EditText mem_phone) {
-//        String pattern = "^09\\d{8}$";
-//        String phone = mem_phone.getText().toString();
-//        if (!phone.matches(pattern)) {
-//            mem_phone.setError("Please enter a phone number!");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//
-//    }
-
     //比對再輸入一次密碼是否一致
     private boolean isPwMatch(EditText mem_pw, EditText mem_pw2) {
         if (mem_pw.getText().toString().equals(mem_pw2.getText().toString())) {
             return true;
         } else {
-            mem_pw2.setError("Passwords not match");
+            mem_pw2.setError("密碼不一致");
             return false;
         }
     }

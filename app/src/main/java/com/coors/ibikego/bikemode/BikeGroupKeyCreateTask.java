@@ -34,6 +34,9 @@ public class BikeGroupKeyCreateTask extends AsyncTask<Object,Integer,Integer> {
         jsonObject.addProperty("key", key);
         try {
             jsonIn = getRemoteData(url, jsonObject.toString());
+            if(jsonIn.isEmpty()){
+                jsonIn = "0";
+            }
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;

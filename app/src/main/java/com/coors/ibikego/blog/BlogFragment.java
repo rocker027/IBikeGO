@@ -17,6 +17,7 @@ import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.daovo.MemberVO;
 import com.coors.ibikego.R;
+import com.coors.ibikego.daovo.SqlBlogVO;
 import com.coors.ibikego.member.MemberGetOneTask;
 
 import java.util.List;
@@ -24,20 +25,14 @@ import java.util.List;
 public class BlogFragment extends Fragment {
     private static final String TAG = "BlogFragment";
     BlogAdapter blogAdapter;
-    private List<BlogVO> blogList;
+    private List<SqlBlogVO> blogList;
 
     @Override
     public void onStart() {
         super.onStart();
-        blogList = null;
-
-        String url = Common.URL + "blog/blogApp";
-        try {
-            blogList = new BlogGetAllTask().execute(url).get();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
+        if(blogList != null) {
+            blogAdapter.notifyDataSetChanged();
         }
-        blogAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -80,21 +75,21 @@ public class BlogFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            final BlogVO blog = blogList.get(position);
+            final SqlBlogVO blog = blogList.get(position);
             String url = Common.URL + "blog/blogApp";
             int blog_no = blog.getBlog_no();
-            MemberVO memberVO=null;
+//            MemberVO memberVO=null;
             String mem_pk = String.valueOf(blog.getMem_no());
-            try {
-                memberVO = new MemberGetOneTask().execute(url,mem_pk).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                memberVO = new MemberGetOneTask().execute(url,mem_pk).get();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             int imageSize = 250;
             new BlogGetImageTask(viewHolder.ivRecycleView).execute(url, blog_no, imageSize);
             viewHolder.tvTitle.setText(blog.getBlog_title());
             viewHolder.tvTime.setText(blog.getBlog_cre().toString());
-            viewHolder.tvMem_no.setText(memberVO.getMem_name());
+            viewHolder.tvMem_no.setText(blog.getMem_name());
 //            viewHolder.imageView.setImageResource(blog.getImageId());
             //點選cardview 轉頁
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

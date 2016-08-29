@@ -71,7 +71,7 @@ public class BreakFragment extends Fragment {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), AttractionsDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), TravelDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("travelVO", travelVO);
                     intent.putExtras(bundle);

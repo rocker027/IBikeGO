@@ -1,4 +1,4 @@
-package com.coors.ibikego.blog;
+package com.coors.ibikego.travel;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,9 +17,9 @@ import java.net.URL;
 /**
  * Created by user on 2016/8/27.
  */
-public class BlogReportTask extends AsyncTask<Object,Integer,String> {
-    private final static String TAG = "TravelReportTask";
-    private String ACTION = "reportBlog";
+public class TravelCollectTask extends AsyncTask<Object,Integer,String> {
+    private final static String TAG = "TravelCollectTask";
+    private String ACTION = "collectOneTravel";
     private String url = Common.URL + "reportcollect/reportcollectAPP";
 
     @Override
@@ -28,15 +28,12 @@ public class BlogReportTask extends AsyncTask<Object,Integer,String> {
 
         String blog_no = params[0].toString();
         String mem_no = params[1].toString();
-        String rep_cnt = params[2].toString();
         String result;
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
         jsonObject.addProperty("blog_no", blog_no);
         jsonObject.addProperty("mem_no", mem_no);
-        jsonObject.addProperty("rep_cnt", rep_cnt);
-
 
 //        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
         try {

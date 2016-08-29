@@ -18,8 +18,7 @@ import android.widget.TextView;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
 import com.coors.ibikego.daovo.TravelVO;
-import com.coors.ibikego.travel.AttractionsDetailActivity;
-import com.coors.ibikego.travel.BreakDetailActivity;
+import com.coors.ibikego.travel.TravelDetailActivity;
 import com.coors.ibikego.travel.TravelGetImageTask;
 
 import java.util.List;
@@ -107,7 +106,7 @@ public class SearchBreakActivity extends AppCompatActivity {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(SearchBreakActivity.this, BreakDetailActivity.class);
+                    Intent intent = new Intent(SearchBreakActivity.this, TravelDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("travelVO", travelVO);
                     intent.putExtras(bundle);

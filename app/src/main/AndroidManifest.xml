@@ -51,7 +51,9 @@
         <activity android:name=".search.SearchBreakActivity" />
         <activity android:name=".search.SearchAllActivity" />
         <activity android:name=".blog.BlogReportActivity" />
-        <activity android:name=".travel.TravelReportActivity"></activity>
+        <activity android:name=".travel.TravelReportActivity" />
+        <activity android:name=".travel.AttractionsInsertActivity" />
+        <activity android:name=".travel.BreakInsertActivity"></activity>
     </application>
 
 </manifest>

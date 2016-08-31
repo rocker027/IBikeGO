@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="10dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:onClick="onClickShowItem2"
         android:orientation="vertical"
         android:padding="10dp">

@@ -13,12 +13,13 @@ import android.widget.Toast;
 import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
+import com.coors.ibikego.daovo.SqlBlogVO;
 
 import java.util.concurrent.ExecutionException;
 
 
 public class BlogDetailActivity extends AppCompatActivity {
-    private BlogVO blog;
+    private SqlBlogVO blog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class BlogDetailActivity extends AppCompatActivity {
         initToolbar();
 
 
-        blog = (BlogVO) getIntent().getExtras().getSerializable("blog");
+        blog = (SqlBlogVO) getIntent().getExtras().getSerializable("blog");
 
         int blog_no = blog.getBlog_no();
 

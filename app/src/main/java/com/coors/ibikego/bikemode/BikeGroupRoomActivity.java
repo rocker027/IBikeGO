@@ -1,6 +1,7 @@
 package com.coors.ibikego.bikemode;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.coors.ibikego.R;
 import com.coors.ibikego.daovo.SqlGroupMemVO;
 import com.coors.ibikego.member.MemberGetImageTask;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -37,7 +40,6 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initGetDate();
-        initToolbar();
     }
 
     @Override
@@ -51,6 +53,8 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
         pref = getSharedPreferences(Common.PREF_FILE,
                 MODE_PRIVATE);
         String key = pref.getString("pref_key","");
+        TextView tvShowKey = (TextView) findViewById(R.id.tvShowkey);
+        tvShowKey.setText("目前連線Key："+key);
         try {
             groupMemVOList = new BikeGetGroupMemsTask().execute(key).get();
         } catch (Exception e) {
@@ -86,6 +90,10 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickToMap(View view) {
+        startActivity(new Intent(this,BikeTrackActivity.class));
+    }
+
     private class GroupMemsListAdapter extends RecyclerView.Adapter<GroupMemsListAdapter.ViewHolder>{
         private Context context;
         private List<SqlGroupMemVO> groupMemVOList;
@@ -115,7 +123,8 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
             viewHolder.tvTime.setText("最後更新時間:"+sqlGroupMemVO.getGroup_update_time());
             viewHolder.tvLatlng.setText("經緯度:"+sqlGroupMemVO.getGroup_lat()+","+sqlGroupMemVO.getGroup_lng());
             String url = Common.URL + "member/memberApp.do";
-            Integer memno = pref.getInt("pref_memno", 0);
+            Integer mem_no = sqlGroupMemVO.getMem_no();
+//            Integer memno = pref.getInt("pref_memno", 0);
 //            //按鈕
 //            if(memno!=sqlGroupMemVO.getMem_no()){
 //                viewHolder.button.setVisibility(View.GONE);
@@ -138,7 +147,7 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
 //                    }
 //                }
 //            });
-            new MemberGetImageTask(viewHolder.ivRecycleView).execute(url, memno, 50);
+            new MemberGetImageTask(viewHolder.ivRecycleView).execute(url, mem_no, 400);
             //退出連線
 
             //點選cardview 轉頁
@@ -165,8 +174,7 @@ public class BikeGroupRoomActivity extends AppCompatActivity {
                 tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
                 tvTime = (TextView) itemView.findViewById(R.id.tvTime);
                 tvLatlng = (TextView) itemView.findViewById(R.id.tvLatlng);
-//                button = (BootstrapButton) itemView.findViewById(R.id.btnGroupRemove) ;
-                ivRecycleView = (ImageView) itemView.findViewById(R.id.TrackListRecycleView);
+                ivRecycleView = (ImageView) itemView.findViewById(R.id.ivRecycleView);
             }
 
         }

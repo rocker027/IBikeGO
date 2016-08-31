@@ -43,28 +43,79 @@
                 android:padding="3dp"
                 android:src="@drawable/ic_insert_photo_black_24dp" />
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="景點名稱"
+                fab:hintTextAppearance="@style/MyHintText">
+
+                <EditText
+                    android:id="@+id/etTraName"
+                    style="@style/FullWidthEditText"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_while_2"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="日誌標題"
+                android:layout_margin="5dp"
+                android:hint="景點電話"
                 fab:hintTextAppearance="@style/MyHintText">
 
-                <!--<EditText-->
-                <!--android:id="@+id/etBlogTitle"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:hint="日誌標題"-->
-                <!--android:inputType=""-->
-                <!--android:maxLength="30"-->
-                <!--android:singleLine="true"-->
-                <!--android:textSize="20sp" />-->
                 <EditText
-                    android:id="@+id/etBlogTitle"
+                    android:id="@+id/etTraTel"
+                    style="@style/FullWidthEditText"
+                    android:background="@drawable/bg_while_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_while_2"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="區域選擇"
+                    android:paddingLeft="20dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spZone"
+                    android:layout_width="450dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="景點地址"
+                fab:hintTextAppearance="@style/MyHintText">
+
+                <EditText
+                    android:id="@+id/etTraAdd"
                     style="@style/FullWidthEditText"
                     android:layout_width="match_parent"
+                    android:background="@drawable/bg_while_2"
                     android:layout_height="wrap_content"
                     android:textSize="20sp" />
 
@@ -73,14 +124,15 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="日誌內容">
+                android:layout_margin="4dp"
+                android:hint="景點相關資訊">
 
                 <EditText
-                    android:id="@+id/etBlogContent"
+                    android:id="@+id/etTraContent"
                     style="@style/FullWidthEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:background="@drawable/bg_while_2"
                     android:inputType="textMultiLine"
                     android:maxLength="150"
                     android:singleLine="true"
@@ -89,10 +141,7 @@
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
-
-
     </ScrollView>
-
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu"

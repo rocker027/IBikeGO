@@ -40,8 +40,8 @@ public class TravelGetBitmapTask extends AsyncTask <Object,Integer,Bitmap> {
 
     @Override
     protected Bitmap doInBackground(Object... params) {
-        String tra_no = params[0].toString();
-        String imageSize = params[0].toString();
+        String tra_no = params[1].toString();
+        String imageSize = params[2].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
         jsonObject.addProperty("tra_no", tra_no);

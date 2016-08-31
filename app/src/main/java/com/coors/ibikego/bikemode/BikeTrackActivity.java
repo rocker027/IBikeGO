@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -98,8 +99,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fmMap);
         mapFragment.getMapAsync(this);
-        initPos();
-        findToggleBtn();
+//        findToggleBtn();
 
 
 
@@ -110,7 +110,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 //        map.clear();
 
         List<TravelVO> travelVOList = null;
-        String action = "getAllTravel";
+        String action = "getAll";
         try {
             travelVOList = new TravelGetAllTask().execute(action).get();
         } catch (Exception e) {
@@ -125,7 +125,8 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 markerTravels = map.addMarker(new MarkerOptions()
                         .position(latLng).title(travelVO
                         .getTra_name()).snippet(travelVO.getTra_add()));
-
+                    //backup
+//                map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
                 map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
 
 //                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -141,24 +142,15 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
 
-    private void initPos() {
-//        pos1 = new LatLng(24.9667, 121.192);
-//        pos2 = new LatLng(24.9668, 121.193);
-//        pos3 = new LatLng(24.9669, 121.194);
-//        pos4 = new LatLng(24.9665, 121.195);
-//        pos5 = new LatLng(24.9663, 121.196);
 
-
-    }
-
-    private void findToggleBtn() {
-        final ToggleButton btnGroupPos = (ToggleButton) findViewById(R.id.btnGroupPos);
-        ToggleButton btnTravelPos = (ToggleButton) findViewById(R.id.btnTravelPos);
-
-        btnGroupPos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btnGroupPos.isChecked()){
+//    private void findToggleBtn() {
+//        final ToggleButton btnGroupPos = (ToggleButton) findViewById(R.id.btnGroupPos);
+//        ToggleButton btnTravelPos = (ToggleButton) findViewById(R.id.btnTravelPos);
+//
+//        btnGroupPos.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(btnGroupPos.isChecked()){
 //                    if(markerGroup1!=null){
 //                        markerGroup1.remove();
 //                    }
@@ -177,21 +169,16 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 //                    if(markerGroup5!=null){
 //                        markerGroup5.remove();
 //                    }
-                    addMarkersG1ToMap();
-                    btnGroupClick = true;
-                    Toast.makeText(BikeTrackActivity.this, "Group ON",Toast.LENGTH_SHORT).show();
-                }else {
-                    markerGroup1.remove();
-//                    markerGroup2.remove();
-//                    markerGroup3.remove();
-//                    markerGroup4.remove();
-//                    markerGroup5.remove();
-                    btnGroupClick = false;
-                    Toast.makeText(BikeTrackActivity.this, "Group is off",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//                    addMarkersG1ToMap();
+//                    btnGroupClick = true;
+//                    Toast.makeText(BikeTrackActivity.this, "Group ON",Toast.LENGTH_SHORT).show();
+//                }else {
+//                    btnGroupClick = false;
+//                    Toast.makeText(BikeTrackActivity.this, "Group is off",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public void onMapReady(GoogleMap map) {
@@ -225,23 +212,6 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         map.setMyLocationEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
 
-
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(NowPoint)
-//                .zoom(16)
-//                .build();
-//        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//        addMarkersG1ToMap();
-//        addMarkersG2ToMap();
-//        addMarkersG3ToMap();
-//        addMarkersToMap();
-
-//        map.setInfoWindowAdapter(new MyInfoWindowAdapter());
-//
-//        MyMarkerListener myMarkerListener = new MyMarkerListener();
-//        map.setOnMarkerClickListener(myMarkerListener);
-//        map.setOnInfoWindowClickListener(myMarkerListener);
-
     }
 
     //畫追蹤路徑線段
@@ -266,16 +236,6 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 .snippet(getString(R.string.marker_snippet))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
-    }
-
-    //增加Group成員的marker
-    private void addMarkersG1ToMap() {
-
-//        markerGroup1 = map.addMarker(new MarkerOptions().position(pos1).title("member 1").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
-//        markerGroup2 = map.addMarker(new MarkerOptions().position(pos2).title("member 2").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
-//        markerGroup3 = map.addMarker(new MarkerOptions().position(pos3).title("member 2").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
-//        markerGroup4 = map.addMarker(new MarkerOptions().position(pos4).title("member 2").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
-//        markerGroup5 = map.addMarker(new MarkerOptions().position(pos5).title("member 2").icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
     }
 
 
@@ -324,77 +284,40 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                     Common.showToast(BikeTrackActivity.this,"車友位置已更新");
                     map.clear();
 //                    addMarkersG1ToMap();
-                    showAllTravels();
+//                    showAllTravels();
                 }
 //
-//                int count= 0 ;
 //                查詢車友位置List中，個別放置在不同的pos中
                 Map<Integer,Bitmap> memMap = new LinkedHashMap<Integer,Bitmap>();
 
                 for(SqlGroupDeatilsVO obj: sqlGroupDeatilsVOs){
                     LatLng latlng = new LatLng(obj.getGroup_lat(),obj.getGroup_lng());
-
-                    //infowindows
-//                            markerTravels = map.addMarker(new MarkerOptions()
-//                                    .position(latlng).title(obj.getMem_name()));
-//
-//                            map.setInfoWindowAdapter(new TrackGroupInfoAdapter(BikeTrackActivity.this, obj));
-
-//                        Bitmap bitmap ;
 //                            若memMap為空時，表示map內尚未存放會員大頭貼
+                            if(memMap.get(obj.getMem_no())== null) {
                                 try {
-                                    Bitmap bitmap = new MemberGetBitmapTask().execute(obj.getMem_no(), 150).get();
+                                    Bitmap bitmap = new MemberGetBitmapTask().execute(obj.getMem_no(), 100).get();
 //                                    Bitmap bmp = BitmapFactory.decodeByteArray(new MemberGetBitmapTask().execute(obj.getMem_no(), 300).get());
-
                                     memMap.put(obj.getMem_no(), bitmap);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
-                    Bitmap image = memMap.get(obj.getMem_no());
-//                    posMap.put(obj.getMem_no(), latlng);
-
+                            }
+                    //自訂google marker所以要給他一個layout
                     View marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.trackgroup_infowindow, null);
-
-//                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromResource((R.drawable.cycling))));
-//                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(image)));
-                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(BikeTrackActivity.this, marker,obj.getMem_no(),memMap))));
-
-//                    // Convert a view to bitmap
-
-
-
-//
-//                    if(count==0){
-//                        LatLng pos = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-//                        pos1 = pos;
-//                    }
-//                    if(count==1){
-//                        pos2 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-//                    }
-//                    if(count==2){
-//                        pos3 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-//                    }
-//                    if(count==3){
-//                        pos4 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-//                    }
-//                    if(count==4){
-//                        pos5 = new LatLng(obj.getGroup_lat(), obj.getGroup_lng());
-//                    }
-//                    count++;
+                    //匯入自訂marker
+                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(BikeTrackActivity.this, marker,obj,memMap))));
 
                 }
 
 
 
                 //車友位置顯示的狀況
-                if(btnGroupClick = false){
-
-                }
+//                if(btnGroupClick = false){
+//
+//                }
                 //若車友位置顯示是on的情況
-                if(btnGroupClick = true){
-                    markerGroupReFlash();
-                }
+//                if(btnGroupClick = true){
+//                }
 
 
 
@@ -412,7 +335,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         }
     };
 
-    public static Bitmap createDrawableFromView(Context context, View view ,Integer mem_no,Map<Integer,Bitmap> map) {
+    public static Bitmap createDrawableFromView(Context context, View view ,SqlGroupDeatilsVO sqlGroupDeatilsVO,Map<Integer,Bitmap> map) {
         Map<Integer,Bitmap> memMap = map;
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -420,14 +343,14 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
         ImageView icon = (ImageView) view.findViewById(R.id.iconimg);
-        Bitmap image= map.get(mem_no);
+        Bitmap image= map.get(sqlGroupDeatilsVO.getMem_no());
         icon.setImageBitmap(image);
+//        TextView tvname = (TextView) view.findViewById(R.id.tvName);
+//        tvname.setText(sqlGroupDeatilsVO.getMem_name());
         view.buildDrawingCache();
         Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
-
         return bitmap;
     }
 
@@ -634,28 +557,5 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         String json = gson.toJson(latlngVOs);
 
         new BikeTrackInsertTask().execute(url,action,json,mem_no,trackTitle);
-    }
-
-    public void markerGroupReFlash(){
-
-        if(markerGroup1!=null){
-            markerGroup1.remove();
-        }
-//        if(markerGroup2!=null){
-//            markerGroup2.remove();
-//        }
-//
-//        if(markerGroup3!=null){
-//            markerGroup3.remove();
-//        }
-//
-//        if(markerGroup4!=null){
-//            markerGroup4.remove();
-//        }
-//
-//        if(markerGroup5!=null){
-//            markerGroup5.remove();
-//        }
-        addMarkersG1ToMap();
     }
 }

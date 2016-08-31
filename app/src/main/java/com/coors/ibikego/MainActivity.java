@@ -33,10 +33,12 @@ import com.coors.ibikego.travel.AttractionsFragment;
 import com.coors.ibikego.bikemode.BikeModeMainActivity;
 import com.coors.ibikego.blog.BlogFragment;
 import com.coors.ibikego.blog.BlogInsertActivity;
+import com.coors.ibikego.travel.AttractionsInsertActivity;
 import com.coors.ibikego.travel.BreakFragment;
 import com.coors.ibikego.member.MemberBlogManageActivity;
 import com.coors.ibikego.member.MemberGetImageTask;
 import com.coors.ibikego.member.MemberLoginActivity;
+import com.coors.ibikego.travel.BreakInsertActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -129,6 +131,28 @@ public class MainActivity extends AppCompatActivity {
         boolean islogin = pref.getBoolean("login", false);
         if (islogin) {
             startActivity(new Intent(this, BlogInsertActivity.class));
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+            startActivityForResult(intent, FUNC_LOGIN);
+        }
+    }
+
+    public void onCreateAtt(View view) {
+        boolean islogin = pref.getBoolean("login", false);
+        if (islogin) {
+            startActivity(new Intent(this, AttractionsInsertActivity.class));
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+            startActivityForResult(intent, FUNC_LOGIN);
+        }
+    }
+
+    public void onCreateBreak(View view) {
+        boolean islogin = pref.getBoolean("login", false);
+        if (islogin) {
+            startActivity(new Intent(this, BreakInsertActivity.class));
         }
         else {
             Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);

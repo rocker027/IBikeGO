@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bike_bg01"
     tools:context="com.coors.ibikego.bikemode.BikeGroupRoomActivity">
 
 
@@ -35,22 +36,51 @@
     <!--android:layout_centerHorizontal="true"-->
     <!--/>-->
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnGroupRemove"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appbar"
-        android:layout_gravity="right|bottom"
-        android:layout_alignParentRight="true"
-        android:onClick="onClickAbort"
-        android:layout_margin="15dp"
-        android:text="退出連線" />
+        android:layout_below="@+id/appbar">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnGroupMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:onClick="onClickToMap"
+            android:text="顯示地圖" />
+
+        <TextView
+            android:id="@+id/tvShowkey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="3"
+            android:background="@drawable/bg_while_2"
+            android:padding="6dp"
+            android:text="連線Key"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnGroupRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:onClick="onClickAbort"
+            android:text="退出連線" />
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/TrackListRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnGroupRemove">
+        android:layout_below="@id/tools">
 
     </android.support.v7.widget.RecyclerView>
 

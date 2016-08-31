@@ -138,7 +138,11 @@ public class MemberBlogManageActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return blogList.size();
+            if(blogList == null){
+                return 0;
+            }else {
+                return blogList.size();
+            }
         }
 
         @Override

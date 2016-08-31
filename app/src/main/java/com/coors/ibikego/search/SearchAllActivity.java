@@ -97,7 +97,7 @@ public class SearchAllActivity extends AppCompatActivity {
                 tvTime = (TextView) itemView.findViewById(R.id.tvTime);
                 tvTel = (TextView) itemView.findViewById(R.id.tvTel);
                 tvAdd = (TextView) itemView.findViewById(R.id.tvAdd);
-                ivRecycleView = (ImageView) itemView.findViewById(R.id.ivRecycleView);
+                ivRecycleView = (ImageView) itemView.findViewById(R.id.imageView);
             }
         }
 

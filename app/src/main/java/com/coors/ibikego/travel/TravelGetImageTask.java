@@ -31,11 +31,11 @@ public class TravelGetImageTask extends AsyncTask<Object, Integer, Bitmap> {
     @Override
     protected Bitmap doInBackground(Object... params) {
         String url = params[0].toString();
-        int blog_no = Integer.parseInt(params[1].toString());
+        int tra_no = Integer.parseInt(params[1].toString());
         int imageSize = Integer.parseInt(params[2].toString());
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("blog_no", blog_no);
+        jsonObject.addProperty("tra_no", tra_no);
         jsonObject.addProperty("imageSize", imageSize);
 
         Bitmap bitmap;

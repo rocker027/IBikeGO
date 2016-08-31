@@ -24,9 +24,10 @@
 
         <ImageView
             android:id="@+id/ivRecycleView"
-            android:layout_width="250px"
-            android:layout_height="250px"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:layout_gravity="center_vertical"
             android:padding="3dp" />
 
         <LinearLayout

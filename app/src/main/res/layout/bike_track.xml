@@ -15,19 +15,19 @@
         android:layout_gravity="bottom|left"
         android:orientation="vertical">
 
-        <ToggleButton
-            android:id="@+id/btnTravelPos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="週邊資訊 OFF"
-            android:textOn="週邊資訊 ON" />
+        <!--<ToggleButton-->
+            <!--android:id="@+id/btnTravelPos"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textOff="週邊資訊 OFF"-->
+            <!--android:textOn="週邊資訊 ON" />-->
 
-        <ToggleButton
-            android:id="@+id/btnGroupPos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="車友位置 OFF"
-            android:textOn="車友位置 ON" />
+        <!--<ToggleButton-->
+            <!--android:id="@+id/btnGroupPos"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textOff="車友位置 OFF"-->
+            <!--android:textOn="車友位置 ON" />-->
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/et_TrackTitile"

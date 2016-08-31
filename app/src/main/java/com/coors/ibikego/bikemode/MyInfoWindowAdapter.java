@@ -33,9 +33,9 @@ public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoWindow(Marker marker) {
         ImageView imageView = (ImageView) infoWindow.findViewById(R.id.ivLogo);
-        String url = Common.URL + "SpotServlet";
+        String url = Common.URL + "travel/travelApp";
         int id = travelVO.getTra_no();
-        int imageSize = 400;
+        int imageSize = 250;
         Bitmap bitmap = null;
         try {
             // passing null and calling get() means not to run FindImageByIdTask.onPostExecute()

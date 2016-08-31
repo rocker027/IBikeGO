@@ -74,6 +74,7 @@
                 android:id="@+id/menu_attractions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onCreateAtt"
                 android:src="@drawable/ic_navi_attractions_24dp"
                 app:fab_label="新增景點"
                 app:fab_size="mini" />
@@ -82,8 +83,9 @@
                 android:id="@+id/menu_break"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onCreateBreak"
                 android:src="@drawable/ic_navi_break_24dp"
-                app:fab_label="新增休息站"
+                app:fab_label="新增休息點"
                 app:fab_size="mini" />
 
         </com.github.clans.fab.FloatingActionMenu>

@@ -76,6 +76,9 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
         for(RouteDetailsVO detailsVO : detailsVOList){
+            if(FromPoint == null){
+                FromPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
+            }
             pointlist.add(new LatLng(detailsVO.getRoute_det_lati(),detailsVO.getRoute_det_longi()));
             ToPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
         }
@@ -126,6 +129,12 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
     private void addMarkersToMap() {
         marker_ToPoint = map.addMarker(new MarkerOptions()
                 .position(ToPoint)
+                .title(getString(R.string.marker_title))
+                .snippet(getString(R.string.marker_snippet))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+
+        marker_ToPoint = map.addMarker(new MarkerOptions()
+                .position(FromPoint)
                 .title(getString(R.string.marker_title))
                 .snippet(getString(R.string.marker_snippet))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));

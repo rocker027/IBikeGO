@@ -8,64 +8,68 @@
     android:layout_marginTop="5dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    card_view:cardCornerRadius="25dp"
+    card_view:cardCornerRadius="3dp"
     card_view:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/cardview_bg03"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="8dp"
-        android:background="@drawable/bg_while"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="8dp"
-        android:orientation="horizontal">
+        android:paddingTop="8dp">
 
         <ImageView
             android:id="@+id/ivRecycleView"
-            android:layout_width="250px"
-            android:layout_height="250px"
-            android:padding="3dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="單車日誌標題"
+                android:layout_marginLeft="10dp"
                 android:lines="1"
-                android:textStyle="bold"
+                android:text="單車日誌標題"
                 android:textColor="#0022dd"
-
-                android:textSize="@dimen/abc_text_size_headline_material" />
+                android:textSize="@dimen/abc_text_size_headline_material"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTime"
-                android:layout_margin="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:text="2016-07-21"
                 android:textColor="@color/secondary_text_default_material_light"
-                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
+                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvMem_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1"
-                    android:text="Author"
-                    android:textColor="@color/secondary_text_default_material_light"
-                    android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvMem_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:text="Author"
+                android:textColor="@color/secondary_text_default_material_light"
+                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
+                android:textStyle="bold" />
         </LinearLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

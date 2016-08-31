@@ -125,8 +125,6 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 markerTravels = map.addMarker(new MarkerOptions()
                         .position(latLng).title(travelVO
                         .getTra_name()).snippet(travelVO.getTra_add()));
-                    //backup
-//                map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
                 map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
 
 //                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

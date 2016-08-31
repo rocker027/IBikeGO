@@ -3,6 +3,7 @@ package com.coors.ibikego.bikemode;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BikeTrackPolylinesActivity extends AppCompatActivity implements
@@ -47,6 +52,8 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
     PolylineOptions polylineOptions;
     private LatLng FromPoint, ToPoint;
     ArrayList<LatLng> pointlist = new ArrayList<LatLng>();
+    RouteDetailsVO FristPoint,LastPoint;
+    List<RouteDetailsVO> detailsVOList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,7 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         RouteVO routeVO = (RouteVO) getIntent().getExtras().getSerializable("routeVO");
         Integer route_no = routeVO.getRoute_no();
         String url = null;
-        List<RouteDetailsVO> detailsVOList = null;
+
         try {
             detailsVOList = new BikeGetOneDeatailsTask().execute(url,route_no).get();
         } catch (Exception e) {
@@ -78,9 +85,11 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         for(RouteDetailsVO detailsVO : detailsVOList){
             if(FromPoint == null){
                 FromPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
+                FristPoint = detailsVO;
             }
             pointlist.add(new LatLng(detailsVO.getRoute_det_lati(),detailsVO.getRoute_det_longi()));
             ToPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
+            LastPoint = detailsVO;
         }
 
         Log.d(TAG, String.valueOf(pointlist.size()));
@@ -124,6 +133,59 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         map.setOnInfoWindowClickListener(myMarkerListener);
 
         addPolylinesPolygonsToMap();
+        showInfo();
+    }
+
+    private void showInfo() {
+        //抓View
+        TextView tvTime = (TextView) findViewById(R.id.tvTime);
+        TextView tvContent = (TextView) findViewById(R.id.tvContent);
+        TextView tvSpeed = (TextView) findViewById(R.id.tvSpeed);
+        TextView tvCal = (TextView) findViewById(R.id.tvCal);
+
+        //算時間
+        Long diff = LastPoint.getRoute_det_time() - FristPoint.getRoute_det_time();
+        Long totalSec = diff / 1000;
+        Long diffsec = diff / 1000 % 60 ;
+        Long diffMinutes = diff / (60 * 1000) % 60;
+        Long diffHours = diff / (60 * 60 * 1000) % 24;
+        tvTime.setText("總時間 : " + diffHours +":"+diffMinutes+":"+diffsec);
+
+        //算總距離
+        float distence = 0;
+        for(int i = 0; i< detailsVOList.size()-1 ;i++){
+            RouteDetailsVO p1 = detailsVOList.get(i+1);
+            RouteDetailsVO p2 = detailsVOList.get(i);
+//            Location.distanceBetween(p1.getRoute_det_lati(),p1.getRoute_det_longi(),p2.getRoute_det_lati(),p2.getRoute_det_longi(),results);
+            Location d1 = new Location("d1");
+            Location d2 = new Location("d2");
+            d1.setLatitude(p1.getRoute_det_lati());
+            d1.setLongitude(p1.getRoute_det_longi());
+            d2.setLatitude(p2.getRoute_det_lati());
+            d2.setLongitude(p2.getRoute_det_longi());
+            distence = distence + d2.distanceTo(d1)/1000;
+        }
+        NumberFormat formatter = new DecimalFormat("###.##");
+        String dis =formatter.format(distence);
+        tvContent.setText("總距離 : "+dis+" 公里");
+
+        //速度
+        double speed=(distence/totalSec)*60*60; //單位是km/hr
+        String sp =formatter.format(speed);
+        tvSpeed.setText("平均時速 : "+ sp +" 公里");
+
+        //消耗熱量
+        double cal = 0;
+        if(speed <= 8.8){
+            cal =  (3/60/60)*totalSec;
+        }else if(speed <= 31){
+            cal =  (4.7/60/60)*totalSec;
+        }else {
+            cal = (7.4/60/60)*totalSec;
+        }
+        String scal =formatter.format(cal);
+        tvCal.setText("消耗熱量 : " + scal +"大卡");
+
     }
 
     private void addMarkersToMap() {
@@ -133,11 +195,11 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
                 .snippet(getString(R.string.marker_snippet))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
-        marker_ToPoint = map.addMarker(new MarkerOptions()
-                .position(FromPoint)
-                .title(getString(R.string.marker_title))
-                .snippet(getString(R.string.marker_snippet))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+//        marker_ToPoint = map.addMarker(new MarkerOptions()
+//                .position(FromPoint)
+//                .title(getString(R.string.marker_title))
+//                .snippet(getString(R.string.marker_snippet))
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
 
     }
 

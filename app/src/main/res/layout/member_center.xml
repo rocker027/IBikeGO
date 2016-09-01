@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bike_bg01"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.coors.ibikego.member.MemberCenterActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator">
+
+            <!--<EditText-->
+            <!--android:layout_width="245dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/etSearchKeyWord"-->
+            <!--android:hint="請輸入要搜尋的關鍵字"/>-->
+
+            <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="onClickSearchAll"-->
+            <!--android:text="送出查詢"/>-->
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:id="@+id/memInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_while_2"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/ivMemImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:id="@+id/tvMemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="member"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvMemAcc"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="3dp"-->
+                <!--android:text="member acc"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="20sp" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvMemMail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="3dp"-->
+                <!--android:text="mail"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="16sp" />-->
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickLogOut"
+                android:text="登出"
+                android:textSize="24sp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/memFunc1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memInfo"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:onClick="onClickMemInfo"
+            android:src="@drawable/memcenter_user_info" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:onClick="onClickMyPost"
+            android:src="@drawable/memcenter_my_post"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/memFunc1Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memFunc1"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/bg_while_3_no"
+            android:text="會員資訊"
+            android:padding="3dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/bg_while_3_no"
+            android:text="日誌管理"
+            android:padding="3dp"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/memFunc2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memFunc1Title"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:onClick="onClickFriend"
+            android:src="@drawable/memcenter_friend_info" />
+
+        <ImageView
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:onClick="onClickContactUs"
+            android:layout_margin="10dp"
+            android:src="@drawable/memcenter_contact_us"
+
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/memFunc2Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memFunc2"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/bg_while_3_no"
+            android:text="交友資訊"
+            android:padding="3dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/bg_while_3_no"
+            android:text="聯絡我們"
+            android:padding="3dp"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

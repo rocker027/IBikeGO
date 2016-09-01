@@ -51,7 +51,7 @@ public class BreakFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = inflater.inflate(R.layout.travel_item, parent, false);
+            View itemView = inflater.inflate(R.layout.travel_b_item, parent, false);
             ViewHolder viewHolder = new ViewHolder(itemView);
             return viewHolder;
         }

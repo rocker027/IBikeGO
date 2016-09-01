@@ -57,17 +57,29 @@
                 android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvTel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_weight="3"
-                android:paddingTop="2.5dp"
-                android:text="03-88050202"
-                android:textColor="@color/secondary_text_default_material_light"
-                android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvTel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="3"
+                    android:paddingTop="2.5dp"
+                    android:text="03-88050202"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/ivClass"
+                    android:layout_height="25dp"
+                    android:src="@drawable/att_w"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvAdd"

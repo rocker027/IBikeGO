@@ -143,7 +143,7 @@ public class BikeGroupKeyActivity extends AppCompatActivity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("景點");
+        getSupportActionBar().setTitle("產生連線Key");
 
 
         // add back arrow to toolbar

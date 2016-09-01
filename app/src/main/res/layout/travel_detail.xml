@@ -127,7 +127,7 @@
             android:onClick="onClickNavi"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_near_me_black_24dp"
-            fab:fab_label="導航"
+            fab:fab_label="地圖顯示"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -139,14 +139,14 @@
             fab:fab_label="加入收藏"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onTravelReport"
-            android:src="@drawable/ic_addnew_24dp"
-            fab:fab_label="檢舉"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/menu_item2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="onTravelReport"-->
+            <!--android:src="@drawable/ic_addnew_24dp"-->
+            <!--fab:fab_label="檢舉"-->
+            <!--fab:fab_size="mini" />-->
 
     </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>

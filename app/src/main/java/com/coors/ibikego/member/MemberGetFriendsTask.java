@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.daovo.MemberVO;
+import com.coors.ibikego.daovo.RelationshipVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -18,17 +19,21 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
-public class MemberGetOneTask extends AsyncTask<Object, Integer, MemberVO> {
-    private final static String TAG = "MemberGetOneTask";
-    String urltoGegall = Common.URL + "member/memberApp.do";
-    private final static String ACTION = "findByPrimaryKey";
+/**
+ * Created by user on 2016/9/1.
+ */
+public class MemberGetFriendsTask extends AsyncTask<Object, Integer, List<RelationshipVO>> {
+    private final static String TAG = "MemberGetFriendsAllTask";
+    String urltoGegall = Common.URL + "relationship/relationshipApp";
+    private final static String ACTION = "getMFollowRms";
 
     @Override
-    protected MemberVO doInBackground(Object... params) {
+    protected List<RelationshipVO> doInBackground(Object... params) {
         String url = urltoGegall;
         String jsonIn;
-        String mem_no =params[1].toString();
+        String mem_no = params[0].toString();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
         jsonObject.addProperty("mem_no", mem_no);
@@ -41,7 +46,7 @@ public class MemberGetOneTask extends AsyncTask<Object, Integer, MemberVO> {
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
 
-        Type listType = new TypeToken<MemberVO>() {
+        Type listType = new TypeToken<List<RelationshipVO>>() {
         }.getType();
         return gson.fromJson(jsonIn, listType);
     }

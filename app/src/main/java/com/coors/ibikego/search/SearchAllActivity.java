@@ -88,7 +88,7 @@ public class SearchAllActivity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             View itemView;
             TextView tvTime, tvTitle, tvTel,tvAdd;
-            ImageView ivRecycleView;
+            ImageView ivRecycleView,ivClass;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -98,6 +98,8 @@ public class SearchAllActivity extends AppCompatActivity {
                 tvTel = (TextView) itemView.findViewById(R.id.tvTel);
                 tvAdd = (TextView) itemView.findViewById(R.id.tvAdd);
                 ivRecycleView = (ImageView) itemView.findViewById(R.id.imageView);
+                ivClass = (ImageView) itemView.findViewById(R.id.ivClass);
+
             }
         }
 
@@ -118,8 +120,8 @@ public class SearchAllActivity extends AppCompatActivity {
             final SqlSearchVO sqlSearchVO = list.get(position);
             Integer tra_no = sqlSearchVO.getTra_no();
             Integer blog_no = sqlSearchVO.getBlog_no();
+            Integer class_status = sqlSearchVO.getTra_class_status();
             int imageSize = 250;
-
             //若取回的tra_no 不等於null，表示為景點資料表
             if(tra_no != null){
                 //取回旅遊點圖片
@@ -129,6 +131,12 @@ public class SearchAllActivity extends AppCompatActivity {
                 viewHolder.tvTime.setText(sqlSearchVO.getTra_cre().toString());
                 viewHolder.tvTel.setText(sqlSearchVO.getTra_tel());
                 viewHolder.tvAdd.setText(sqlSearchVO.getTra_add());
+                if(class_status == 0 && tra_no != null )
+                {
+                    viewHolder.ivClass.setImageResource(R.drawable.att_w);
+                }else if(class_status ==1 && tra_no != null ){
+                    viewHolder.ivClass.setImageResource(R.drawable.break_w);
+                }
                 //點選cardview 轉頁
 //                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -153,7 +161,7 @@ public class SearchAllActivity extends AppCompatActivity {
                 viewHolder.tvTime.setText("發表日期："+sqlSearchVO.getBlog_cre().toString());
                 viewHolder.tvTel.setText("發表會員："+sqlSearchVO.getMem_name());
                 viewHolder.tvAdd.setVisibility(View.GONE);
-
+                viewHolder.ivClass.setImageResource(R.drawable.blog_w);
                 //點選cardview 轉頁
 //                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override

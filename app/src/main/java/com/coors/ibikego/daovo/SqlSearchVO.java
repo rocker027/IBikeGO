@@ -11,6 +11,7 @@ public class SqlSearchVO implements Serializable {
     private java.sql.Date tra_cre;
     private String tra_name;
     private String tra_content;
+    private Integer tra_class_status;
     private String tra_tel;
     private String tra_add;
     private Double tra_lati;
@@ -132,6 +133,14 @@ public class SqlSearchVO implements Serializable {
 
     public void setTra_add(String tra_add) {
         this.tra_add = tra_add;
+    }
+
+    public Integer getTra_class_status() {
+        return tra_class_status;
+    }
+
+    public void setTra_class_status(Integer tra_class_status) {
+        this.tra_class_status = tra_class_status;
     }
 
 }

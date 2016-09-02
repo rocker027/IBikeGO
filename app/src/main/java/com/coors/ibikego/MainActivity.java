@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         spaceNavigationView.addSpaceItem(new SpaceItem("首頁", R.drawable.ic_home_while_24dp));
         spaceNavigationView.addSpaceItem(new SpaceItem("發文", R.drawable.ic_navi_blog_w_24dp));
         spaceNavigationView.addSpaceItem(new SpaceItem("搜尋", R.drawable.ic_open_search));
-        spaceNavigationView.addSpaceItem(new SpaceItem("會員中心", R.drawable.ic_navi_member_w_24dp));
+        spaceNavigationView.addSpaceItem(new SpaceItem("會員", R.drawable.ic_navi_member_w_24dp));
 
         spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
@@ -89,8 +89,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //發日誌
                 if(itemIndex == 1){
-                    startActivity(new Intent(MainActivity.this,BlogInsertActivity.class));
+                    boolean islogin = pref.getBoolean("login", false);
+                    if (islogin) {
+                        startActivity(new Intent(MainActivity.this,BlogInsertActivity.class));
+                    }
+                    else {
+                        Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
+                        startActivityForResult(intent, FUNC_LOGIN);
+                    }
+                    startActivity(new Intent(MainActivity.this,MemberCenterActivity.class));
                 }
+
                 //搜尋
                 if(itemIndex == 2){
                     startActivity(new Intent(MainActivity.this,SearchAllActivity.class));

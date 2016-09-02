@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.ContactUsActivity;
 import com.coors.ibikego.MainActivity;
 import com.coors.ibikego.R;
+import com.coors.ibikego.bikemode.BikeModeMainActivity;
 
 public class MemberCenterActivity extends AppCompatActivity {
     private SharedPreferences pref;
@@ -21,6 +25,8 @@ public class MemberCenterActivity extends AppCompatActivity {
     private Integer mem_no;
     private ImageView imageView;
     private TextView tvMemName,tvMemAcc,tvMemMail;
+    public static final int FUNC_LOGIN = 1;
+    private BootstrapButton btnlogIn,btnlogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,7 @@ public class MemberCenterActivity extends AppCompatActivity {
         setContentView(R.layout.member_center);
         findViews();
         pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+
         initToolbar();
         initDate();
 
@@ -41,6 +48,40 @@ public class MemberCenterActivity extends AppCompatActivity {
         mem_acc = pref.getString("pref_acc", "");
         mem_mail = pref.getString("pref_mail", "");
 
+        boolean islogin = pref.getBoolean("login", false);
+        if (islogin) {
+            //按鈕
+            btnlogIn.setVisibility(View.GONE);
+            btnlogOut.setVisibility(View.VISIBLE);
+            //功能按鈕
+            LinearLayout g1 = (LinearLayout) findViewById(R.id.memFunc1);
+            LinearLayout g2 = (LinearLayout) findViewById(R.id.memFunc1Title);
+            LinearLayout g3 = (LinearLayout) findViewById(R.id.memFunc2);
+            LinearLayout g4 = (LinearLayout) findViewById(R.id.memFunc2Title);
+            g1.setVisibility(View.VISIBLE);
+            g2.setVisibility(View.VISIBLE);
+            g3.setVisibility(View.VISIBLE);
+            g4.setVisibility(View.VISIBLE);
+
+
+        }
+        else {
+            btnlogOut.setVisibility(View.GONE);
+            btnlogIn.setVisibility(View.VISIBLE);
+            //功能按鈕
+            LinearLayout g1 = (LinearLayout) findViewById(R.id.memFunc1);
+            LinearLayout g2 = (LinearLayout) findViewById(R.id.memFunc1Title);
+            LinearLayout g3 = (LinearLayout) findViewById(R.id.memFunc2);
+            LinearLayout g4 = (LinearLayout) findViewById(R.id.memFunc2Title);
+            g1.setVisibility(View.GONE);
+            g2.setVisibility(View.GONE);
+            g3.setVisibility(View.GONE);
+            g4.setVisibility(View.GONE);
+            //title
+            tvMemName.setText("尚未登入");
+        }
+
+
         new MemberGetImageTask(imageView).execute(url,mem_no,250);
         tvMemName.setText(mem_name);
 //        tvMemMail.setText("歡迎你");
@@ -50,9 +91,8 @@ public class MemberCenterActivity extends AppCompatActivity {
         tvMemName = (TextView) findViewById(R.id.tvMemName);
 //        tvMemMail = (TextView) findViewById(R.id.tvMemMail);
         imageView = (ImageView) findViewById(R.id.ivMemImage);
-    }
-
-    public void onClickMemInfo(View view) {
+        btnlogIn = (BootstrapButton) findViewById(R.id.btn_login);
+        btnlogOut = (BootstrapButton) findViewById(R.id.btn_logout);
     }
 
     public void onClickMyPost(View view) {
@@ -107,5 +147,13 @@ public class MemberCenterActivity extends AppCompatActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickLogIn(View view) {
+            Intent intent = new Intent(MemberCenterActivity.this,MemberLoginActivity.class);
+            startActivityForResult(intent, FUNC_LOGIN);
+    }
+
+    public void onClickFavorInfo(View view) {
     }
 }

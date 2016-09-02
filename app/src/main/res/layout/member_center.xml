@@ -92,7 +92,16 @@
 
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="match_parent"
+                android:id="@+id/btn_login"
                 android:layout_height="wrap_content"
+                android:onClick="onClickLogIn"
+                android:text="登入"
+                android:textSize="24sp"/>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_logout"
                 android:onClick="onClickLogOut"
                 android:text="登出"
                 android:textSize="24sp"/>
@@ -112,8 +121,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:onClick="onClickMemInfo"
-            android:src="@drawable/memcenter_user_info" />
+            android:onClick="onClickFavorInfo"
+            android:src="@drawable/favorites_icon" />
 
         <ImageView
             android:layout_width="100dp"
@@ -137,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:background="@drawable/bg_while_3_no"
-            android:text="會員資訊"
+            android:text="我的收藏"
             android:padding="3dp"
             android:textSize="20sp" />
 

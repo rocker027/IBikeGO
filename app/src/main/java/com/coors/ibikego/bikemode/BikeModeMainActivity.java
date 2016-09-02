@@ -53,7 +53,7 @@ public class BikeModeMainActivity extends AppCompatActivity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("景點");
+        getSupportActionBar().setTitle("騎車模式");
 
 
         // add back arrow to toolbar

@@ -30,10 +30,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:padding="10dp">
 
         <ImageView
@@ -54,10 +54,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:padding="10dp">
 
         <ImageView
@@ -78,10 +78,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:padding="10dp">
 
         <ImageView
@@ -102,10 +102,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_while"
+        android:background="@drawable/cardview_bg03"
         android:padding="10dp">
 
         <ImageView

@@ -23,6 +23,15 @@
         <!--android:src="@drawable/logo"-->
         <!--android:alpha="20"-->
         <!--/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="會員登入"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:textAlignment="center"
+            android:textSize="30sp"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"

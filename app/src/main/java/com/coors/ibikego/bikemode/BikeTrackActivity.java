@@ -35,6 +35,7 @@ import com.coors.ibikego.Common;
 import com.coors.ibikego.GetStringDate;
 import com.coors.ibikego.daovo.LatlngVO;
 import com.coors.ibikego.R;
+import com.coors.ibikego.daovo.RouteDetailsVO;
 import com.coors.ibikego.daovo.RouteVO;
 import com.coors.ibikego.daovo.SqlGroupDeatilsVO;
 import com.coors.ibikego.daovo.TravelVO;
@@ -60,6 +61,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -88,6 +91,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
     private List<LatLng> grouplist;
     private LatLng pos1,pos2,pos3,pos4,pos5;
     private boolean btnGroupClick =false;
+    private Long start_time;
 
 
 
@@ -252,6 +256,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 //抓到第一個位置
                 if(FromPoint == null){
                     FromPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                    start_time = lastLocation.getTime();
                 }
 
                 LatlngVO latlngVO = new LatlngVO();
@@ -284,7 +289,8 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 //                    addMarkersG1ToMap();
 //                    showAllTravels();
                 }
-//
+
+                showInfo();
 //                查詢車友位置List中，個別放置在不同的pos中
                 Map<Integer,Bitmap> memMap = new LinkedHashMap<Integer,Bitmap>();
 
@@ -332,6 +338,74 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 
         }
     };
+
+    private void showInfo() {
+        //抓View
+        TextView tvTime = (TextView) findViewById(R.id.tvTime);
+//        TextView tvContent = (TextView) findViewById(R.id.tvContent);
+//        TextView tvSpeed = (TextView) findViewById(R.id.tvSpeed);
+//        TextView tvCal = (TextView) findViewById(R.id.tvCal);
+//        Location preLoc =null;
+
+        //算時間
+        Long diff = lastLocation.getTime() - start_time;
+        Long totalSec = diff / 1000;
+        Long diffsec = diff / 1000 % 60 ;
+        Long diffMinutes = diff / (60 * 1000) % 60;
+        Long diffHours = diff / (60 * 60 * 1000) % 24;
+        tvTime.setText("紀錄時間 : " + diffHours +":"+diffMinutes+":"+diffsec);
+
+//        //算總距離
+//        float distence = 0;
+//        for(int i = 0; i< detailsVOList.size()-1 ;i++){
+//        if(preLoc==null){
+//            Location prePoint = new Location("prePoint");
+//            prePoint.setLatitude(FromPoint.latitude);
+//            prePoint.setLongitude(FromPoint.longitude);
+//            if(lastLocation != null){
+//                distence = distence + lastLocation.distanceTo(prePoint);
+//                preLoc.setLatitude(lastLocation.getLatitude());
+//                preLoc.setLongitude(lastLocation.getLongitude());
+//            }
+//        }else {
+//            distence = distence + lastLocation.distanceTo(preLoc);
+//            preLoc.setLatitude(lastLocation.getLatitude());
+//            preLoc.setLongitude(lastLocation.getLongitude());
+//        }
+//        NumberFormat formatter = new DecimalFormat("###.##");
+//        String dis =formatter.format(distence);
+//        tvContent.setText("總距離 : "+dis+" 公里");
+
+//            RouteDetailsVO p1 = detailsVOList.get(i+1);
+//            RouteDetailsVO p2 = detailsVOList.get(i);
+////            Location.distanceBetween(p1.getRoute_det_lati(),p1.getRoute_det_longi(),p2.getRoute_det_lati(),p2.getRoute_det_longi(),results);
+//            Location d1 = new Location("d1");
+//            Location d2 = new Location("d2");
+//            d1.setLatitude(p1.getRoute_det_lati());
+//            d1.setLongitude(p1.getRoute_det_longi());
+//            d2.setLatitude(p2.getRoute_det_lati());
+//            d2.setLongitude(p2.getRoute_det_longi());
+//            distence = distence + d2.distanceTo(d1)/1000;
+//        }
+//
+//        //速度
+//        double speed=(distence/totalSec)*60*60; //單位是km/hr
+//        String sp =formatter.format(speed);
+//        tvSpeed.setText("平均時速 : "+ sp +" 公里");
+//
+//        //消耗熱量
+//        double cal = 0;
+//        if(speed <= 8.8){
+//            cal =  (3/60/60)*totalSec;
+//        }else if(speed <= 31){
+//            cal =  (4.7/60/60)*totalSec;
+//        }else {
+//            cal = (7.4/60/60)*totalSec;
+//        }
+//        String scal =formatter.format(cal);
+//        tvCal.setText("消耗熱量 : " + scal +"大卡");
+
+    }
 
     public static Bitmap createDrawableFromView(Context context, View view ,SqlGroupDeatilsVO sqlGroupDeatilsVO,Map<Integer,Bitmap> map) {
         Map<Integer,Bitmap> memMap = map;

@@ -130,14 +130,14 @@
             fab:fab_label="地圖顯示"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_favorite"
-            android:layout_width="wrap_content"
-            android:onClick="onTravelFavor"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_noselect_24dp"
-            fab:fab_label="加入收藏"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/menu_favorite"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:onClick="onTravelFavor"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_favorite_noselect_24dp"-->
+            <!--fab:fab_label="加入收藏"-->
+            <!--fab:fab_size="mini" />-->
 
         <!--<com.github.clans.fab.FloatingActionButton-->
             <!--android:id="@+id/menu_item2"-->

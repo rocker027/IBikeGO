@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coors.ibikego.NoConnectActivity;
 import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.daovo.MemberVO;
@@ -122,7 +123,12 @@ public class BlogFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return blogList.size();
+            if(blogList != null){
+                return blogList.size();
+            }else {
+                startActivity(new Intent(getContext(), NoConnectActivity.class));
+                return 0;
+            }
         }
     }
 }

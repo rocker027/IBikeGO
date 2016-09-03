@@ -19,23 +19,23 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.coors.ibikego.daovo.BlogVO;
 import com.coors.ibikego.Common;
 import com.coors.ibikego.LoginStatusChkTask;
-import com.coors.ibikego.daovo.MemberVO;
 import com.coors.ibikego.R;
 import com.coors.ibikego.blog.BlogDeleteTask;
 import com.coors.ibikego.blog.BlogDetailMemberActivity;
 import com.coors.ibikego.blog.BlogGetImageTask;
 import com.coors.ibikego.blog.BlogInsertActivity;
 import com.coors.ibikego.blog.BlogUpdateActivity;
+import com.coors.ibikego.daovo.BlogVO;
+import com.coors.ibikego.daovo.MemberVO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class MemberBlogManageActivity extends AppCompatActivity {
-    private static final String TAG = "BlogManage";
+public class MemberCollectBlogActivity extends AppCompatActivity {
+    private static final String TAG = "MyBlogCollect";
     private List<BlogVO> blogList = null;
     private List<MemberVO> memberList = null;
     private RecyclerView recyclerView;
@@ -44,12 +44,11 @@ public class MemberBlogManageActivity extends AppCompatActivity {
     String url = Common.URL + "blog/blogApp";
     public static final int FUNC_LOGIN = 1;
 
-//    private String keyword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_blog_manage);
+        setContentView(R.layout.member_collect_blog);
         initToolbar();
         initGetDate();
         refresh();
@@ -74,25 +73,7 @@ public class MemberBlogManageActivity extends AppCompatActivity {
                 MODE_PRIVATE);
         String mem_acc = pref.getString("pref_acc", "");
         String mem_pw = pref.getString("pref_pw", "");
-        boolean islogin = pref.getBoolean("login", false);
-        //先確認偏好設定是否有登入過，假如有會在檢查一次目前的偏好設定檔內，帳號密碼是否跟DB一樣
-        if(islogin){
-            try {
-                String accPwChk =  new LoginStatusChkTask().execute(url, mem_acc, mem_pw).get();
-                isChkOk = Boolean.valueOf(accPwChk);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //假如跟DB不一樣導頁到登入頁面
-            if(!isChkOk){
-                startActivityForResult(new Intent(MemberBlogManageActivity.this,MemberLoginActivity.class),FUNC_LOGIN);
-            }
-        }
-        //偏好設定檔登入為false，重新導頁到登入頁面
 
-        else {
-            startActivityForResult(new Intent(MemberBlogManageActivity.this,MemberLoginActivity.class),FUNC_LOGIN);
-        }
 
         String mem_no = String.valueOf(pref.getInt("pref_memno", 0));
         recyclerView = (RecyclerView) findViewById(R.id.SBlogRecycleView);
@@ -101,7 +82,7 @@ public class MemberBlogManageActivity extends AppCompatActivity {
                         1, StaggeredGridLayoutManager.VERTICAL));
         try {
 //            memberList = new MemberGetAllTask().execute(url).get();
-            blogList = new MemberBlogManageTask().execute(url,mem_no).get();
+            blogList = new MemberBlogCollectTask().execute(url,mem_no).get();
             recyclerView.setAdapter(new BlogManageAdapter(this, blogList,memberList));
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -184,71 +165,71 @@ public class MemberBlogManageActivity extends AppCompatActivity {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MemberBlogManageActivity.this, BlogDetailMemberActivity.class);
+                    Intent intent = new Intent(MemberCollectBlogActivity.this, BlogDetailMemberActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("blog", blog);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
             });
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(final View view) {
-                    final PopupMenu popupMenu = new PopupMenu(MemberBlogManageActivity.this, view);
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.insert:
-                                    Intent insertIntent = new Intent(MemberBlogManageActivity.this, BlogInsertActivity.class);
-                                    startActivity(insertIntent);
-                                    break;
-                                case R.id.update:
-                                    Intent updateIntent = new Intent(MemberBlogManageActivity.this,
-                                            BlogUpdateActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("blog",blog);
-                                    updateIntent.putExtras(bundle);
-                                    startActivity(updateIntent);
-                                    break;
-                                case R.id.delete:
-                                    Snackbar.make(view,"將會刪除本篇單車日誌",Snackbar.LENGTH_SHORT).setAction("是",new View.OnClickListener(){
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (Common.networkConnected(MemberBlogManageActivity.this)) {
-                                                String url = Common.URL + "blog/blogApp.do";
-                                                int count = 0;
-                                                try {
-                                                    //先行定義時間格式
-                                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                                    //取得現在時間
-                                                    Date dt = new Date();
-                                                    //透過SimpleDateFormat的format方法將Date轉為字串
-                                                    String now = sdf.format(dt);
-                                                    String blog_cre = now;
-                                                    String blog_no = String.valueOf(blog.getBlog_no());
-                                                    count = new BlogDeleteTask().execute(url, blog_no,blog_cre).get();
-                                                } catch (Exception e) {
-                                                    Log.e(TAG, e.toString());
-                                                }
-                                                if (count == 0) {
-                                                    Common.showToast(MemberBlogManageActivity.this, R.string.msg_DeleteFail);
-                                                } else {
-                                                    Common.showToast(MemberBlogManageActivity.this, R.string.msg_DeleteSuccess);
-                                                }
-                                            } else {
-                                                Common.showToast(MemberBlogManageActivity.this, R.string.msg_NoNetwork);
-                                            }            }
-                                    }).show();
-                            }
-                            return true;
-                        }
-                    });
-                    popupMenu.show();
-                    return true;
-                }
-            });
+//            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(final View view) {
+//                    final PopupMenu popupMenu = new PopupMenu(MemberBlogManageActivity.this, view);
+//                    popupMenu.inflate(R.menu.popup_menu);
+//                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//                            switch (item.getItemId()) {
+//                                case R.id.insert:
+//                                    Intent insertIntent = new Intent(MemberBlogManageActivity.this, BlogInsertActivity.class);
+//                                    startActivity(insertIntent);
+//                                    break;
+//                                case R.id.update:
+//                                    Intent updateIntent = new Intent(MemberBlogManageActivity.this,
+//                                            BlogUpdateActivity.class);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putSerializable("blog",blog);
+//                                    updateIntent.putExtras(bundle);
+//                                    startActivity(updateIntent);
+//                                    break;
+//                                case R.id.delete:
+//                                    Snackbar.make(view,"將會刪除本篇單車日誌",Snackbar.LENGTH_SHORT).setAction("是",new View.OnClickListener(){
+//                                        @Override
+//                                        public void onClick(View view) {
+//                                            if (Common.networkConnected(MemberCollectBlogActivity.this)) {
+//                                                String url = Common.URL + "blog/blogApp.do";
+//                                                int count = 0;
+//                                                try {
+//                                                    //先行定義時間格式
+//                                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                                                    //取得現在時間
+//                                                    Date dt = new Date();
+//                                                    //透過SimpleDateFormat的format方法將Date轉為字串
+//                                                    String now = sdf.format(dt);
+//                                                    String blog_cre = now;
+//                                                    String blog_no = String.valueOf(blog.getBlog_no());
+//                                                    count = new BlogDeleteTask().execute(url, blog_no,blog_cre).get();
+//                                                } catch (Exception e) {
+//                                                    Log.e(TAG, e.toString());
+//                                                }
+//                                                if (count == 0) {
+//                                                    Common.showToast(MemberCollectBlogActivity.this, R.string.msg_DeleteFail);
+//                                                } else {
+//                                                    Common.showToast(MemberCollectBlogActivity.this, R.string.msg_DeleteSuccess);
+//                                                }
+//                                            } else {
+//                                                Common.showToast(MemberCollectBlogActivity.this, R.string.msg_NoNetwork);
+//                                            }            }
+//                                    }).show();
+//                            }
+//                            return true;
+//                        }
+//                    });
+//                    popupMenu.show();
+//                    return true;
+//                }
+//            });
         }
 
     }
@@ -277,4 +258,5 @@ public class MemberBlogManageActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

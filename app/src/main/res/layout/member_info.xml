@@ -1,12 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bike_bg01"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.coors.ibikego.member.MemberInfoActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator">
+
+            <!--<EditText-->
+            <!--android:layout_width="245dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/etSearchKeyWord"-->
+            <!--android:hint="請輸入要搜尋的關鍵字"/>-->
+
+            <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="onClickSearchAll"-->
+            <!--android:text="送出查詢"/>-->
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:id="@+id/memInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_while_2"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/ivMemImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:id="@+id/tvMemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="member"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvMemAcc"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="3dp"-->
+            <!--android:text="member acc"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="20sp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvMemMail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="3dp"-->
+            <!--android:text="mail"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="16sp" />-->
+
+            <!--<com.beardedhen.androidbootstrap.BootstrapButton-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/btn_login"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="onClickLogIn"-->
+            <!--android:text="登入"-->
+            <!--android:textSize="24sp"/>-->
+
+            <!--<com.beardedhen.androidbootstrap.BootstrapButton-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/btn_logout"-->
+            <!--android:onClick="onClickLogOut"-->
+            <!--android:text="登出"-->
+            <!--android:textSize="24sp"/>-->
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/memFunc1Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memInfo"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMemAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvMemNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvMemMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvMemTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvMemAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_while_3_no"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+
+
+
+    </LinearLayout>
 
 </RelativeLayout>

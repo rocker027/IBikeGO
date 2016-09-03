@@ -1,6 +1,7 @@
 package com.coors.ibikego.blog;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,12 +21,13 @@ import java.util.concurrent.ExecutionException;
 
 public class BlogDetailActivity extends AppCompatActivity {
     private SqlBlogVO blog;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blog_detail);
-
+        pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
         initToolbar();
 
 
@@ -81,7 +83,7 @@ public class BlogDetailActivity extends AppCompatActivity {
 
     public void onClickBlogFavor(View view) {
         Integer blog_no = blog.getBlog_no();
-        Integer mem_no = blog.getMem_no();
+        Integer mem_no = pref.getInt("pref_memno",0);
         try {
             String resule = new BlogCollectTask().execute(blog_no, mem_no).get();
             Toast.makeText(this, resule, Toast.LENGTH_SHORT).show();

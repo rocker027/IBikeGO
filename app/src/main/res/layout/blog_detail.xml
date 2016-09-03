@@ -105,14 +105,14 @@
             fab:fab_label="加入收藏"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickBlogReport"
-            android:src="@drawable/ic_addnew_24dp"
-            fab:fab_label="檢舉"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/menu_item2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="onClickBlogReport"-->
+            <!--android:src="@drawable/ic_addnew_24dp"-->
+            <!--fab:fab_label="檢舉"-->
+            <!--fab:fab_size="mini" />-->
 
     </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>

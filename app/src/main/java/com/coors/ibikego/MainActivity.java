@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
                     startActivityForResult(intent, FUNC_LOGIN);
                 }
-                startActivity(new Intent(MainActivity.this, BikeModeMainActivity.class));
-                Toast.makeText(MainActivity.this, "onCentreButtonClick", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this, BikeModeMainActivity.class));
+//                Toast.makeText(MainActivity.this, "onCentreButtonClick", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
                         startActivityForResult(intent, FUNC_LOGIN);
                     }
-                    startActivity(new Intent(MainActivity.this,MemberCenterActivity.class));
+//                    startActivity(new Intent(MainActivity.this,MemberCenterActivity.class));
                 }
 
                 //搜尋
@@ -114,15 +114,15 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,MemberLoginActivity.class);
                         startActivityForResult(intent, FUNC_LOGIN);
                     }
-                    startActivity(new Intent(MainActivity.this,MemberCenterActivity.class));
+//                    startActivity(new Intent(MainActivity.this,MemberCenterActivity.class));
                 }
 
-                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemReselected(int itemIndex, String itemName) {
-                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
             }
         });
 

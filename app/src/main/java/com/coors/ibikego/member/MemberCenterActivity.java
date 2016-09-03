@@ -100,13 +100,13 @@ public class MemberCenterActivity extends AppCompatActivity {
 
     }
 
-    public void onClickFriend(View view) {
-        Intent intent = new Intent(MemberCenterActivity.this,MemberFriendsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("mem_no",mem_no);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+//    public void onClickFriend(View view) {
+//        Intent intent = new Intent(MemberCenterActivity.this,MemberFriendsActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("mem_no",mem_no);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//    }
 
     public void onClickContactUs(View view) {
         startActivity(new Intent(MemberCenterActivity.this, ContactUsActivity.class));
@@ -115,12 +115,12 @@ public class MemberCenterActivity extends AppCompatActivity {
 
     public void onClickLogOut(View view) {
         pref.edit().putBoolean("login", false)
+                .remove("pref_memno")
                 .remove("pref_acc")
                 .remove("pref_pw")
                 .remove("pref_name")
                 .remove("pref_email")
                 .remove("pref_key")
-                .remove("pref_memno")
                 .apply();
         finish();
     }
@@ -150,10 +150,15 @@ public class MemberCenterActivity extends AppCompatActivity {
     }
 
     public void onClickLogIn(View view) {
-            Intent intent = new Intent(MemberCenterActivity.this,MemberLoginActivity.class);
-            startActivityForResult(intent, FUNC_LOGIN);
+        Intent intent = new Intent(MemberCenterActivity.this,MemberLoginActivity.class);
+        startActivityForResult(intent, FUNC_LOGIN);
     }
 
     public void onClickFavorInfo(View view) {
+        startActivity(new Intent(MemberCenterActivity.this,MemberCollectBlogActivity.class));
+    }
+
+    public void onClickMemberInfo(View view) {
+        startActivity(new Intent(MemberCenterActivity.this,MemberInfoActivity.class));
     }
 }

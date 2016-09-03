@@ -308,8 +308,13 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                             }
                     //自訂google marker所以要給他一個layout
                     View marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.trackgroup_infowindow, null);
-                    //匯入自訂marker
-                    map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(BikeTrackActivity.this, marker,obj,memMap))));
+                    //匯入自訂marker，判斷會員編號是否為本人
+                    if(mem_no != obj.getMem_no()){
+                        map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(BikeTrackActivity.this, marker,obj,memMap))));
+
+                    }else {
+                        map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()));
+                    }
 
                 }
 

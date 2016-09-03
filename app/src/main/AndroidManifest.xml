@@ -57,7 +57,10 @@
         <activity android:name=".member.MemberCenterActivity" />
         <activity android:name=".member.MemberFriendsActivity" />
         <activity android:name=".member.MemberInfoActivity" />
-        <activity android:name=".ContactUsActivity"></activity>
+        <activity android:name=".ContactUsActivity" />
+        <activity android:name=".member.MemGetFavorActivity" />
+        <activity android:name=".member.MemberCollectBlogActivity" />
+        <activity android:name=".NoConnectActivity"></activity>
     </application>
 
 </manifest>

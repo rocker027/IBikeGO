@@ -172,8 +172,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:onClick="onClickFriend"
-            android:src="@drawable/memcenter_friend_info" />
+            android:onClick="onClickMemberInfo"
+            android:src="@drawable/memcenter_user_info" />
 
         <ImageView
             android:layout_width="108dp"
@@ -198,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:background="@drawable/bg_while_3_no"
-            android:text="交友資訊"
+            android:text="個人資訊"
             android:padding="3dp"
             android:textSize="20sp" />
 

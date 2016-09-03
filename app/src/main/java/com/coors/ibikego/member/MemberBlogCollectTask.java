@@ -1,53 +1,58 @@
-package com.coors.ibikego.travel;
+package com.coors.ibikego.member;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.coors.ibikego.Common;
+import com.coors.ibikego.daovo.BlogVO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
- * Created by user on 2016/8/27.
+ * Created by cuser on 2016/8/13.
  */
-public class TravelCollectTask extends AsyncTask<Object,Integer,String> {
-    private final static String TAG = "TravelCollectTask";
-    private String ACTION = "collectOneTravel";
-    private String url = Common.URL + "reportcollect/reportcollectAPP";
+public class MemberBlogCollectTask extends AsyncTask<Object, Integer, List<BlogVO>> {
+
+    private final static String TAG = "MemberBlogManageTask";
+    private final static String ACTION = "getMyBlogCollect";
 
     @Override
-    protected String doInBackground(Object... params) {
-//        new BikeTrackInsertTask().execute(url,action ,json);
-
-        String tra_no = params[0].toString();
-        String mem_no = params[1].toString();
-        String result;
+    protected List<BlogVO> doInBackground(Object... params) {
+        String jsonIn;
+        String url = params[0].toString();
+        String mem_no = (String) params[1];
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", ACTION);
-        jsonObject.addProperty("tra_no", tra_no);
         jsonObject.addProperty("mem_no", mem_no);
 
-//        jsonObject.addProperty("blogVO", new Gson().toJson(blog));
         try {
-            result = getRemoteData(url, jsonObject.toString());
+            jsonIn = getRemoteData(url, jsonObject.toString());
         } catch (IOException e) {
             Log.e(TAG, e.toString());
             return null;
         }
 
-        return result;
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
+
+        Type listType = new TypeToken<List<BlogVO>>() {
+        }.getType();
+        return gson.fromJson(jsonIn, listType);
     }
 
     private String getRemoteData(String url, String jsonOut) throws IOException {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder jsonIn = new StringBuilder();
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setDoInput(true); // allow inputs
         connection.setDoOutput(true); // allow outputs
@@ -65,13 +70,13 @@ public class TravelCollectTask extends AsyncTask<Object,Integer,String> {
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                sb.append(line);
+                jsonIn.append(line);
             }
         } else {
             Log.d(TAG, "response code: " + responseCode);
         }
         connection.disconnect();
-        Log.d(TAG, "jsonIn: " + sb);
-        return sb.toString();
+        Log.d(TAG, "jsonIn: " + jsonIn);
+        return jsonIn.toString();
     }
 }

@@ -1,6 +1,7 @@
 package com.coors.ibikego.travel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,12 +27,13 @@ import com.coors.ibikego.daovo.TravelVO;
 public class TravelDetailActivity extends AppCompatActivity {
     private PopupWindow popupWindow;
 //    private TravelVO travelVO;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.travel_detail);
-
+        pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
         initToolbar();
 
         TravelVO travelVO = (TravelVO) getIntent().getExtras().getSerializable("travelVO");
@@ -41,7 +43,7 @@ public class TravelDetailActivity extends AppCompatActivity {
         final String url = Common.URL + "travel/travelApp";
         final ImageView ivDetail = (ImageView) findViewById(R.id.ivDetail);
         try {
-            new TravelGetImageTask(ivDetail).execute(url,tra_no, 250).get();
+            new TravelGetImageTask(ivDetail).execute(url,tra_no, 800).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +65,7 @@ public class TravelDetailActivity extends AppCompatActivity {
 //                        DisplayMetrics dm = new DisplayMetrics();
 //                        TravelDetailActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
 //                        int imageSize = dm.widthPixels;
-                        int imageSize = 200;
+                        int imageSize = 1500;
                         new TravelGetImageTask(ivpop).execute(url, tra_no, imageSize).get();
                     } catch (Exception e) {
 //                Log.e(TAG, e.toString());
@@ -153,9 +155,9 @@ public class TravelDetailActivity extends AppCompatActivity {
     public void onTravelFavor(View view) {
         TravelVO travelVO = (TravelVO) getIntent().getExtras().getSerializable("travelVO");
         Integer tra_no = travelVO.getTra_no();
-        Integer mem_no = travelVO.getMem_no();
+        Integer mem_no = pref.getInt("pref_memno", 0);
         try {
-            String resule = new BlogCollectTask().execute(tra_no, mem_no).get();
+            String resule = new TravelCollectTask().execute(tra_no, mem_no).get();
             Toast.makeText(this, resule, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();

@@ -70,6 +70,7 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap map) {
         this.map = map;
         setUpMap();
+        showInfo();
     }
 
     private void initPoints() {
@@ -82,6 +83,8 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         } catch (Exception e) {
             e.printStackTrace();
         }
+        FromPoint =null;
+        LastPoint = null;
         for(RouteDetailsVO detailsVO : detailsVOList){
             if(FromPoint == null){
                 FromPoint = new LatLng(detailsVO.getRoute_det_lati(), detailsVO.getRoute_det_longi());
@@ -133,7 +136,6 @@ public class BikeTrackPolylinesActivity extends AppCompatActivity implements
         map.setOnInfoWindowClickListener(myMarkerListener);
 
         addPolylinesPolygonsToMap();
-        showInfo();
     }
 
     private void showInfo() {

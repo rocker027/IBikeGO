@@ -1,6 +1,7 @@
 package com.coors.ibikego.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import com.coors.ibikego.Common;
 import com.coors.ibikego.R;
+import com.coors.ibikego.blog.BlogDetailActivity;
 import com.coors.ibikego.blog.BlogGetImageTask;
 import com.coors.ibikego.daovo.SqlSearchVO;
+import com.coors.ibikego.travel.TravelDetailActivity;
 import com.coors.ibikego.travel.TravelGetImageTask;
 
 import java.util.List;
@@ -122,15 +125,17 @@ public class SearchAllActivity extends AppCompatActivity {
             Integer blog_no = sqlSearchVO.getBlog_no();
             Integer class_status = sqlSearchVO.getTra_class_status();
             int imageSize = 250;
+            String tra_url = Common.URL + "travel/travelApp";
             //若取回的tra_no 不等於null，表示為景點資料表
             if(tra_no != null){
                 //取回旅遊點圖片
-                new TravelGetImageTask(viewHolder.ivRecycleView).execute(url, tra_no, imageSize);
+                new TravelGetImageTask(viewHolder.ivRecycleView).execute(tra_url, tra_no, imageSize);
                 viewHolder.tvAdd.setVisibility(View.VISIBLE);
                 viewHolder.tvTitle.setText(sqlSearchVO.getTra_name());
                 viewHolder.tvTime.setText(sqlSearchVO.getTra_cre().toString());
                 viewHolder.tvTel.setText(sqlSearchVO.getTra_tel());
                 viewHolder.tvAdd.setText(sqlSearchVO.getTra_add());
+                final SqlSearchVO travelVO = sqlSearchVO;
                 if(class_status == 0 && tra_no != null )
                 {
                     viewHolder.ivClass.setImageResource(R.drawable.att_w);
@@ -138,16 +143,16 @@ public class SearchAllActivity extends AppCompatActivity {
                     viewHolder.ivClass.setImageResource(R.drawable.break_w);
                 }
                 //點選cardview 轉頁
-//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(SearchAllAdapter.this, TravelDetailActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("travelVO", travelVO);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
-//                    }
-//                });
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(SearchAllActivity.this, TravelSearchDelActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("travelVO", travelVO);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
 
 
 
@@ -162,17 +167,19 @@ public class SearchAllActivity extends AppCompatActivity {
                 viewHolder.tvTel.setText("發表會員："+sqlSearchVO.getMem_name());
                 viewHolder.tvAdd.setVisibility(View.GONE);
                 viewHolder.ivClass.setImageResource(R.drawable.blog_w);
+                final SqlSearchVO blog = sqlSearchVO;
+
                 //點選cardview 轉頁
-//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(SearchBlogActivity.this, BlogDetailActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("blog", blog);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
-//                    }
-//                });
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(SearchAllActivity.this, BlogDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("blog", blog);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
 //
 
                 return;

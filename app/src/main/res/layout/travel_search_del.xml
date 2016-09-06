@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bike"
+    tools:context=".search.TravelSearchDelActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        fab:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#01B468"
+            android:minHeight="?attr/actionBarSize"
+            fab:navigationIcon="?attr/homeAsUpIndicator"
+            fab:layout_scrollFlags="scroll|enterAlways" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        fab:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_while_2"
+                android:padding="3dp"
+                android:layout_marginTop="8dp"
+                android:textSize="22sp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#0000FF" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/bg_while_2"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
+                android:textSize="18sp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/bg_while_2"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
+                android:textSize="18sp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <TextView
+                android:id="@+id/tvAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/bg_while_2"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
+                android:textSize="18sp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_while_2"
+                android:padding="3dp"
+                android:layout_margin="15dp"
+                android:textSize="18sp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="16dp"
+        fab:menu_icon="@drawable/ic_list_white_24dp">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_navi"
+            android:layout_width="wrap_content"
+            android:onClick="onClickNavi"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_near_me_black_24dp"
+            fab:fab_label="地圖顯示"
+            fab:fab_size="mini" />
+
+        <!--<com.github.clans.fab.FloatingActionButton-->
+        <!--android:id="@+id/menu_favorite"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:onClick="onTravelFavor"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/ic_favorite_noselect_24dp"-->
+        <!--fab:fab_label="加入收藏"-->
+        <!--fab:fab_size="mini" />-->
+
+        <!--<com.github.clans.fab.FloatingActionButton-->
+        <!--android:id="@+id/menu_item2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="onTravelReport"-->
+        <!--android:src="@drawable/ic_addnew_24dp"-->
+        <!--fab:fab_label="檢舉"-->
+        <!--fab:fab_size="mini" />-->
+
+    </com.github.clans.fab.FloatingActionMenu>
+</android.support.design.widget.CoordinatorLayout>

@@ -13,8 +13,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/cardview_bg03"
+        android:layout_height="135dp"
+        android:background="@drawable/light_green"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="8dp"

@@ -217,7 +217,7 @@ public class MemberBlogManageActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             if (Common.networkConnected(MemberBlogManageActivity.this)) {
-                                                String url = Common.URL + "blog/blogApp.do";
+                                                String url = Common.URL + "blog/blogApp";
                                                 int count = 0;
                                                 try {
                                                     //先行定義時間格式

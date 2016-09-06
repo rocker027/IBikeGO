@@ -105,8 +105,13 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         mapFragment.getMapAsync(this);
 //        findToggleBtn();
 
-
-
+//        ImageView mImageView = (ImageView) findViewById(R.id.ivPokemon);
+//        mImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(BikeTrackActivity.this,PokemonActivity.class));
+//            }
+//        });
     }
 
 
@@ -128,7 +133,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 LatLng latLng = new LatLng(lat, lng);
                 markerTravels = map.addMarker(new MarkerOptions()
                         .position(latLng).title(travelVO
-                        .getTra_name()).snippet(travelVO.getTra_add()));
+                                .getTra_name()).snippet(travelVO.getTra_add()));
                 map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, travelVO));
 
 //                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -297,24 +302,26 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
                 for(SqlGroupDeatilsVO obj: sqlGroupDeatilsVOs){
                     LatLng latlng = new LatLng(obj.getGroup_lat(),obj.getGroup_lng());
 //                            若memMap為空時，表示map內尚未存放會員大頭貼
-                            if(memMap.get(obj.getMem_no())== null) {
-                                try {
-                                    Bitmap bitmap = new MemberGetBitmapTask().execute(obj.getMem_no(), 100).get();
+                    if(memMap.get(obj.getMem_no())== null) {
+                        try {
+                            Bitmap bitmap = new MemberGetBitmapTask().execute(obj.getMem_no(), 100).get();
 //                                    Bitmap bmp = BitmapFactory.decodeByteArray(new MemberGetBitmapTask().execute(obj.getMem_no(), 300).get());
-                                    memMap.put(obj.getMem_no(), bitmap);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                            memMap.put(obj.getMem_no(), bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     //自訂google marker所以要給他一個layout
                     View marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.trackgroup_infowindow, null);
                     //匯入自訂marker，判斷會員編號是否為本人
                     if(mem_no != obj.getMem_no()){
                         map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(BikeTrackActivity.this, marker,obj,memMap))));
+//                        map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()).icon(BitmapDescriptorFactory.fromResource(R.drawable.mem001)));
 
-                    }else {
-                        map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()));
                     }
+//                    else {
+//                        map.addMarker(new MarkerOptions().position(latlng).title(obj.getMem_name()));
+//                    }
 
                 }
 
@@ -451,8 +458,8 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
 
                     LocationRequest locationRequest = LocationRequest.create()
                             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                            .setInterval(5)
-                            .setSmallestDisplacement(50);
+                            .setInterval(1800)
+                            .setSmallestDisplacement(100);
                     LocationServices.FusedLocationApi.requestLocationUpdates(
                             googleApiClient, locationRequest, locationListener);
                 }
@@ -634,5 +641,7 @@ public class BikeTrackActivity extends AppCompatActivity implements OnMapReadyCa
         String json = gson.toJson(latlngVOs);
 
         new BikeTrackInsertTask().execute(url,action,json,mem_no,trackTitle);
+        Toast.makeText(this,"保存完成",Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,BikeTrackListActivity.class));
     }
 }

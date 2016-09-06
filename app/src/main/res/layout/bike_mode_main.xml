@@ -33,7 +33,7 @@
         android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/cardview_bg03"
+        android:background="@drawable/light_green"
         android:padding="10dp">
 
         <ImageView
@@ -57,7 +57,7 @@
         android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/cardview_bg03"
+        android:background="@drawable/light_green"
         android:padding="10dp">
 
         <ImageView
@@ -81,7 +81,7 @@
         android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/cardview_bg03"
+        android:background="@drawable/light_green"
         android:padding="10dp">
 
         <ImageView
@@ -105,7 +105,7 @@
         android:layout_height="115dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
-        android:background="@drawable/cardview_bg03"
+        android:background="@drawable/light_green"
         android:padding="10dp">
 
         <ImageView

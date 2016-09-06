@@ -164,7 +164,7 @@ public class BlogUpdateActivity extends AppCompatActivity {
         String blog_cre = now;
 
         if (Common.networkConnected(this)) {
-            String url = Common.URL + "blog/blogApp.do";
+            String url = Common.URL + "blog/blogApp";
 
             if(image !=null){
                 String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);

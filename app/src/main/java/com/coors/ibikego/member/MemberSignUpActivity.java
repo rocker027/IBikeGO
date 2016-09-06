@@ -145,7 +145,7 @@ public class MemberSignUpActivity extends AppCompatActivity {
 //        String pattern = "^[_a-zA-Z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
         String email = etMem_email.getText().toString();
         if (!email.matches(pattern)) {
-            etMem_email.setError("Please enter a Email!");
+            etMem_email.setError("請輸入電子信箱");
             return false;
         } else {
             return true;
@@ -169,7 +169,7 @@ public class MemberSignUpActivity extends AppCompatActivity {
         String pattern = "^[a-zA-Z]\\w*$";
         String acc = mem_acc.getText().toString();
         if (!acc.matches(pattern) && acc.length() < 6) {
-            mem_acc.setError("The first word is not digital only accept uppercase and lowercase letters , numbers and the bottom line");
+            mem_acc.setError("第一個字不為數字，只接受 大小寫字母、數字及底線，最少6碼");
             return false;
         } else {
             return true;
@@ -182,7 +182,7 @@ public class MemberSignUpActivity extends AppCompatActivity {
         String pattern = "^(?=.*\\d)(?=.*[a-z]).{6,30}$";
         String pw = mem_pw.getText().toString();
         if (!pw.matches(pattern)) {
-            mem_pw.setError("At least one number , at least one lowercase letter , and at least one uppercase letters of the alphabet , string length between 6 and 30 letters");
+            mem_pw.setError("至少有一個數字,至少有一個小寫英文字母,字串長度在 6 ~ 30 個字母之間");
             return false;
         } else {
             return true;
@@ -252,10 +252,10 @@ public class MemberSignUpActivity extends AppCompatActivity {
     }
 
     public void onClickMagic(View view) {
-        etMem_acc.setText("nodeKing");
+        etMem_acc.setText("ffff123");
         etMem_pw.setText("a123456");
         etMem_pw2.setText("a123456");
-        etMem_name.setText("nodeKing");
-        etMem_email.setText("nodeking@gmail.com");
+        etMem_name.setText("小霞");
+        etMem_email.setText("coorsray@gmail.com");
     }
 }

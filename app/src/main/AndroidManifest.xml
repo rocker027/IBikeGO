@@ -60,7 +60,9 @@
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".member.MemGetFavorActivity" />
         <activity android:name=".member.MemberCollectBlogActivity" />
-        <activity android:name=".NoConnectActivity"></activity>
+        <activity android:name=".NoConnectActivity" />
+        <activity android:name=".bikemode.PokemonActivity" />
+        <activity android:name=".search.TravelSearchDelActivity"></activity>
     </application>
 
 </manifest>

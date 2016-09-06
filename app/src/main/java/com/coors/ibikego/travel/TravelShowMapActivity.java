@@ -92,7 +92,7 @@ public class TravelShowMapActivity extends AppCompatActivity {
         @Override
         public View getInfoWindow(Marker marker) {
             ImageView imageView = (ImageView) infoWindow.findViewById(R.id.imageView);
-            String url = Common.URL + "SpotServlet";
+            String url = Common.URL + "travel/travelApp";
             int id = travelVO.getTra_no();
             int imageSize = 400;
             Bitmap bitmap = null;

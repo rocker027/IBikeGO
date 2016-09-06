@@ -72,6 +72,12 @@
             <!--android:textOff="車友位置 OFF"-->
             <!--android:textOn="車友位置 ON" />-->
 
+        <!--<ImageView-->
+            <!--android:layout_width="50dp"-->
+            <!--android:id="@+id/ivPokemon"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:src="@drawable/pokemonball"/>-->
+
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/et_TrackTitile"
             android:layout_width="match_parent"
@@ -83,8 +89,9 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:background="#FFFFFF"
             android:orientation="horizontal"
             android:padding="5dp">
@@ -97,18 +104,17 @@
             <!--android:onClick="onClearMapClick"-->
             <!--android:text="@string/text_btClearMap" />-->
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.5"
-                android:onClick="onResetMapClick"
-                android:text="@string/text_btShowMarker" />
+            <!--<com.beardedhen.androidbootstrap.BootstrapButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:onClick="onResetMapClick"-->
+                <!--android:text="@string/text_btShowMarker" />-->
 
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:onClick="onClickRec"
                 android:text="@string/text_btRecStart" />
         </LinearLayout>
